@@ -19,28 +19,28 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 function preload() {
     game.load.spritesheet('egg', 'images/egg_break.png', 118
     , 130, 6);
+    game.load.spritesheet('graymonster', 'images/graymonster.png', 131, 140, 12)
 }
 
 var button;
 
 function create() {
     egg = game.add.sprite(0,0,'egg')
-
     egg.inputEnabled=true
     egg.input.useHandCursor=true
-    egg.events.onInputDown.add(eggbreak, this)
-    var mouse_click = game.input.activePointer
+    egg.events.onInputDown.add(eggbreak)
+    graymonster = game.add.sprite(150, 0, 'graymonster')
+    graymonster.animations.add('fly',[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6, false)
 }
 
 
 function update() {
-
+    graymonster.animations.play('fly')
 }
 
 var counter = 0
-
 function eggbreak(event) {
-    if (counter < 6) {
+    if (counter < 20) {
         egg.animations.add('break',[counter, counter+1],6,false)
         if (game.input.activePointer.isDown) {
             egg.animations.play('break')
