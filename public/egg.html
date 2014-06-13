@@ -24,7 +24,6 @@ function preload() {
 
     game.load.spritesheet('egg', 'images/egg_break.png', 118
     , 130, 6);
-
 }
 
 var button;
@@ -39,9 +38,6 @@ function create() {
     dragon.animations.add('blink',[0,1,2,3,4,5,6,7],6,true);
     dragon1.animations.add('eat',[0,1,2],6,true);
     dragon2.animations.add('roll',[0,1,2,3],6,true);
-
-
-
 
     egg.inputEnabled=true
     egg.input.useHandCursor=true
@@ -71,9 +67,36 @@ function eggbreak(event) {
     }
     else {
       //load game
+    }
+}
+
+var counter = 0
+
+function eggbreak(event) {
+    if (counter < 6) {
+        egg.animations.add('break',[counter, counter+1],6,false)
+        if (game.input.activePointer.isDown) {
+            egg.animations.play('break')
+            counter++
+        }
+    }
+    else {
+      //load game
 
     }
 }
+
+
+// 1st parameter determines the distance of the active pointer. My swipe distance trashhold is 150, you can play around with this value
+// in order to get a better feeling.
+// So basicly what you do is look for a certain distance (150) in a given time frame (min 100ms till 250ms).
+
+// function onSwipe() {
+//   return (Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown) > 150 && game.input.activePointer.duration > 100 && game.input.activePointer.duration < 250);
+// }
+
+
+
 
 
 // 1st parameter determines the distance of the active pointer. My swipe distance trashhold is 150, you can play around with this value
