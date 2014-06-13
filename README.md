@@ -26,3 +26,5 @@ Mobile Game screen size recommendations (800x600px) http://gamedevelopment.tutsp
 Phaser examples: https://github.com/photonstorm/phaser-examples
 
 http://fc09.deviantart.net/fs70/f/2013/302/8/a/bubble_and_develon_sheet_by_no_body_the_dragon-d6s91jk.png
+
+http://sio.midco.net/kvwesten/tutorials/sprite%20tut/
