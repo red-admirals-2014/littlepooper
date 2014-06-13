@@ -10,7 +10,6 @@ Bug = function (index, game) {
     this.alive = true;
     this.escaped = false;
 
-    this.shadow = game.add.sprite(x, y, 'enemy', 'shadow');
     this.tank = game.add.sprite(x, y, 'enemy', 'tank1');
     this.turret = game.add.sprite(x, y, 'enemy', 'turret');
 

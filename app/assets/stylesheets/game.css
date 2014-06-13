@@ -1,7 +1,7 @@
 body{
   background: #3B3B3B;
 }
-/*
+
 .game-container{
 
   margin: 0 auto;
@@ -9,8 +9,7 @@ body{
 
 
 canvas {
-
   margin:0; position: absolute; width: 640px; height: 1136px;
-   display : block;
-   margin : auto;
-}*/
+  display : block;
+  margin : auto;
+}
