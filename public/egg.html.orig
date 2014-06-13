@@ -17,59 +17,50 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-
+<<<<<<< HEAD
     game.load.spritesheet('dragon', 'images/updated_dragon_sprites.png', 100 , 100, 8);
     game.load.spritesheet('dragon1', 'images/dragon_sprites_eating.png', 110, 100, 3);
     game.load.spritesheet('dragon2', 'images/dragon_sprites_rolling.png', 110, 100, 4);
-
+=======
     game.load.spritesheet('egg', 'images/egg_break.png', 118
     , 130, 6);
-    game.load.spritesheet('graymonster', 'images/graymonster.png', 131, 140, 12)
+>>>>>>> 5de876ac93b104bff6a3d600ce8d97ec15e8bbf6
 }
 
 var button;
 
 function create() {
-
+<<<<<<< HEAD
     dragon = game.add.sprite(0,0,'dragon')
     dragon1 = game.add.sprite(200,200,'dragon1')
     dragon2 = game.add.sprite(300,300,'dragon2')
-    egg = game.add.sprite(400,400,'egg')
 
     dragon.animations.add('blink',[0,1,2,3,4,5,6,7],6,true);
     dragon1.animations.add('eat',[0,1,2],6,true);
     dragon2.animations.add('roll',[0,1,2,3],6,true);
 
+=======
+    egg = game.add.sprite(0,0,'egg')
+>>>>>>> 5de876ac93b104bff6a3d600ce8d97ec15e8bbf6
+
     egg.inputEnabled=true
     egg.input.useHandCursor=true
-    egg.events.onInputDown.add(eggbreak)
-    graymonster = game.add.sprite(150, 0, 'graymonster')
-    graymonster.animations.add('fly',[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6, false)
+    egg.events.onInputDown.add(eggbreak, this)
+    var mouse_click = game.input.activePointer
 }
 
 
 function update() {
-    graymonster.animations.play('fly')
-
+<<<<<<< HEAD
     if (game.input.activePointer.isUp) {
         dragon.animations.play('blink');
         dragon1.animations.play('eat');
         dragon2.animations.play('roll');
-    }
-}
+        // if (egg.animations.paused == false) {
+        //     egg.animations.paused = true
+        // }
+=======
 
-var counter = 0
-function eggbreak(event) {
-    if (counter < 20) {
-        egg.animations.add('break',[counter, counter+1],6,false)
-        if (game.input.activePointer.isDown) {
-            egg.animations.play('break')
-            counter++
-        }
-    }
-    else {
-      //load game
-    }
 }
 
 var counter = 0
@@ -84,21 +75,9 @@ function eggbreak(event) {
     }
     else {
       //load game
-
+>>>>>>> 5de876ac93b104bff6a3d600ce8d97ec15e8bbf6
     }
 }
-
-
-// 1st parameter determines the distance of the active pointer. My swipe distance trashhold is 150, you can play around with this value
-// in order to get a better feeling.
-// So basicly what you do is look for a certain distance (150) in a given time frame (min 100ms till 250ms).
-
-// function onSwipe() {
-//   return (Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown) > 150 && game.input.activePointer.duration > 100 && game.input.activePointer.duration < 250);
-// }
-
-
-
 
 
 // 1st parameter determines the distance of the active pointer. My swipe distance trashhold is 150, you can play around with this value
