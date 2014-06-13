@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( game.js game.css)
+Rails.application.config.assets.precompile += %w( bug_game.js game.css)

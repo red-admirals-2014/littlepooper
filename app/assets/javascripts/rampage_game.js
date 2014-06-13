@@ -58,11 +58,11 @@ function create() {
 
 
     player.body.bounce.y = 0.2;
-    player.body.gravity.y = 600;
+    player.body.gravity.y = 2000;
     player.body.collideWorldBounds = true;
-
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+player.animations.add('jump', [0, 1, 2, 3], 1, true);
+    player.animations.add('left', [0, 1, 2, 3], 100, true);
+    player.animations.add('right', [5, 6, 7, 8], 100, true);
 
     stars = game.add.group();
 
