@@ -30,3 +30,6 @@ http://fc09.deviantart.net/fs70/f/2013/302/8/a/bubble_and_develon_sheet_by_no_bo
 http://sio.midco.net/kvwesten/tutorials/sprite%20tut/
 
 http://gjr.k12.pa.us/Student/cct/Library/photoshop_6_advanced/manual/web/photoshop_6_advanced_manual_educational_webp40.htm
+
+
+http://blog.lessmilk.com/how-to-make-flappy-bird-in-html5-1/
