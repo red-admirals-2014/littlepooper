@@ -63,6 +63,8 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     pg (0.17.1)
+    phaser-rails (2.0.5.0)
+      railties
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -129,6 +131,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  phaser-rails
   rails (= 4.1.1)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
