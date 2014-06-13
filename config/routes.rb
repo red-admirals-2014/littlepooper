@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  root "users#new"
+  root "users#index"
 
   get '/google_login', to: "sessions#google_login"
 
