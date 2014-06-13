@@ -1,0 +1,39 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Phaser - Test</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Hello!</h1>
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+    game.load.spritesheet('egg', 'images/egg_sprite.png', 118
+    , 200, 6);
+}
+
+
+function create() {
+    egg = game.add.sprite(0,0,'egg')
+    egg.animations.add('break',[0,1,2,3,4,5,6],6,true)
+    egg.animations.play('break')
+
+}
+
+function update() {
+}
+
+
+</script>
+
+</body>
+</html>
