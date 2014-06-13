@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get '/game', to: "games#index"
 
   root "users#index"
 
