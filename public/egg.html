@@ -17,19 +17,33 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
-    game.load.spritesheet('egg', 'images/egg_sprite.png', 118
-    , 200, 6);
+    game.load.spritesheet('dragon', 'images/updated_dragon_sprites.png', 100 , 100, 8);
+    game.load.spritesheet('dragon1', 'images/dragon_sprites_eating.png', 110, 100, 3);
+    game.load.spritesheet('dragon2', 'images/dragon_sprites_rolling.png', 110, 100, 4);
 }
 
 
 function create() {
-    egg = game.add.sprite(0,0,'egg')
-    egg.animations.add('break',[0,1,2,3,4,5,6],6,true)
-    egg.animations.play('break')
+    dragon = game.add.sprite(0,0,'dragon')
+    dragon1 = game.add.sprite(200,200,'dragon1')
+    dragon2 = game.add.sprite(300,300,'dragon2')
+
+    dragon.animations.add('blink',[0,1,2,3,4,5,6,7],6,true);
+    dragon1.animations.add('eat',[0,1,2],6,true);
+    dragon2.animations.add('roll',[0,1,2,3],6,true);
+
 
 }
 
 function update() {
+    if (game.input.activePointer.isUp) {
+        dragon.animations.play('blink');
+        dragon1.animations.play('eat');
+        dragon2.animations.play('roll');
+        // if (egg.animations.paused == false) {
+        //     egg.animations.paused = true
+        // }
+    }
 }
 
 
