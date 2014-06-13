@@ -4,6 +4,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def index
+    @user = User.new
+  end
+
   def create
     @user = User.new(params_user)
     if @user.save && @user.authenticate(params[:password])
