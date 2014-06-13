@@ -1,15 +1,16 @@
-/*body{
+body{
   background: #3B3B3B;
 }
-
+/*
 .game-container{
-  width: 100%;
+
   margin: 0 auto;
-}*/
+}
 
 
 canvas {
-  margin:0; position: absolute; width: 100%; height: 100%;
+
+  margin:0; position: absolute; width: 640px; height: 1136px;
    display : block;
    margin : auto;
-}
+}*/
