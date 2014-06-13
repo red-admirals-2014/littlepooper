@@ -15,6 +15,7 @@ bundle rake db:create, rake db:migrate,
 rails s.
 
 Link to Heroku
+https://little-pooper.herokuapp.com
 
 Link to (or embedded) project workflow document
 https://github.com/red-admirals-2014/littlepooper/blob/master/team-workflow.md
@@ -23,3 +24,15 @@ Mobile Game screen size recommendations (800x600px) http://gamedevelopment.tutsp
 
 
 Phaser examples: https://github.com/photonstorm/phaser-examples
+
+http://fc09.deviantart.net/fs70/f/2013/302/8/a/bubble_and_develon_sheet_by_no_body_the_dragon-d6s91jk.png
+
+http://sio.midco.net/kvwesten/tutorials/sprite%20tut/
+
+http://gjr.k12.pa.us/Student/cct/Library/photoshop_6_advanced/manual/web/photoshop_6_advanced_manual_educational_webp40.htm
+<<<<<<< HEAD
+=======
+
+
+http://blog.lessmilk.com/how-to-make-flappy-bird-in-html5-1/
+>>>>>>> b8cd1519ccc807c54caa0efbf45c783ffc039ba7
