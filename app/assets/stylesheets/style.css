@@ -1,9 +1,9 @@
 @font-face { 
-  font-family:'uni 05_53'; 
-  src:url(http://www.e7chun.com/portfolio/fonts/uni0553-webfont.ttf);
+  font-family:'Pixelated'; 
+  src:url(http://www.e7chun.com/portfolio/fonts/pixelated.ttf);
 }
 .container {
-  font-family:'uni 05_53';
+  font-family:'Pixelated';
   color: white;
   position: absolute; 
   top: 0; 
