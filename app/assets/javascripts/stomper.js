@@ -4,21 +4,21 @@ var game = new Phaser.Game(640, 1136, Phaser.AUTO, 'game_div');
 // Creates a new 'main' state that wil contain the game
 var main_state = {
 
-    preload: function() { 
+    preload: function() {
       this.game.stage.backgroundColor = "#71c5cf"
       this.game.load.image('bird', '/images/bird.png')
       this.game.load.image('pipe', '/images/pipe.png')
 
     },
 
-    create: function() { 
+    create: function() {
       this.pipes = game.add.group()
       this.pipes.createMultiple(20, 'pipe')
 
 
       this.bird = this.game.add.sprite(100,245,'bird')
-      this.bird.anchor.setTo(-0.2, 0.5);  
-      game.physics.enable(this.bird, Phaser.Physics.arcade);   
+      this.bird.anchor.setTo(-0.2, 0.5);
+      game.physics.enable(this.bird, Phaser.Physics.arcade);
       this.bird.body.gravity.y=1000;
 
       this.score = 0
@@ -30,9 +30,10 @@ var main_state = {
       space_key.onDown.add(this.jump, this)
       this.timer = this.game.time.events.loop(1500, this.add_row_of_pipes, this)
     },
-    
+
     update: function() {
-      if (this.bird.angle < 20)  
+
+      if (this.bird.angle < 20)
         this.bird.angle += 1;
       if (this.bird.inWorld == false)
         this.restart_game()
@@ -49,7 +50,7 @@ var main_state = {
     },
 
     restart_game: function() {
-      this.game.time.events.remove(this.timer);  
+      this.game.time.events.remove(this.timer);
       this.game.state.start('main')
     },
 
@@ -62,8 +63,8 @@ var main_state = {
       pipe.outOfBoundsKill = true
     },
     add_row_of_pipes: function(){
-      this.score += 1; 
-      this.label_score.text = this.score;  
+      this.score += 1;
+      this.label_score.text = this.score;
       var hole = (Math.floor(Math.random()*5)+1)
       for (var i = 0; i < 8; i++) {
         if (i != hole && i != hole +1) {
@@ -75,6 +76,6 @@ var main_state = {
 };
 
 // Add and start the 'main' state to start the game
-game.state.add('main', main_state);  
+game.state.add('main', main_state);
 
 game.state.start('main');
