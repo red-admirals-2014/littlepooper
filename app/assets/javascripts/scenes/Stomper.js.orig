@@ -1,24 +1,37 @@
-// Initialize Phaser, and creates a 400x490px game
-var game = new Phaser.Game(640, 1136, Phaser.AUTO, 'game_div');
+Scene.Stomper = function(game) {
 
-// Creates a new 'main' state that wil contain the game
-var main_state = {
+};
 
+<<<<<<< HEAD:app/assets/javascripts/stomper.js
     preload: function() {
+=======
+Scene.Stomper.prototype = {
+    preload: function() { 
+>>>>>>> 652a0f43af5e6e62c4ccc29a47323f0fa2cf0983:app/assets/javascripts/scenes/Stomper.js
       this.game.stage.backgroundColor = "#71c5cf"
       this.game.load.image('bird', '/images/bird.png')
       this.game.load.image('pipe', '/images/pipe.png')
 
     },
 
+<<<<<<< HEAD:app/assets/javascripts/stomper.js
     create: function() {
       this.pipes = game.add.group()
+=======
+    create: function() { 
+      this.pipes = this.game.add.group()
+>>>>>>> 652a0f43af5e6e62c4ccc29a47323f0fa2cf0983:app/assets/javascripts/scenes/Stomper.js
       this.pipes.createMultiple(20, 'pipe')
 
 
       this.bird = this.game.add.sprite(100,245,'bird')
+<<<<<<< HEAD:app/assets/javascripts/stomper.js
       this.bird.anchor.setTo(-0.2, 0.5);
       game.physics.enable(this.bird, Phaser.Physics.arcade);
+=======
+      this.bird.anchor.setTo(-0.2, 0.5);  
+      this.game.physics.enable(this.bird, Phaser.Physics.arcade);   
+>>>>>>> 652a0f43af5e6e62c4ccc29a47323f0fa2cf0983:app/assets/javascripts/scenes/Stomper.js
       this.bird.body.gravity.y=1000;
 
       this.score = 0
@@ -50,14 +63,19 @@ var main_state = {
     },
 
     restart_game: function() {
+<<<<<<< HEAD:app/assets/javascripts/stomper.js
       this.game.time.events.remove(this.timer);
       this.game.state.start('main')
+=======
+      this.game.time.events.remove(this.timer);  
+      this.game.state.start('Stomper')
+>>>>>>> 652a0f43af5e6e62c4ccc29a47323f0fa2cf0983:app/assets/javascripts/scenes/Stomper.js
     },
 
     add_one_pipe: function(x,y){
       var pipe = this.pipes.getFirstDead()
       pipe.checkWorldBounds= true
-      game.physics.enable(pipe, Phaser.Keyboard.arcade)
+      this.game.physics.enable(pipe, Phaser.Keyboard.arcade)
       pipe.reset(x,y)
       pipe.body.velocity.x = -200
       pipe.outOfBoundsKill = true
@@ -73,9 +91,13 @@ var main_state = {
       }
     }
 
+<<<<<<< HEAD:app/assets/javascripts/stomper.js
 };
 
 // Add and start the 'main' state to start the game
 game.state.add('main', main_state);
 
 game.state.start('main');
+=======
+};
+>>>>>>> 652a0f43af5e6e62c4ccc29a47323f0fa2cf0983:app/assets/javascripts/scenes/Stomper.js

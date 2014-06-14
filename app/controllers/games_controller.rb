@@ -6,4 +6,10 @@ class GamesController < ApplicationController
   def stomper
   end
 
+  def game
+  end
+
+  def home
+  end
+
 end
