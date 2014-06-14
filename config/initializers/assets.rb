@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( bug_game.js game.css stomper.js stomper.css scenes/Boot.js scenes/MainMenu.js scenes/Preloader.js gameinitializer.js scenes/Stomper.js)
+Rails.application.config.assets.precompile += %w( bug_game.js game.css stomper.js stomper.css scenes/Boot.js scenes/MainMenu.js scenes/Preloader.js gameinitializer.js scenes/Stomper.js scenes/HomePage.js)

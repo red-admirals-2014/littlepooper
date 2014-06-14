@@ -46,9 +46,18 @@
         DragonRest()
     }
 
+
+    egg.inputEnabled=true
+    egg.input.useHandCursor=true
+    egg.events.onInputDown.add(eggbreak)
+    graymonster = game.add.sprite(150, 0, 'graymonster')
+    graymonster.animations.add('fly',[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6, false)
+}
+
     function DragonRest() {
         green_dragon.animations.play('rest')
     }
+
 
     function feedDragon() {
         green_dragon.animations.play('eat')
@@ -60,6 +69,16 @@
     }
 
 
+
+function eggbreak(event) {
+    if (counter < 6) {
+        egg.animations.add('break',[counter, counter+1],6,false)
+        if (game.input.activePointer.isDown) {
+            egg.animations.play('break')
+            counter++
+        }
+    }
+    else {
 
     var counter = 0
 
@@ -75,6 +94,7 @@
             egg.kill()
             create_green_dragon(egg.position.x, egg.position.y)
         }
+
     }
 
 
