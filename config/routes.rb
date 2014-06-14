@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  get '/realgame', to: "games#game"
   get '/game', to: "games#index"
   get '/stomper', to: "games#stomper"
   root "users#index"
