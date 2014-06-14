@@ -3,13 +3,7 @@ Scene.Stomper = function(game) {
 };
 
 Scene.Stomper.prototype = {
-    preload: function() { 
-      this.game.stage.backgroundColor = "#71c5cf"
-      this.game.load.image('bird', '/images/bird.png')
-      this.game.load.image('pipe', '/images/pipe.png')
-
-    },
-
+  
     create: function() { 
       this.pipes = this.game.add.group()
       this.pipes.createMultiple(20, 'pipe')
