@@ -11,10 +11,9 @@
     </style>
 </head>
 <body>
-    <h1>Hello!</h1>
     <script type="text/javascript">
 
-    var game = new Phaser.Game(1136, 640, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+    var game = new Phaser.Game(1000, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
     function preload() {
         game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110 , 110, 32);
@@ -32,7 +31,7 @@
         button = game.add.button(game.world.centerX - 160, 0, 'die', function(){dragonAction('die')}, this, 2, 1, 0);
 
 
-        egg = game.add.sprite(300,400,'egg')
+        egg = game.add.sprite(300,300,'egg')
         egg.inputEnabled=true
         egg.input.useHandCursor=true
         egg.events.onInputDown.add(eggbreak)
