@@ -1,10 +1,17 @@
-@font-face { 
-  font-family:'Origami Mommy'; 
-  src:url(http://www.e7chun.com/portfolio/fonts/pixelated_princess.ttf);
-} 
+@font-face {
+    font-family: 'munroregular';
+    src: url('munro-webfont.eot');
+    src: url('munro-webfont.eot?#iefix') format('embedded-opentype'),
+         url('munro-webfont.woff') format('woff'),
+         url('munro-webfont.ttf') format('truetype'),
+         url('munro-webfont.svg#munroregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 .container {
-  font-family: 'Pixelated Princess';
+  font-family:'munroregular';
   color: white;
   position: absolute; 
   top: 0; 
