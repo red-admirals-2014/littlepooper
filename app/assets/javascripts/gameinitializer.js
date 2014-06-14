@@ -1,9 +1,8 @@
 (function () {
-  var game = new Phaser.Game(640, 1136, Phaser.AUTO, 'game_div'); // Phaser engine initialization
-  // game.state.add('Boot', Scene.Boot); // scene to start loading game assets.
-  // game.state.add('Preloader', Scene.Preloader); // loading game assets
-  // game.state.add('MainMenu', Scene.MainMenu); // fist proper game screen
-  game.state.add('HomePage', Scene.HomePage);
-  game.state.add('Stomper', Scene.Stomper); // fist proper game screen
-  game.state.start('HomePage'); // Go to Boot scene (start the game)
+  var game = new Phaser.Game(480, 640, Phaser.AUTO, 'game_div'); 
+  game.state.add('HomePage', Scene.HomePage); 
+  game.state.add('Egg')
+  game.state.add('Stomper', Scene.Stomper); 
+  game.state.add('Egg', Scene.Egg) 
+  game.state.start('Egg'); // Go to Boot scene (start the game)
 })();
