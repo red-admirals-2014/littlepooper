@@ -1,18 +1,53 @@
 <script type="text/javascript">
 	$(function(){
-    var x = 0;
-    setInterval(function(){
-        x+=1;
-        $('.container').css('background-position', x + 'px 0');
-    },30);
-})
+	    var x = 0;
+	    setInterval(function(){
+	        x+=1;
+	        $('.container').css('background-position', x + 'px 0');
+	    },30);
+
+	    eventListeners();
+	})
+
+	function eventListeners(){
+		// $('#login').on('click touch', showClipModal);
+		$('.close-new-clip').on('click touch', closeClipModal);
+
+
+		$("#login").bind('touchstart', function(){
+        $("#login").attr("margin-top","-10px");
+    }).bind('touchend', function(){
+        $("#login").attr("margin-top","10px.png");
+    });
+
+
+		$('#login').on("click",function(){
+			$('#login').css('margin-top','10px');
+		})
+		// $('#login').mouseup(function(){
+		// 	$('#login').css('margin-top','-2px');
+		// })
+	};
+
+	function showClipModal() {
+		$('.modal').fadeIn();
+	}
+
+	function closeClipModal() {
+		$('.modal').fadeOut();
+	}
 </script>
 
 <div class='container'>
-
+	<div id="logo">
+		<center>
+			<h1>Little<br>
+				Pooper</h1>
+		</center>
+	</div>
 	<center>
-	<%= image_tag('button.png', alt: "Login", size:'200x200', class: 'button')%>
-	<%= image_tag('button.png', alt: "Sign Up", size:'200x200', class: 'button')%>
+	<%= image_tag('login.png', alt: "Login", size:'200x200', class: 'button', id:'login')%>
+	<%= image_tag('button.png', alt: "Sign Up", size:'200x200', class: 'button', id: 'register')%>
 
 	</center>
 	<center>

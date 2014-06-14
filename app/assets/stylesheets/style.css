@@ -1,4 +1,11 @@
+@font-face { 
+  font-family:'Origami Mommy'; 
+  src:url(http://www.e7chun.com/portfolio/fonts/pixelated_princess.ttf);
+} 
+
 .container {
+  font-family: 'Pixelated Princess';
+  color: white;
   position: absolute; 
   top: 0; 
   left: 0; 
@@ -14,9 +21,30 @@
 }
 
 .button {
-  margin-top: 23em;
+  margin-top: 10%;
 }
 
 .dragon {
-  margin-top: 2.5em;
+  margin-top: 6em;
+}
+
+#logo {
+  margin-top: 33%;
+  font-size: 3em;
+  text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
+}
+
+.modal {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  border: 1px solid #adadad;
 }
