@@ -1,3 +1,22 @@
+<script type="text/javascript">
+	$(function(){
+    var x = 0;
+    setInterval(function(){
+        x+=1;
+        $('.container').css('background-position', x + 'px 0');
+    },30);
+})
+</script>
+
 <div class='container'>
+
+	<center>
+	<%= image_tag('button.png', alt: "Login", size:'200x200', class: 'button')%>
+	<%= image_tag('button.png', alt: "Sign Up", size:'200x200', class: 'button')%>
+
+	</center>
+	<center>
+	<%= image_tag('walking_dragon.gif', alt:"Walking Dragon", class: 'dragon')%>
+	</center>
 
 </div>

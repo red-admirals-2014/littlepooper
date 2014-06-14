@@ -14,7 +14,7 @@
     <h1>Hello!</h1>
     <script type="text/javascript">
 
-    var game = new Phaser.Game(640, 1136, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+    var game = new Phaser.Game(1136, 640, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
     function preload() {
         game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110 , 110, 32);
@@ -32,13 +32,13 @@
         button = game.add.button(game.world.centerX - 160, 0, 'die', function(){dragonAction('die')}, this, 2, 1, 0);
 
 
-        egg = game.add.sprite(400,400,'egg')
+        egg = game.add.sprite(300,400,'egg')
         egg.inputEnabled=true
         egg.input.useHandCursor=true
         egg.events.onInputDown.add(eggbreak)
 
-        // graymonster = game.add.sprite(150, 0, 'graymonster')
-        // graymonster.animations.add('fly',[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6, false)
+        graymonster = game.add.sprite(600, 200, 'graymonster')
+        graymonster.animations.add('fly',[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6, true)
     }
 
     function create_green_dragon(xc, yc) {
@@ -71,6 +71,7 @@
 
 
     function update() {
+        graymonster.animations.play('fly')
     }
 
 
