@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get '/realgame', to: "games#game"
   get '/game', to: "games#index"
   get '/stomper', to: "games#stomper"
+  get '/home', to: "games#home"
   root "users#index"
 
   get '/home', to: "users#home_page"
