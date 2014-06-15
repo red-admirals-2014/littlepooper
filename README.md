@@ -43,3 +43,7 @@ http://gjr.k12.pa.us/Student/cct/Library/photoshop_6_advanced/manual/web/photosh
 
 http://blog.lessmilk.com/how-to-make-flappy-bird-in-html5-1/
 
+http://atariage.com/forums/uploads/monthly_06_2011/post-26314-0-71526500-1309206506.png
+
+http://tcrf.net/images/a/a8/BubbleBobbleMS-foodsprite.png
+
