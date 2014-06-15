@@ -15,6 +15,8 @@ Scene.Preloader.prototype = {
     
   },
   create: function() {
+    
+    
     this.game.state.start('Egg')
 
   },
