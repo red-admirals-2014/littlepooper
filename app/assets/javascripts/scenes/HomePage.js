@@ -10,18 +10,24 @@ Scene.HomePage.prototype = {
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
     this.green_dragon.anchor.set(0.5)
     this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
+    this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
     this.green_dragon.animations.play('rest') 
     setTimeout(this.walkAround.bind(this), 2000)
 
   },
   update: function() {
-  		clouds.tilePosition.x += 1;
+    clouds.tilePosition.x += 1;
   },
   walkAround: function() {
-      var walk = this.game.add.tween(this.green_dragon)
-      walk.to({x: this.green_dragon.position.y+Math.floor(Math.random()*(300))}, 1000)
-      walk.start();
-    	setTimeout(this.walkAround.bind(this), 2000)
-  }
+    this.green_dragon.animations.play('rest') 
+    var amountMoved = Math.floor(Math.random()*(100))
+    setTimeout(this.walkLeft(amountMoved), 1000)
+  },
+  walkLeft: function(amountMoved) {
+    var left = this.game.add.tween(this.green_dragon)
+    this.green_dragon.animations.play('walk')
+    left.to({x: this.green_dragon.position.x-amountMoved}, 1000)
+    // setTimeout(this.walkAround.bind(this), 2000)
 
+  }
 };
