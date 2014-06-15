@@ -1,8 +1,19 @@
+canvas {
+  margin: auto;
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+}
+
 @font-face { 
   font-family:'pxl'; 
   src:url(http://www.e7chun.com/portfolio/fonts/pxl.ttf);
 }
 .container {
+  width: 450px;
+  height: 800px;
   font-family:'pxl';
   color: white;
   position: absolute; 
@@ -11,8 +22,8 @@
   right: 0; 
   bottom: 0; 
   margin: auto; 
-  min-width: 100%;
-  min-height: 100%;
+/*  min-width: 100%;
+  min-height: 100%;*/
   z-index: -1;
   /*background-repeat: repeat-x;*/
   background-image: url(http://i.imgur.com/RkSLAiK.jpg);
@@ -20,16 +31,16 @@
 }
 
 .button {
-  margin-top: 10%;
+  margin-top: 6%;
 }
 
 .dragon {
-  margin-top: 6em;
+  margin-top: 2em;
 }
 
 #logo {
   margin-top: 20%;
-  font-size: 6em;
+  font-size: 4em;
   text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
 }
 
@@ -44,7 +55,6 @@
   left: 0;
   margin: auto;
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 8px;
   border: 1px solid #adadad;
 
 }
@@ -60,7 +70,6 @@
   left: 0;
   margin: auto;
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 8px;
   border: 1px solid #adadad;
 
 }

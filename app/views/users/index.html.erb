@@ -38,8 +38,8 @@
 		</center>
 	</div>
 	<center>
-	<%= image_tag('login.png', alt: "Login", size:'400x400', class: 'button', id:'login')%>
-	<%= image_tag('signup.png', alt: "Sign Up", size:'400x400', class: 'button', id: 'signup')%>
+	<%= image_tag('login.png', alt: "Login", width: "40%", height: "40%", class: 'button', id:'login')%>
+	<%= image_tag('signup.png', alt: "Sign Up", width: "40%", height: "40%", class: 'button', id: 'signup')%>
 
 	</center>
 	<center>
@@ -50,7 +50,7 @@
 			<div class="content" >
 
 				<center><div class="login forms" >
-					<%= image_tag('x_button.png', class: 'close-new-clip', size:'80x80')%><br>
+					<%= image_tag('x_button.png', class: 'close-new-clip', width: "18%", height: "10%")%><br>
 					<center><%= link_to image_tag("google_signin.png", class:"google_signin"), :action => 'google_login', :controller => 'sessions'%></center>
 					
 				</div></center>
@@ -64,7 +64,7 @@
 				
 
 				<center><div class="signup forms">
-					<%= image_tag('x_button.png', class: 'close-new-clip', size:'80x80')%><br>
+					<%= image_tag('x_button.png', class: 'close-new-clip', width: "18%", height: "10%")%><br>
 					<center><%= link_to image_tag("google_signup.png", class:"google_signin"), :action => 'google_login', :controller => 'sessions'%></center>
 					<p class='or'>or</p>
 					<center><%= render :partial => 'new'%></center>
