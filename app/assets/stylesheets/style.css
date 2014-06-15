@@ -43,7 +43,7 @@
   bottom: 0;
   left: 0;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 8px;
   border: 1px solid #adadad;
 
@@ -59,7 +59,7 @@
   bottom: 0;
   left: 0;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 8px;
   border: 1px solid #adadad;
 
@@ -78,12 +78,14 @@
 }
 
 input[type=text] {
+  font-family:'pxl';
   width: 90%;
   font-size: 4.5em;
   border-radius:10px;
 }
 
 input[type=password] {
+  font-family:'pxl';
   width: 90%;
   font-size: 4.5em;
   border-radius:10px;
@@ -93,6 +95,7 @@ input[type=submit] {
 }
 
 .or {
+  font-family:'pxl';
   margin-top: -0.1em;
   margin-bottom: 0.2em;
   font-size: 5em;
