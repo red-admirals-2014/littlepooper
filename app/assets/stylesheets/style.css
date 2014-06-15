@@ -77,19 +77,20 @@
 
 .close-new-clip{
   float:left;
+  margin-bottom: 2em;
 }
 
 input {
   width: 13em;
-  font-size: 4em;
+  font-size: 5em;
 }
 
 .or {
-  font-size: 3em;
+  font-size: 5em;
   color: white;
 }
 
 .google_signin{
-  height: 8em;
-  width: 50em;
+  height: 30%;
+  width: 100%;
 }
