@@ -69,9 +69,6 @@
   margin-top: 20%;
   width: 90%;
   height: 60%;
-  /*border: solid 2px white;*/
-  /*background-image: url(http://i.imgur.com/Vhzib8U.png);
-  background-size: 100%;*/
   z-index: -1;
 }
 
@@ -80,10 +77,19 @@
   margin-bottom: 2em;
 }
 
-input {
+input[type=text] {
   width: 90%;
   font-size: 4.5em;
   border-radius:10px;
+}
+
+input[type=password] {
+  width: 90%;
+  font-size: 4.5em;
+  border-radius:10px;
+}
+input[type=submit] {
+  background-image: url(http://i.imgur.com/iRRFxmB.png);
 }
 
 .or {
