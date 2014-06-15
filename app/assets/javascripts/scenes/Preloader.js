@@ -5,12 +5,30 @@ Scene.Preloader = function(game) {
 Scene.Preloader.prototype = {
   preload: function() {
     // this.game.stage.backgroundColor = '#dddddd'
+    //GreenDragonRelatedSprites
     this.game.load.spritesheet('egg', 'images/egg_break.png', 118, 130, 6)
     this.game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110, 110, 40)
+
+
+    //crappy bird
+
     this.game.load.image('bird', '/images/bird.png')
     this.game.load.image('pipe', '/images/pipe.png')
+
+
+
+    //HOME PAGE SPRTIES
     this.game.load.image('clouds','/images/clouds.png');
     this.game.load.image('land','/images/land.png');
+
+
+
+    //FOOD
+    // this.game.load.spritesheet('food', '/images/food.png')
+
+
+
+
     // this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     // this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
 
