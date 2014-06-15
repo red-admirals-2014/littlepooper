@@ -23,17 +23,7 @@ Scene.Egg.prototype = {
     this.egg.events.onInputDown.add(this.eggbreak.bind(this))
 
   },
-  // onEnterFullScreen: function() {
-  //     button.visible = true;
-  // },
 
-  // onLeaveFullScreen: function() {
-  //     button.visible = false;
-  // },
-
-  gofull: function() {
-      this.game.scale.startFullScreen();
-  },
   create_green_dragon: function(xc, yc) {
     this.green_dragon = this.game.add.sprite(xc, yc, 'green_dragon')
     this.green_dragon.anchor.set(0.5)

@@ -29,13 +29,21 @@ Scene.Egg.prototype = {
       this.egg.kill()
       this.green_dragon = this.game.add.sprite(this.egg.position.x, this.egg.position.y, 'green_dragon')
       this.green_dragon.anchor.set(0.5)
-      this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
-      this.green_dragon.animations.play('rest') 
-      setTimeout(this.nextStage.bind(this), 2500)
+      this.green_dragon.animations.add('jump', [0, 33, 32, 33, 32, 33, 32, 33, 34], 9, true)
+      this.green_dragon.animations.add('roll', [8, 9, 10, 11], 4, true)
+      this.green_dragon.animations.play('jump') 
 
-      // setTimeout(this.game.state.start('Home'), 3000)
+      setTimeout(this.rollDragon.bind(this), 1000)
     }
   },
+  rollDragon: function() {
+      this.green_dragon.animations.play('roll') 
+      var rollDown = this.game.add.tween(this.green_dragon)
+      rollDown.to({y: this.green_dragon.position.y+200}, 1000)
+      rollDown.start();
+      setTimeout(this.nextStage.bind(this), 1000)
+  },
+
   nextStage: function(){
     this.game.state.start('HomePage')
   }
