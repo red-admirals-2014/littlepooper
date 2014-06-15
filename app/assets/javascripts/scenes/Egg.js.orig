@@ -4,18 +4,41 @@ Scene.Egg = function(game) {
 };
 
 Scene.Egg.prototype = {
-
+  preload: function(){
+    this.game.stage.backgroundColor = '#dddddd'
+    this.game.load.spritesheet('egg', 'images/egg_break.png', 118, 130, 6)
+    this.game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110, 110, 32)
+    this.game.load.image('bird', '/images/bird.png')
+    this.game.load.image('pipe', '/images/pipe.png')
+  },
   create: function() {
-    
+<<<<<<< HEAD
+    if (this.hatched){
+      this.game.state.start('HomePage')
+    }
+
+
+    this.egg = this.game.add.sprite(181,320,'egg')
+=======
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    // this.game.scale.enterFullScreen.add(this.onEnterFullScreen, this);
+    // this.game.scale.leaveFullScreen.add(this.onLeaveFullScreen, this);
+    this.game.input.onDown.add(this.gofull, this);
     this.egg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY,'egg')
     this.egg.anchor.set(0.5)
+>>>>>>> a4efc253634d64da8a20734aa91b4894a01e72fd
     this.egg.inputEnabled=true
     this.egg.input.useHandCursor=true
     this.egg.events.onInputDown.add(this.eggbreak.bind(this))
 
   },
   update: function() {
+    if (this.green_dragon){
+      setTimeout(this.nextStage.bind(this), 2500)
+    }
+    else{
 
+    }
   },
   eggbreak: function(){
     if (this.counter < 6) {
@@ -28,11 +51,8 @@ Scene.Egg.prototype = {
     else {
       this.egg.kill()
       this.green_dragon = this.game.add.sprite(this.egg.position.x, this.egg.position.y, 'green_dragon')
-      this.green_dragon.anchor.set(0.5)
       this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
       this.green_dragon.animations.play('rest') 
-      setTimeout(this.nextStage.bind(this), 2500)
-
       // setTimeout(this.game.state.start('Home'), 3000)
     }
   },

@@ -34,7 +34,6 @@ Scene.Stomper.prototype = {
         , null, this);
     // Function called 60 times per second
     },
-
     jump: function() {
       var animation = this.game.add.tween(this.bird)
       animation.to({angle:-20}, 100)

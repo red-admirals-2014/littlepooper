@@ -3,10 +3,7 @@ Scene.HomePage = function(game) {
 };
 
 Scene.HomePage.prototype = {
-	preload: function(){
-		this.game.load.image('clouds','/images/clouds.png');
-		this.game.load.image('land','/images/land.png');
-	},
+
 
 	create: function() {
 
