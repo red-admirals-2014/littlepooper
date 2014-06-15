@@ -88,14 +88,14 @@ canvas {
 input[type=text] {
   font-family:'pxl';
   width: 90%;
-  font-size: 4.5em;
+  font-size: 5.5em;
   border-radius:10px;
 }
 
 input[type=password] {
   font-family:'pxl';
   width: 90%;
-  font-size: 4.5em;
+  font-size: 5.5em;
   border-radius:10px;
 }
 input[type=submit] {
