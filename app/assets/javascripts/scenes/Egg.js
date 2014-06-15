@@ -1,5 +1,6 @@
 Scene.Egg = function(game) {
   this.counter = 0
+  this.hatched = false
 };
 
 Scene.Egg.prototype = {
@@ -11,6 +12,11 @@ Scene.Egg.prototype = {
     this.game.load.image('pipe', '/images/pipe.png')
   },
   create: function() {
+    if (this.hatched){
+      this.game.state.start('HomePage')
+    }
+
+
     this.egg = this.game.add.sprite(181,320,'egg')
     this.egg.inputEnabled=true
     this.egg.input.useHandCursor=true
@@ -21,7 +27,9 @@ Scene.Egg.prototype = {
     if (this.green_dragon){
       setTimeout(this.nextStage.bind(this), 2500)
     }
-    else{}
+    else{
+
+    }
   },
   eggbreak: function(){
     if (this.counter < 6) {
@@ -40,7 +48,7 @@ Scene.Egg.prototype = {
     }
   },
   nextStage: function(){
-    this.game.state.start('Stomper')
+    this.game.state.start('HomePage')
   }
 
 };

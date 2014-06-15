@@ -9,6 +9,8 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110, 110, 32)
     this.game.load.image('bird', '/images/bird.png')
     this.game.load.image('pipe', '/images/pipe.png')
+    this.game.load.image('clouds','/images/clouds.png');
+    this.game.load.image('land','/images/land.png');
     // this.game.stage.backgroundColor = "#71c5cf"
     
   },
