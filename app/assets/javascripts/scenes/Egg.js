@@ -9,15 +9,23 @@ Scene.Egg.prototype = {
     this.game.load.spritesheet('egg', 'images/egg_break.png', 118, 130, 6)
     this.game.load.spritesheet('graymonster', 'images/graymonster.png', 131, 140, 12)
 
+
   },
   create: function() {
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    // this.game.scale.enterFullScreen.add(this.onEnterFullScreen, this);
+    // this.game.scale.leaveFullScreen.add(this.onLeaveFullScreen, this);
+    this.game.input.onDown.add(this.gofull, this);
+
+
     this.game.add.button(this.game.world.centerX - 0, 0, 'feed', function(){this.dragonAction('eat')}, this, 2, 1, 0);
     this.game.add.button(this.game.world.centerX - 40, 0, 'roll', function(){this.dragonAction('roll')}, this, 2, 1, 0);
     this.game.add.button(this.game.world.centerX - 80, 0, 'walk', function(){this.dragonAction('walk')}, this, 2, 1, 0);
     this.game.add.button(this.game.world.centerX - 120, 0, 'poke', function(){this.dragonAction('poke')}, this, 2, 1, 0);
     this.game.add.button(this.game.world.centerX - 160, 0, 'die', function(){this.dragonAction('die')}.bind(this), this, 2, 1, 0);
 
-    this.egg = this.game.add.sprite(181,320,'egg')
+    this.egg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY,'egg')
+    this.egg.anchor.set(0.5)
     this.egg.inputEnabled=true
     this.egg.input.useHandCursor=true
     this.egg.events.onInputDown.add(this.eggbreak.bind(this))
@@ -25,6 +33,7 @@ Scene.Egg.prototype = {
   },
   create_green_dragon: function(xc, yc) {
     this.green_dragon = this.game.add.sprite(xc, yc, 'green_dragon')
+    this.green_dragon.anchor.set(0.5)
     this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 8, true)
     this.green_dragon.animations.add('roll', [8, 9, 10, 11], 4, true)
     this.green_dragon.animations.add('eat', [12, 13, 14, 15], 4, true)
@@ -37,6 +46,24 @@ Scene.Egg.prototype = {
   },
   update: function() {
 
+  },
+  // onEnterFullScreen: function() {
+  //     button.visible = true;
+  // },
+
+  // onLeaveFullScreen: function() {
+  //     button.visible = false;
+  // },
+
+  gofull: function() {
+      this.game.scale.startFullScreen();
+  },
+
+  render: function() {
+      if (this.game.scale.isFullScreen)
+          this.game.debug.text('ESC to leave fullscreen', 270, 16);
+      else
+          this.game.debug.text('Click / Tap to go fullscreen', 270, 16);
   },
   DragonRest: function(){
     this.green_dragon.animations.play('rest')
