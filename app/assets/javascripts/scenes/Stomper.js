@@ -3,13 +3,7 @@ Scene.Stomper = function(game) {
 };
 
 Scene.Stomper.prototype = {
-    preload: function() { 
-      this.game.stage.backgroundColor = "#71c5cf"
-      this.game.load.image('bird', '/images/bird.png')
-      this.game.load.image('pipe', '/images/pipe.png')
-
-    },
-
+  
     create: function() { 
       this.pipes = this.game.add.group()
       this.pipes.createMultiple(20, 'pipe')
@@ -29,9 +23,10 @@ Scene.Stomper.prototype = {
       space_key.onDown.add(this.jump, this)
       this.timer = this.game.time.events.loop(1500, this.add_row_of_pipes, this)
     },
-    
+
     update: function() {
-      if (this.bird.angle < 20)  
+
+      if (this.bird.angle < 20)
         this.bird.angle += 1;
       if (this.bird.inWorld == false)
         this.restart_game()
@@ -39,7 +34,6 @@ Scene.Stomper.prototype = {
         , null, this);
     // Function called 60 times per second
     },
-
     jump: function() {
       var animation = this.game.add.tween(this.bird)
       animation.to({angle:-20}, 100)
@@ -61,8 +55,8 @@ Scene.Stomper.prototype = {
       pipe.outOfBoundsKill = true
     },
     add_row_of_pipes: function(){
-      this.score += 1; 
-      this.label_score.text = this.score;  
+      this.score += 1;
+      this.label_score.text = this.score;
       var hole = (Math.floor(Math.random()*5)+1)
       for (var i = 0; i < 8; i++) {
         if (i != hole && i != hole +1) {

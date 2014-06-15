@@ -56,6 +56,12 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.9)
+    jasmine (2.0.2)
+      jasmine-core (~> 2.0.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.0.0)
     jbuilder (2.1.0)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -71,6 +77,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     pg (0.17.1)
+    phantomjs (1.9.7.1)
     phaser-rails (2.0.5.0)
       railties
     polyglot (0.3.5)
@@ -163,6 +170,7 @@ DEPENDENCIES
   coveralls
   haml
   httparty
+  jasmine
   jbuilder (~> 2.0)
   jquery-rails
   pg

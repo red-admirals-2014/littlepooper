@@ -9,3 +9,4 @@
   = javascript_include_tag "scenes/Egg.js"
 
 = javascript_include_tag "gameinitializer.js"
+

@@ -1,19 +1,33 @@
-Scene.Preloader = function (game) {
-  this.background = null; // define background
-  this.preloadBar = null; // define loader bar
+Scene.Preloader = function(game) {
+
 };
 
 Scene.Preloader.prototype = {
-  preload: function () {
+  preload: function() {
+    // this.game.stage.backgroundColor = '#dddddd'
+    this.game.load.spritesheet('egg', 'images/egg_break.png', 118, 130, 6)
+    this.game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110, 110, 40)
+    this.game.load.image('bird', '/images/bird.png')
+    this.game.load.image('pipe', '/images/pipe.png')
+    this.game.load.image('clouds','/images/clouds.png');
+    this.game.load.image('land','/images/land.png');
+    this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
+    this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
 
-    this.game.stage.backgroundColor = '#B4D9E7'; // set background colour for whole game
-    this.preloadBar = this.add.sprite((640-311)/2, (960-27)/2, 'preloaderBar'); // show loader bar
-    this.load.setPreloadSprite(this.preloadBar); // assign loader image so it works as a loader
+    // this.game.stage.backgroundColor = "#71c5cf"
 
+    
+  },
+  create: function() {
+    this.game.add.text(this.game.world.centerX, this.game.world.centerY,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.game.input.onDown.add(this.gofull.bind(this), this);    
 
   },
+  gofull: function() {
+    this.game.scale.startFullScreen();
+    this.game.state.start('Egg')
 
-  create: function () {
-    this.game.state.start('MainMenu'); // go to menu when everything is loaded
   }
+
 };

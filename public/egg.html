@@ -1,118 +1,142 @@
 <!doctype html> 
 <html lang="en"> 
 <head> 
-	<meta charset="UTF-8" />
-	<title>Phaser - Test</title>
-	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Phaser - Test</title>
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css"></script>
+
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+
+    <script type="text/javascript" src="js/canvasinput.min.js"></script>
+
+
     <style type="text/css">
-        body {
-            margin: 0;
-        }
+    body {
+        margin: 0;
+    }
     </style>
 </head>
 <body>
-<h1>Hello!</h1>
-<script type="text/javascript">
+    <div class="container">
+        <form class="login">
+            <input type="text" name="username">
+            <input type="text" name="password">
+        </form>
+        <script type="text/javascript">
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-function preload() {
-
-    game.load.spritesheet('dragon', 'images/updated_dragon_sprites.png', 100 , 100, 8);
-    game.load.spritesheet('dragon1', 'images/dragon_sprites_eating.png', 110, 100, 3);
-    game.load.spritesheet('dragon2', 'images/dragon_sprites_rolling.png', 110, 100, 4);
-
-    game.load.spritesheet('egg', 'images/egg_break.png', 118
-    , 130, 6);
-    game.load.spritesheet('graymonster', 'images/graymonster.png', 131, 140, 12)
-}
-
-var button;
-
-function create() {
-
-    dragon = game.add.sprite(0,0,'dragon')
-    dragon1 = game.add.sprite(200,200,'dragon1')
-    dragon2 = game.add.sprite(300,300,'dragon2')
-    egg = game.add.sprite(400,400,'egg')
-
-    dragon.animations.add('blink',[0,1,2,3,4,5,6,7],6,true);
-    dragon1.animations.add('eat',[0,1,2],6,true);
-    dragon2.animations.add('roll',[0,1,2,3],6,true);
-
-
-    egg.inputEnabled=true
-    egg.input.useHandCursor=true
-    egg.events.onInputDown.add(eggbreak)
-    graymonster = game.add.sprite(150, 0, 'graymonster')
-    graymonster.animations.add('fly',[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 6, false)
-}
-
-
-function update() {
-    graymonster.animations.play('fly')
-
-    if (game.input.activePointer.isUp) {
-        dragon.animations.play('blink');
-        dragon1.animations.play('eat');
-        dragon2.animations.play('roll');
-    }
-}
-
-var counter = 0
-function eggbreak(event) {
-    if (counter < 20) {
-        egg.animations.add('break',[counter, counter+1],6,false)
-        if (game.input.activePointer.isDown) {
-            egg.animations.play('break')
-            counter++
+        function preload() {
+            game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110 , 110, 32);
+            game.load.spritesheet('egg', 'images/egg_break.png', 118, 130, 6);
+            game.load.spritesheet('graymonster', 'images/graymonster.png', 131, 140, 12)
         }
-    }
-    else {
-      //load game
-    }
-}
 
-var counter = 0
 
-function eggbreak(event) {
-    if (counter < 6) {
-        egg.animations.add('break',[counter, counter+1],6,false)
-        if (game.input.activePointer.isDown) {
-            egg.animations.play('break')
-            counter++
+
+
+        var button;
+
+        function create() {
+            game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+            button = game.add.button(game.world.centerX - 0, 0, 'feed', function(){dragonAction('eat')}, this, 2, 1, 0);
+            button = game.add.button(game.world.centerX - 40, 0, 'roll', function(){dragonAction('roll')}, this, 2, 1, 0);
+            button = game.add.button(game.world.centerX - 80, 0, 'walk', function(){dragonAction('walk')}, this, 2, 1, 0);
+            button = game.add.button(game.world.centerX - 120, 0, 'poke', function(){dragonAction('poke')}, this, 2, 1, 0);
+            button = game.add.button(game.world.centerX - 160, 0, 'die', function(){dragonAction('die')}, this, 2, 1, 0);
+
+
+            egg = game.add.sprite(game.world.centerX, game.world.centerY,'egg')
+            egg.anchor.set(0.5)
+            egg.inputEnabled=true
+            egg.input.useHandCursor=true
+            egg.events.onInputDown.add(eggbreak)
+
+            game.scale.enterFullScreen.add(onEnterFullScreen, this);
+            game.scale.leaveFullScreen.add(onLeaveFullScreen, this);
+
+            game.input.onDown.add(gofull, this);
+
+
         }
-    }
-    else {
-    }
-}
+
+        function onEnterFullScreen() {
+            button.visible = true;
+        }
+
+        function onLeaveFullScreen() {
+            button.visible = false;
+        }
+
+        function gofull() {
+            game.scale.startFullScreen();
+        }
+
+        function render () {
+            if (game.scale.isFullScreen)
+                game.debug.text('ESC to leave fullscreen', 270, 16);
+            else
+                game.debug.text('Click / Tap to go fullscreen', 270, 16);
+        }
 
 
-// 1st parameter determines the distance of the active pointer. My swipe distance trashhold is 150, you can play around with this value
-// in order to get a better feeling.
-// So basicly what you do is look for a certain distance (150) in a given time frame (min 100ms till 250ms).
+        function create_green_dragon(xc, yc) {
 
-// function onSwipe() {
-//   return (Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown) > 150 && game.input.activePointer.duration > 100 && game.input.activePointer.duration < 250);
-// }
-
-
-
-
-
-// 1st parameter determines the distance of the active pointer. My swipe distance trashhold is 150, you can play around with this value
-// in order to get a better feeling.
-// So basicly what you do is look for a certain distance (150) in a given time frame (min 100ms till 250ms).
-
-// function onSwipe() {
-//   return (Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown) > 150 && game.input.activePointer.duration > 100 && game.input.activePointer.duration < 250);
-// }
+            green_dragon = game.add.sprite(xc, yc, 'green_dragon')
+            green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 8, true)
+            green_dragon.animations.add('roll', [8, 9, 10, 11], 4, true)
+            green_dragon.animations.add('eat', [12, 13, 14, 15], 4, true)
+            green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
+            green_dragon.animations.add('poke', [22, 23, 24], 3, true)
+            green_dragon.animations.add('die', [25, 26, 27, 28, 29, 30], 6, true)
 
 
 
+            green_dragon.inputEnabled=true
+            green_dragon.input.useHandCursor=true
+            DragonRest()
+        }
 
 
-</script>
+
+        function DragonRest() {
+            green_dragon.animations.play('rest')
+        }
+
+
+        function dragonAction(action) {
+            green_dragon.animations.play(action)
+            setTimeout(function(){DragonRest()}, 3000)
+        }
+
+
+        function update() {
+            // graymonster.animations.play('fly')
+        }
+
+
+
+
+        var counter = 0
+
+        function eggbreak(event) {
+            if (counter < 6) {
+                egg.animations.add('break',[counter, counter+1],6,false)
+                if (game.input.activePointer.isDown) {
+                    egg.animations.play('break')
+                    counter++
+                }
+            }
+            else {
+                egg.kill()
+                create_green_dragon(egg.position.x, egg.position.y)
+            }
+
+        }
+
+
+        </script>
+    </div>
 
 </body>
 </html>

@@ -25,14 +25,15 @@ Mobile Game screen size recommendations (800x600px) http://gamedevelopment.tutsp
 
 Phaser examples: https://github.com/photonstorm/phaser-examples
 
+How to PAUSE game: http://examples.phaser.io/_site/view_full.html?d=audio&f=pause+and+resume.js&t=pause%20and%20resume
+
 http://fc09.deviantart.net/fs70/f/2013/302/8/a/bubble_and_develon_sheet_by_no_body_the_dragon-d6s91jk.png
 
 http://sio.midco.net/kvwesten/tutorials/sprite%20tut/
 
 http://gjr.k12.pa.us/Student/cct/Library/photoshop_6_advanced/manual/web/photoshop_6_advanced_manual_educational_webp40.htm
-<<<<<<< HEAD
-=======
+
 
 
 http://blog.lessmilk.com/how-to-make-flappy-bird-in-html5-1/
->>>>>>> b8cd1519ccc807c54caa0efbf45c783ffc039ba7
+
