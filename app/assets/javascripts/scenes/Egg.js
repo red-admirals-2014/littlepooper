@@ -18,7 +18,7 @@ Scene.Egg.prototype = {
 
   },
   eggbreak: function(){
-    if (this.counter < 6) {
+    if (this.counter < 5) {
       this.egg.animations.add('break',[this.counter, this.counter+1],6,false)
       if (this.game.input.activePointer.isDown) {
           this.egg.animations.play('break')
