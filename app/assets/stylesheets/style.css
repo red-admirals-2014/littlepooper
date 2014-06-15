@@ -81,7 +81,7 @@
 }
 
 input {
-  width: 13em;
+  width: 100%;
   font-size: 5em;
 }
 
@@ -91,6 +91,6 @@ input {
 }
 
 .google_signin{
-  height: 30%;
+  height: 20%;
   width: 100%;
 }
