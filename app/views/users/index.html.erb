@@ -10,25 +10,23 @@
 	})
 
 	function eventListeners(){
-		$('#login').on('click touch', showClipModal);
+		$('#login').on('click touch', showClipModalLogin);
+		$('#signup').on('click touch', showClipModalSignUp)
 		$('.close-new-clip').on('click touch', closeClipModal);
-
-
-
-		$('#login').on("click",function(){
-		})
-		// $('#login').mouseup(function(){
-		// 	$('#login').css('margin-top','-2px');
-		// })
 	};
 
-	function showClipModal() {
+	function showClipModalLogin() {
 		$('#login').css('margin-top','10px');
-		$('.modal').fadeIn();
+		$('.modal_login').fadeIn();
+	}
+
+	function showClipModalSignUp() {
+		$('.modal_signup').fadeIn();
 	}
 
 	function closeClipModal() {
-		$('.modal').fadeOut();
+		$('.modal_login').fadeOut();
+		$('.modal_signup').fadeOut();
 	}
 </script>
 
@@ -41,7 +39,7 @@
 	</div>
 	<center>
 	<%= image_tag('login.png', alt: "Login", size:'400x400', class: 'button', id:'login')%>
-	<%= image_tag('signup.png', alt: "Sign Up", size:'400x400', class: 'button', id: 'register')%>
+	<%= image_tag('signup.png', alt: "Sign Up", size:'400x400', class: 'button', id: 'signup')%>
 
 	</center>
 	<center>
