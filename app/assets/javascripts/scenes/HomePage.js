@@ -7,16 +7,33 @@ Scene.HomePage.prototype = {
 	create: function() {
 		clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
 		land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
+
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
     this.green_dragon.anchor.set(0.5)
-    this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
-    this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
+    
     this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
     this.green_dragon.body.collideWorldBounds = true
     this.restMotion()
+
+    this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
+    this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
+    this.green_dragon.animations.add('eat', [12, 13, 14, 15], 4, true)
+    this.green_dragon.animations.add('poke', [22, 23, 24], 3, true)
+
+    this.green_dragon.inputEnabled=true
+    this.green_dragon.input.useHandCursor=true
+    this.green_dragon.events.onInputDown.add(this.dragonPoke.bind(this))
+
+    // this.game.add.button(this.game.world.centerX - 0, 0, 'feed', function(){this.dragonAction('eat')}, this, 2, 1, 0);
+    // this.game.add.button(this.game.world.centerX - 120, 0, 'poke', function(){this.dragonAction('poke')}, this, 2, 1, 0);
+    // this.game.add.button(this.game.world.centerX - 160, 0, 'die', function(){this.dragonAction('die')}.bind(this), this, 2, 1, 0);
   },
   update: function() {
     clouds.tilePosition.x += 1;
+  },
+  dragonPoke: function() {
+    if (this.game.input.activePointer.isDown)
+      this.green_dragon.animations.play('poke')
   },
   restMotion: function() {
     this.green_dragon.animations.play('rest')
