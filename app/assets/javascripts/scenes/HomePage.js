@@ -3,9 +3,7 @@ Scene.HomePage = function(game) {
 };
 
 Scene.HomePage.prototype = {
-	preload: function(){
-		
-	},
+
 
 	create: function() {
 

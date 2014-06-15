@@ -15,12 +15,7 @@ Scene.Egg.prototype = {
 
   },
   update: function() {
-    if (this.green_dragon){
-      setTimeout(this.nextStage.bind(this), 2500)
-    }
-    else{
 
-    }
   },
   eggbreak: function(){
     if (this.counter < 6) {
@@ -36,6 +31,8 @@ Scene.Egg.prototype = {
       this.green_dragon.anchor.set(0.5)
       this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
       this.green_dragon.animations.play('rest') 
+      setTimeout(this.nextStage.bind(this), 2500)
+
       // setTimeout(this.game.state.start('Home'), 3000)
     }
   },
