@@ -11,7 +11,12 @@ Scene.Egg.prototype = {
     this.game.load.image('pipe', '/images/pipe.png')
   },
   create: function() {
-    this.egg = this.game.add.sprite(181,320,'egg')
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    // this.game.scale.enterFullScreen.add(this.onEnterFullScreen, this);
+    // this.game.scale.leaveFullScreen.add(this.onLeaveFullScreen, this);
+    this.game.input.onDown.add(this.gofull, this);
+    this.egg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY,'egg')
+    this.egg.anchor.set(0.5)
     this.egg.inputEnabled=true
     this.egg.input.useHandCursor=true
     this.egg.events.onInputDown.add(this.eggbreak.bind(this))
