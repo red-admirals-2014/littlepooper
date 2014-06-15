@@ -81,8 +81,8 @@
 }
 
 input {
-  width: 100%;
-  font-size: 5em;
+  width: 90%;
+  font-size: 4em;
 }
 
 .or {
@@ -91,6 +91,6 @@ input {
 }
 
 .google_signin{
-  height: 20%;
-  width: 100%;
+  height: 15%;
+  width: 90%;
 }
