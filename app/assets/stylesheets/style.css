@@ -21,10 +21,9 @@ canvas {
   right: 0; 
   bottom: 0; 
   margin: auto; 
-/*  min-width: 100%;
-  min-height: 100%;*/
+  min-width: 100%;
+  min-height: 100%;
   z-index: -1;
-  /*background-repeat: repeat-x;*/
   background-image: url(http://i.imgur.com/RkSLAiK.jpg);
   background-size: cover;
 }
@@ -89,14 +88,14 @@ canvas {
 input[type=text] {
   font-family:'pxl';
   width: 90%;
-  font-size: 4.5em;
+  font-size: 5.5em;
   border-radius:10px;
 }
 
 input[type=password] {
   font-family:'pxl';
   width: 90%;
-  font-size: 4.5em;
+  font-size: 5.5em;
   border-radius:10px;
 }
 input[type=submit] {
