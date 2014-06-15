@@ -1,4 +1,10 @@
+@font-face { 
+  font-family:'pxl'; 
+  src:url(http://www.e7chun.com/portfolio/fonts/pxl.ttf);
+}
 .container {
+  font-family:'pxl';
+  color: white;
   position: absolute; 
   top: 0; 
   left: 0; 
@@ -11,4 +17,93 @@
   /*background-repeat: repeat-x;*/
   background-image: url(http://i.imgur.com/RkSLAiK.jpg);
   background-size: cover;
+}
+
+.button {
+  margin-top: 10%;
+}
+
+.dragon {
+  margin-top: 6em;
+}
+
+#logo {
+  margin-top: 20%;
+  font-size: 6em;
+  text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
+}
+
+.modal_login {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  border: 1px solid #adadad;
+
+}
+
+.modal_signup {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  border: 1px solid #adadad;
+
+}
+
+.forms {
+  margin-top: 20%;
+  width: 90%;
+  height: 60%;
+  z-index: -1;
+}
+
+.close-new-clip{
+  float:left;
+  margin-bottom: 2em;
+}
+
+input[type=text] {
+  font-family:'pxl';
+  width: 90%;
+  font-size: 4.5em;
+  border-radius:10px;
+}
+
+input[type=password] {
+  font-family:'pxl';
+  width: 90%;
+  font-size: 4.5em;
+  border-radius:10px;
+}
+input[type=submit] {
+  background-image: url(http://i.imgur.com/iRRFxmB.png);
+}
+
+.or {
+  font-family:'pxl';
+  margin-top: -0.1em;
+  margin-bottom: 0.2em;
+  font-size: 5em;
+  color: white;
+}
+
+.google_signin{
+  margin-right: 2%; 
+  height: 15%;
+  width: 90%;
 }
