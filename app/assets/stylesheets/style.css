@@ -91,6 +91,7 @@ input {
 }
 
 .google_signin{
+  margin-right: 2%; 
   margin-top: 10%;
   height: 15%;
   width: 90%;
