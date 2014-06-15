@@ -11,13 +11,16 @@ Scene.Preloader.prototype = {
     this.game.load.image('pipe', '/images/pipe.png')
     this.game.load.image('clouds','/images/clouds.png');
     this.game.load.image('land','/images/land.png');
+    this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
+    this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
+
     // this.game.stage.backgroundColor = "#71c5cf"
-    
+
   },
   create: function() {
-    
-    
-    this.game.state.start('Egg')
+
+
+    this.game.state.start('BugGame')
 
   },
 
