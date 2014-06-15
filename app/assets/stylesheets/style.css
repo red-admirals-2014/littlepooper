@@ -67,8 +67,8 @@
 
 .forms {
   margin-top: 40%;
-  width: 70%;
-  height: 50%;
+  width: 90%;
+  height: 60%;
   /*border: solid 2px white;*/
   /*background-image: url(http://i.imgur.com/Vhzib8U.png);
   background-size: 100%;*/
@@ -80,11 +80,16 @@
 }
 
 input {
-  width: 10em;
-  font-size: 48px;
+  width: 13em;
+  font-size: 4em;
 }
 
 .or {
-  font-size: 1em;
+  font-size: 3em;
   color: white;
+}
+
+.google_signin{
+  height: 8em;
+  width: 50em;
 }
