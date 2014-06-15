@@ -1,0 +1,15 @@
+/*.container {
+	height: 100%;
+	position: absolute;
+}
+
+
+canvas {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.login {
+	position: relative;
+	top: 50%
+}*/
