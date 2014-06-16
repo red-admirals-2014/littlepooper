@@ -5,8 +5,8 @@ Scene.HomePage = function(game) {
 Scene.HomePage.prototype = {
 
 	create: function() {
-		clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
-		land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
+		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
+		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
 
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
     this.green_dragon.anchor.set(0.5)
@@ -24,12 +24,32 @@ Scene.HomePage.prototype = {
     this.green_dragon.input.useHandCursor=true
     this.green_dragon.events.onInputDown.add(this.dragonPoke.bind(this))
 
-    // this.game.add.button(this.game.world.centerX - 0, 0, 'feed', function(){this.dragonAction('eat')}, this, 2, 1, 0);
-    // this.game.add.button(this.game.world.centerX - 120, 0, 'poke', function(){this.dragonAction('poke')}, this, 2, 1, 0);
-    // this.game.add.button(this.game.world.centerX - 160, 0, 'die', function(){this.dragonAction('die')}.bind(this), this, 2, 1, 0);
+    this.platforms = this.game.add.group()
+    this.platforms.enableBody = true
+    this.ground = this.platforms.create(0, this.game.world.height-145)
+    this.ground.scale.setTo(800,1)
+    this.ground.body.immovable = true
+    this.ground.visibility = false
+
+    this.food_button = this.game.add.sprite(30,676, "food_button")
+    this.food_button.inputEnabled = true;
+    this.food_button.events.onInputDown.add(this.dropFood.bind(this), this)
+    this.exercise_button = this.game.add.sprite(240,676, "exercise_button")
+    this.exercise_button.inputEnabled = true
+    this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
+
+
+    this.foods = this.game.add.group()
+    this.foods.createMultiple(1, 'green_dragon')
+    
+
   },
   update: function() {
-    clouds.tilePosition.x += 1;
+
+    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
+    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
+
+    this.clouds.tilePosition.x += 1;
   },
   dragonPoke: function() {
     if (this.game.input.activePointer.isDown)
@@ -66,5 +86,26 @@ Scene.HomePage.prototype = {
     leftWalk.start()
     // setTimeout(function(){this.green_dragon.scale.x *= -1}, 2000)
     setTimeout(this.restMotion.bind(this), 2000)
+  },
+  dropFood: function(){
+    if (this.foods.getFirstDead()){
+    this.food = this.foods.getFirstDead()
+    this.game.physics.enable(this.food, Phaser.Physics.arcade)
+    this.food.reset(Math.floor(Math.random()*450),0 )
+    this.food.body.gravity.y = 800 
+    } 
+    //sample a sprite
+    //
+  },
+  eatFood: function(){
+    this.food.kill()
+    this.green_dragon.animations.play('eat')
+    setTimeout(this.restMotion.bind(this), 2000)
+  },
+  collision: function(){
+    this.food.body.gravity.y = 0
+    this.food.body.velocity.y = 0
+  },
+  goExercise: function(){
   }
 };
