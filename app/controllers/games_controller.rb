@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-
   def index
   end
 
@@ -15,4 +14,9 @@ class GamesController < ApplicationController
   def home
   end
 
+  private
+
+  def authorize_user!
+
+  end
 end

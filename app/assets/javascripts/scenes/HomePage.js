@@ -40,7 +40,7 @@ Scene.HomePage.prototype = {
 
 
     this.foods = this.game.add.group()
-    this.foods.createMultiple(1, 'green_dragon')
+    this.foods.createMultiple(1, 'food')
     
 
   },
@@ -91,7 +91,7 @@ Scene.HomePage.prototype = {
     if (this.foods.getFirstDead()){
     this.food = this.foods.getFirstDead()
     this.game.physics.enable(this.food, Phaser.Physics.arcade)
-    this.food.reset(Math.floor(Math.random()*450),0 )
+    this.food.reset(Math.floor(Math.random()*420),0 )
     this.food.body.gravity.y = 800 
     } 
     //sample a sprite
@@ -100,7 +100,6 @@ Scene.HomePage.prototype = {
   eatFood: function(){
     this.food.kill()
     this.green_dragon.animations.play('eat')
-    setTimeout(this.restMotion.bind(this), 2000)
   },
   collision: function(){
     this.food.body.gravity.y = 0
