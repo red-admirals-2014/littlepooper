@@ -9,11 +9,12 @@ Scene.Preloader.prototype = {
     //GreenDragonRelatedSprites
     this.game.load.spritesheet('egg', 'images/egg_break.png', 118, 130, 6)
     this.game.load.spritesheet('green_dragon', 'images/green_dragon.png', 110, 110, 40)
+    this.game.load.spritesheet('green_dragon_fly', 'images/green_dragon_fly.png', 140, 125, 12)
 
 
     //crappy bird
 
-    this.game.load.image('bird', '/images/bird.png')
+    // this.game.load.image('bird', '/images/bird.png')
     this.game.load.image('pipe', '/images/pipe.png')
 
 
@@ -50,7 +51,7 @@ Scene.Preloader.prototype = {
   },
   gofull: function() {
     this.game.scale.startFullScreen();
-    this.game.state.start('Egg')
+    this.game.state.start('HomePage')
 
   },
 
