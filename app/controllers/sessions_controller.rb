@@ -28,17 +28,17 @@ class SessionsController < ApplicationController
       user = User.create(email: email, username: first_name, password:SecureRandom.hex)
       session[:id] = user.id
     end
-    redirect_to root_path
+    redirect_to home_path
   end
 
 
   def create
     user = User.find_by_username(params[:username])
-    if user
+    if(user && user.authenticate(params[:password]))
       session[:user_id] = user.id
       redirect_to '/home'
     else
-      render :new
+      redirect_to root_path
     end
   end
 
