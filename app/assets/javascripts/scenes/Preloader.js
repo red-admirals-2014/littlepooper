@@ -35,9 +35,13 @@ Scene.Preloader.prototype = {
     this.game.load.image('poop', '/images/poopie.png')
 
 
+    //BUG GAME
+    this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
+    this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
+    this.game.load.spritesheet('goBack', '/images/bug_smash/button-sprite.png', 320, 184, 1)
 
-    // this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
-    // this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
+    this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
+
 
     // this.game.stage.backgroundColor = "#71c5cf"
 
@@ -49,7 +53,7 @@ Scene.Preloader.prototype = {
 
     this.game.add.text(this.game.world.centerX, this.game.world.centerY,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.game.input.onDown.add(this.gofull.bind(this), this);    
+    this.game.input.onDown.add(this.gofull.bind(this), this);
 
   },
   gofull: function() {

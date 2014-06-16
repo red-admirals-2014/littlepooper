@@ -8,12 +8,12 @@ Scene.HomePage.prototype = {
 
 		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
 		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
-    
+
     this.poops = this.game.add.group()
 
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
     this.green_dragon.anchor.set(0.5)
-    
+
     this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
     this.green_dragon.body.collideWorldBounds = true
     this.restMotion()
@@ -41,8 +41,17 @@ Scene.HomePage.prototype = {
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
 
-    
+    this.exercise_button = this.game.add.sprite(30,10, "exercise_button")
+    this.exercise_button.inputEnabled = true
+    this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
+
   },
+
+  goSmash: function(){
+    this.game.state.start('BugGame')
+
+  },
+
   update: function() {
 
     this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
@@ -97,10 +106,10 @@ Scene.HomePage.prototype = {
     this.game.physics.enable(this.food, Phaser.Physics.arcade)
     // this.food.reset(Math.floor(Math.random()*420),0 )
     this.food.reset(this.green_dragon.position.x, 0)
-    this.food.body.gravity.y = 800 
+    this.food.body.gravity.y = 800
 
 
-    } 
+    }
   },
   eatFood: function(){
     this.food.kill()
@@ -112,7 +121,7 @@ Scene.HomePage.prototype = {
   },
   goExercise: function(){
     this.game.state.start('Stomper')
-  }, 
+  },
 
   poop: function(xc, yc) {
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
@@ -129,6 +138,6 @@ Scene.HomePage.prototype = {
   },
   cleanPoop: function() {
     if (this.game.input.activePointer.isDown)
-      this.poops.removeAll()   
+      this.poops.removeAll()
   }
 };
