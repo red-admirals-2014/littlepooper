@@ -5,7 +5,7 @@
   game.state.add('BugGame', Scene.BugGame)
   game.state.add('Stomper', Scene.Stomper); 
   game.state.add('Egg', Scene.Egg) 
-  game.state.start('Preloader'); // Go to Boot scene (start the game)
+  game.state.start('Stomper'); // Go to Boot scene (start the game)
 })();
 
 

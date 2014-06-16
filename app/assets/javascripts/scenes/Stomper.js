@@ -9,10 +9,10 @@ Scene.Stomper.prototype = {
       this.pipes.createMultiple(20, 'pipe')
 
 
-      this.bird = this.game.add.sprite(100,245,'bird')
-      this.bird.anchor.setTo(-0.2, 0.5);  
-      this.game.physics.enable(this.bird, Phaser.Physics.arcade);   
-      this.bird.body.gravity.y=1000;
+      this.green_dragon_fly = this.game.add.sprite(100,245,'green_dragon_fly')
+      this.green_dragon_fly.anchor.setTo(-0.2, 0.5);  
+      this.game.physics.enable(this.green_dragon_fly, Phaser.Physics.arcade);   
+      this.green_dragon_fly.body.gravity.y=1000;
 
       this.score = 0
       var style = { font: "30px Arial", fill :"#ffffff"}
@@ -26,19 +26,19 @@ Scene.Stomper.prototype = {
 
     update: function() {
 
-      if (this.bird.angle < 20)
-        this.bird.angle += 1;
-      if (this.bird.inWorld == false)
+      if (this.green_dragon_fly.angle < 20)
+        this.green_dragon_fly.angle += 1;
+      if (this.green_dragon_fly.inWorld == false)
         this.restart_game()
-      this.game.physics.arcade.overlap(this.bird, this.pipes, this.restart_game
+      this.game.physics.arcade.overlap(this.green_dragon_fly, this.pipes, this.restart_game
         , null, this);
     // Function called 60 times per second
     },
     jump: function() {
-      var animation = this.game.add.tween(this.bird)
+      var animation = this.game.add.tween(this.green_dragon_fly)
       animation.to({angle:-20}, 100)
       animation.start()
-      this.bird.body.velocity.y = -350
+      this.green_dragon_fly.body.velocity.y = -350
     },
 
     restart_game: function() {
