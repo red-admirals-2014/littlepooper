@@ -28,6 +28,7 @@ Scene.Preloader.prototype = {
     // this.game.load.spritesheet('food', '/images/food.png')
     this.game.load.image('food_button', '/images/food_button.png')
     this.game.load.image('exercise_button', '/images/exercise_button.png')
+    this.game.load.image('food', '/images/food.png')
 
 
 
