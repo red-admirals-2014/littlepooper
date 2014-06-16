@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
-  get '/home', to: "games#game"
-  get '/login', to: "games#login"
+  
   root "users#index"
+
+  post '/flappy_high_score', to: "games#flappy_high_score"
 
 
   get '/google_login', to: "sessions#google_login"
 
   get '/logged_in', to: "sessions#logged_in"
 
-  resources :users
-  
+  resources :users, only: [:new, :index, :create] do
+    get '/home', to: "games#game"
 
+  end
+  
   resources :sessions, only: [:new, :create, :destroy]
 
 end
