@@ -3,7 +3,7 @@
   game.state.add('Preloader', Scene.Preloader)
   game.state.add('HomePage', Scene.HomePage);
   game.state.add('BugGame', Scene.BugGame)
-  game.state.add('Stomper', Scene.Stomper);
+  game.state.add('FlappyDragon', Scene.FlappyDragon);
   game.state.add('Egg', Scene.Egg)
   game.state.start('Preloader'); // Go to Boot scene (start the game)
 })();

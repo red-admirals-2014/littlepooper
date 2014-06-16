@@ -153,7 +153,7 @@ Scene.HomePage.prototype = {
   },
   goExercise: function(){
     this.clearAllTimeouts()
-    this.game.state.start('Stomper')
+    this.game.state.start('Fla')
   },
   goSmash: function(){
     this.clearAllTimeouts()
