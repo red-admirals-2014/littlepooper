@@ -8,7 +8,7 @@ Scene.HomePage.prototype = {
 
     this.poops = this.game.add.group()
 
-    this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
+    this.green_dragon = this.game.add.sprite(this.game.world.centerX, 600, 'green_dragon')
 
     this.greenDragonAnimations()
     this.greenDragonPhysics()
