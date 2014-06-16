@@ -1,10 +1,11 @@
 Scene.HomePage = function(game) {
-
+this.hunger = 0
 };
 
 Scene.HomePage.prototype = {
 
 	create: function() {
+
 
 		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
 		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
@@ -45,6 +46,9 @@ Scene.HomePage.prototype = {
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
 
+
+    this.poopCount = this.game.add.text(10, 200, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
+
   },
 
   goSmash: function(){
@@ -58,6 +62,7 @@ Scene.HomePage.prototype = {
     this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
 
     this.clouds.tilePosition.x += 1;
+    this.poopCount.text = "Poops: " + this.poops.countLiving()
   },
   dragonPoke: function() {
     if (this.game.input.activePointer.isDown)
