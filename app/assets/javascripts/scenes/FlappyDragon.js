@@ -62,13 +62,21 @@ Scene.FlappyDragon.prototype = {
       this.return_home = this.game.add.button(250, 300, "green_dragon", this.go_home, this, 0,1,2 )
 
 
-
     },
     restart_game: function() {
+      this.updateHighScore()
       this.alive = true
       this.game.state.start('FlappyDragon')
     },
+    updateHighScore: function(){
+      var ajaxRequest = $.ajax({
+        url: '/flappy_high_score',
+        type: 'POST',
+        data: "score=" + this.score
+      })
+    },
     go_home: function(){
+      this.updateHighScore()
       this.game.state.start('HomePage')
     },
 
