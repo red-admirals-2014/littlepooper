@@ -31,7 +31,7 @@ Scene.BugGame.prototype = {
 
         this.monster = this.game.add.sprite(this.game.world.randomX, this.game.world.randomY, 'green_dragon_bug');
         this.game.physics.enable(this.monster, Phaser.Physics.ARCADE);
-        // this.monster.body.setSize(50, 50, 50, 75);
+        this.monster.body.bounce.setTo(1, 1);
         this.monster.anchor.setTo(0.5, 0.5);
         this.monster.animations.add('up', [32,33,34,35], 6,true);
         this.monster.animations.add('down', [36,37,38,39], 6,true);
@@ -43,19 +43,18 @@ Scene.BugGame.prototype = {
         this.monster.animations.add('attackdown', [15], 6,true);
         this.monster.animations.add('idle', [0,1,2,3,4,5,6,7], 6,true);
 
-
-
-        var random_time = Math.floor(Math.random() * (3000) + 1500)
-
-        // this.game.time.events.loop(random_time, this.updateBugs, this.game)
+        // Create Bushes
+        this.bushes = this.game.add.group();
+        this.bushes.enableBody = true;
+        this.bushes.physicsBodyType = Phaser.Physics.ARCADE;
+        for (var i = 0; i < 3; i++)
+        {
+            var bush = this.bushes.create(this.game.world.randomX, this.game.world.randomY, 'bush');
+            bush.body.immovable = true;
+        }
 
         score = this.game.add.text(10, 10, "Bugs Squashed: " + bugsKilled, {fill: 'white', font: 'bold 30pt Arial'});
         escaped = this.game.add.text(10, 50, "Bugs Escaped: ", {fill: 'white', font: 'bold 30pt Arial'});
-
-
-
-
-
     },
 
     moveMonster: function(pointer){
@@ -75,6 +74,7 @@ Scene.BugGame.prototype = {
     },
 
     update: function() {
+        this.game.physics.arcade.collide(this.monster, this.bushes);
 
         for(var i in this.bugs){
             if (this.bugs[i].alive) {
@@ -96,24 +96,22 @@ Scene.BugGame.prototype = {
 
 
     gameOver: function() {
-        this.resetBtn = this.game.add.button(10, 10, 'reset', this.resetGame, this, 0)
+        this.monster.destroy();
+        for(var i in this.bugs){
+            this.bugs[i].bug.destroy()
+        }
+        this.game.add.button(50, bugWorldY-150, "homeBtn", this.goHome, this, 0,1,2)
+        this.game.add.button(200, bugWorldY-150, "playAgain", this.resetGame, this, 0,1,2)
     },
 
-
-
     resetGame: function(){
-        // this.resetBtn.destroy();
-        // this.monster.destroy();
-        // for(var i in this.bugs){
-        //     this.bugs[i].bug.destroy();
-        // }
         bugsKilled = 0;
         bugsEscaped = 0;
         this.game.state.start('BugGame');
 
     },
 
-    goBack: function(){
+    goHome: function(){
         this.game.state.start('HomePage')
 
     },
@@ -121,12 +119,6 @@ Scene.BugGame.prototype = {
     collisionHandler: function(monster, bug){
         this.killBug();
     },
-
-    // updateBugs: function(){
-    //     for(var i in this.bugs){
-    //         this.bugs[i].moveBugAtRandom()
-    //     }
-    // },
 }
 
 
@@ -138,12 +130,13 @@ function Bug(index, game) {
         var select_kill = kill_frames[Math.floor(Math.random()*kill_frames.length)];
 
         this.bug = game.add.sprite(x, y, 'bug');
+        game.physics.enable(this.bug, Phaser.Physics.ARCADE);
+        // this.bug.body.setSize(100, 50, 50, 25);
         this.bug.anchor.set(0.5, 0,5);
         this.inputEnabled = true;
         this.alive = true;
         this.escaped = false;
 
-        game.physics.enable(this.bug, Phaser.Physics.ARCADE);
 
         this.bug.animations.add('kill', [select_kill], 6, false);
         this.bug.animations.add('downwalk',[0,1,2],6,true);
