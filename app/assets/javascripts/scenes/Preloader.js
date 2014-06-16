@@ -16,6 +16,8 @@ Scene.Preloader.prototype = {
 
     // this.game.load.image('bird', '/images/bird.png')
     this.game.load.image('pipe', '/images/pipe.png')
+    this.game.load.image('home', '/images/transparent_home_button.png')
+    // this.game.load.image('dragon_play_again', '/images/replay_button.png')
 
 
 
@@ -28,8 +30,8 @@ Scene.Preloader.prototype = {
 
     //FOOD
     // this.game.load.spritesheet('food', '/images/food.png')
-    this.game.load.image('food_button', '/images/new_food_button.png')
-    this.game.load.image('exercise_button', '/images/new_exercise_button.png')
+    this.game.load.image('food_button', '/images/transparent_food_button.png')
+    this.game.load.image('exercise_button', '/images/transparent_flappydragon_button.png')
     this.game.load.image('food', '/images/food.png')
 
     //POOP
@@ -37,7 +39,7 @@ Scene.Preloader.prototype = {
 
 
     //BUG GAME
-    this.game.load.image('bug_button', 'images/new_bug_button.png')
+    this.game.load.image('bug_button', '/images/transparent_bug_button.png')
     this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('goBack', '/images/bug_smash/button-sprite.png', 320, 184, 1)
