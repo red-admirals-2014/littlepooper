@@ -31,23 +31,23 @@ Scene.HomePage.prototype = {
     this.ground.body.immovable = true
     this.ground.visibility = false
 
-    this.food_button = this.game.add.sprite(30,686, "food_button")
+    this.food_button = this.game.add.sprite(30,676, "food_button")
     this.food_button.inputEnabled = true;
     this.food_button.events.onInputDown.add(this.dropFood.bind(this), this)
-    this.exercise_button = this.game.add.sprite(240,686, "exercise_button")
+    this.exercise_button = this.game.add.sprite(240,676, "exercise_button")
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
 
 
-
-    this.food = this.game.add.sprite(50,50,'green_dragon')
+    this.foods = this.game.add.group()
+    this.foods.createMultiple(1, 'green_dragon')
     
 
   },
   update: function() {
 
-    this.game.physics.arcade.overlap(this.green_dragon, this.food, this.eatFood.bind(this), null, this)
-    this.game.physics.arcade.collide(this.ground, this.food, this.collision.bind(this), null, this)
+    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
+    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
 
     this.clouds.tilePosition.x += 1;
   },
@@ -88,8 +88,12 @@ Scene.HomePage.prototype = {
     setTimeout(this.restMotion.bind(this), 2000)
   },
   dropFood: function(){
+    if (this.foods.getFirstDead()){
+    this.food = this.foods.getFirstDead()
     this.game.physics.enable(this.food, Phaser.Physics.arcade)
-    this.food.body.gravity.y = 800  
+    this.food.reset(Math.floor(Math.random()*450),0 )
+    this.food.body.gravity.y = 800 
+    } 
     //sample a sprite
     //
   },
@@ -103,6 +107,5 @@ Scene.HomePage.prototype = {
     this.food.body.velocity.y = 0
   },
   goExercise: function(){
-
   }
 };
