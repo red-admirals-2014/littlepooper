@@ -20,8 +20,9 @@ Scene.Preloader.prototype = {
 
 
     //HOME PAGE SPRTIES
-    this.game.load.image('clouds','/images/clouds.png');
-    this.game.load.image('land','/images/land.png');
+    this.game.load.image('forest','/images/home_background.png')
+    // this.game.load.image('clouds','/images/clouds.png');
+    // this.game.load.image('land','/images/land.png');
 
 
 
