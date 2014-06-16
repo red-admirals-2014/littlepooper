@@ -23,12 +23,14 @@ class SessionsController < ApplicationController
     picture = user_info["image"]["url"]
     email = user_info["emails"][0]["value"]
     if User.find_by_email(email)
+      @user = User.find_by_email(email)
       session[:user_id] = User.find_by_email(email).id
     else
       user = User.create(email: email, username: first_name, password:SecureRandom.hex)
       session[:user_id] = user.id
+      @user = user
     end
-    redirect_to home_path
+    redirect_to user_home_path(@user)
   end
 
 
@@ -36,7 +38,7 @@ class SessionsController < ApplicationController
     user = User.find_by_username(params[:username])
     if(user && user.authenticate(params[:password]))
       session[:user_id] = user.id
-      redirect_to '/home'
+      redirect_to user_home_path(user)
     else
       redirect_to root_path
     end
