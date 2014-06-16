@@ -1,6 +1,6 @@
 Scene.BugGame = function(game) {
 
-    this.bugsTotal = 1;
+    this.bugsTotal = 20;
     this.bugsDead = 0;
     this.bugs = [];
     bugsKilled = 0;
@@ -97,14 +97,11 @@ Scene.BugGame.prototype = {
         this.monster.animations.play('idle')
         this.game.input.onDown.remove(this.moveMonster, this)
         this.message = this.game.add.text(bugWorldX /2, bugWorldY /2 + 40, "Game Over", {fill: 'white', font: 'bold 50pt Arial'}).anchor.set(0.5, 0,5);
-        this.resetBtn = this.game.add.button(bugWorldX/2, bugWorldY-150, 'playagain', this.resetGame, this).anchor.set(0.5, 0.5);
+        this.resetBtn = this.game.add.button(bugWorldX/2, bugWorldY-150, 'goBack', this.goBack, this).anchor.set(0.5, 0.5);
     },
 
-    resetGame: function(){
-
-        // this.message.remove()
-        // this.resetBtn.remove()
-        this.create()
+    goBack: function(){
+        this.game.state.start('HomePage')
 
     },
 
