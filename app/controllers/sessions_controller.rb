@@ -23,10 +23,10 @@ class SessionsController < ApplicationController
     picture = user_info["image"]["url"]
     email = user_info["emails"][0]["value"]
     if User.find_by_email(email)
-      session[:id] = User.find_by_email(email).id
+      session[:user_id] = User.find_by_email(email).id
     else
       user = User.create(email: email, username: first_name, password:SecureRandom.hex)
-      session[:id] = user.id
+      session[:user_id] = user.id
     end
     redirect_to home_path
   end
