@@ -11,7 +11,26 @@ Scene.BugGame = function(game) {
 Scene.BugGame.prototype = {
 
     create: function() {
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
         this.game.add.sprite(0, 0, 'sidewalk-bg');
+
+        // Create Monster
+
+        this.monster = this.game.add.sprite(this.game.world.randomX, this.game.world.randomY, 'green_dragon_bug');
+        this.monster.animations.add('green_dragon_bug');
+        this.monster.animations.add('up', [32,33,34,35], 6,true);
+        this.monster.animations.add('down', [36,37,38,39], 6,true);
+        this.monster.animations.add('left', [24,25,26,27], 6,true);
+        this.monster.animations.add('right', [28,29,30,31], 6,true);
+        this.monster.animations.add('idle', [0,1,2,3,4,5,6,7], 6,true);
+
+
+        this.game.physics.enable(this.monster, Phaser.Physics.ARCADE);
+        cursors = this.game.input.keyboard.createCursorKeys();
+
+
+        // Create Bugs
 
         for (var i = 0; i < this.bugsTotal; i++)
         {
@@ -23,6 +42,44 @@ Scene.BugGame.prototype = {
         this.game.time.events.loop(random_time, this.updateBugs, this.game)
 
         score = this.game.add.text(10, 10, "Bugs Killed: ", {fill: 'white', font: 'bold 30pt Arial'});
+    },
+
+    update: function() {
+
+        var monster_speed = 500
+
+        // this.game.physics.arcade.collide(sprite, group, collisionHandler, null, this);
+        // this.game.physics.arcade.collide(group, group);
+        // this.monster.animations.play('idle')
+        this.monster.body.velocity.x = 0;
+        this.monster.body.velocity.y = 0;
+
+        if (cursors.left.isDown)
+        {
+            this.monster.animations.play('left')
+            this.monster.body.velocity.x = -monster_speed;
+        }
+        else if (cursors.right.isDown)
+        {
+            this.monster.animations.play('right')
+            this.monster.body.velocity.x = monster_speed;
+        }
+
+        else if (cursors.up.isDown)
+        {
+            this.monster.animations.play('up')
+            this.monster.body.velocity.y = -monster_speed;
+        }
+        else if (cursors.down.isDown)
+        {
+            this.monster.animations.play('down')
+            this.monster.body.velocity.y = monster_speed;
+        }
+        else
+        {
+            this.monster.animations.play('idle')
+        }
+
     },
 
     updateBugs: function(){
