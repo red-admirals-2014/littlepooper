@@ -1,9 +1,9 @@
-Scene.Stomper = function(game) {
+Scene.FlappyDragon = function(game) {
   this.alive = true
   this.style = { font: "30px Arial", fill :"#ffffff"}
 };
 
-Scene.Stomper.prototype = {
+Scene.FlappyDragon.prototype = {
     
     create: function() { 
       this.alive = true
@@ -66,7 +66,7 @@ Scene.Stomper.prototype = {
     },
     restart_game: function() {
       this.alive = true
-      this.game.state.start('Stomper')
+      this.game.state.start('FlappyDragon')
     },
     go_home: function(){
       this.game.state.start('HomePage')
