@@ -4,9 +4,7 @@ Scene.HomePage = function(game) {
 Scene.HomePage.prototype = {
 
 	create: function() {
-
-		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
-		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
+    this.forest = this.game.add.tileSprite(0,0, 450,800, 'forest');
 
     this.poops = this.game.add.group()
 
@@ -56,8 +54,6 @@ Scene.HomePage.prototype = {
 
     this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
     this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
-
-    this.clouds.tilePosition.x += 1;
   },
   dragonPoke: function() {
     if (this.game.input.activePointer.isDown)
