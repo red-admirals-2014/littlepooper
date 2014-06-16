@@ -106,5 +106,6 @@ Scene.HomePage.prototype = {
     this.food.body.velocity.y = 0
   },
   goExercise: function(){
+    this.game.state.start('BugGame')
   }
 };

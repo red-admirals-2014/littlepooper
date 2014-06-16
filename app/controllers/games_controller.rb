@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_filter :check_logged
+  
   def index
   end
 
@@ -14,9 +16,5 @@ class GamesController < ApplicationController
   def home
   end
 
-  private
-
-  def authorize_user!
-
-  end
+  
 end
