@@ -14,6 +14,7 @@ Scene.BugGame = function(game) {
 Scene.BugGame.prototype = {
 
     create: function() {
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.game.add.sprite(0, 0, 'sidewalk-bg');
@@ -30,7 +31,7 @@ Scene.BugGame.prototype = {
 
         this.monster = this.game.add.sprite(this.game.world.randomX, this.game.world.randomY, 'green_dragon_bug');
         this.game.physics.enable(this.monster, Phaser.Physics.ARCADE);
-        this.monster.body.setSize(50, 50, 50, 75);
+        // this.monster.body.setSize(50, 50, 50, 75);
         this.monster.anchor.setTo(0.5, 0.5);
         this.monster.animations.add('up', [32,33,34,35], 6,true);
         this.monster.animations.add('down', [36,37,38,39], 6,true);
@@ -50,6 +51,10 @@ Scene.BugGame.prototype = {
 
         score = this.game.add.text(10, 10, "Bugs Squashed: " + bugsKilled, {fill: 'white', font: 'bold 30pt Arial'});
         escaped = this.game.add.text(10, 50, "Bugs Escaped: ", {fill: 'white', font: 'bold 30pt Arial'});
+
+
+
+
 
     },
 
@@ -71,8 +76,6 @@ Scene.BugGame.prototype = {
 
     update: function() {
 
-
-
         for(var i in this.bugs){
             if (this.bugs[i].alive) {
                 this.game.physics.arcade.collide(this.monster, this.bugs[i].bug, this.collisionHandler, null, this.bugs[i]);
@@ -91,13 +94,23 @@ Scene.BugGame.prototype = {
         }
     },
 
-    gameOver: function(){
-        this.monster.x = bugWorldX /2;
-        this.monster.y = bugWorldY /2;
-        this.monster.animations.play('idle')
-        this.game.input.onDown.remove(this.moveMonster, this)
-        this.message = this.game.add.text(bugWorldX /2, bugWorldY /2 + 40, "Game Over", {fill: 'white', font: 'bold 50pt Arial'}).anchor.set(0.5, 0,5);
-        this.resetBtn = this.game.add.button(bugWorldX/2, bugWorldY-150, 'goBack', this.goBack, this).anchor.set(0.5, 0.5);
+
+    gameOver: function() {
+        this.resetBtn = this.game.add.button(10, 10, 'reset', this.resetGame, this, 0)
+    },
+
+
+
+    resetGame: function(){
+        // this.resetBtn.destroy();
+        // this.monster.destroy();
+        // for(var i in this.bugs){
+        //     this.bugs[i].bug.destroy();
+        // }
+        bugsKilled = 0;
+        bugsEscaped = 0;
+        this.game.state.start('BugGame');
+
     },
 
     goBack: function(){
@@ -163,6 +176,7 @@ Bug.prototype = {
 
             if (this.bug.x < 0 || this.bug.y < 0 || this.bug.x > bugWorldX || this.bug.y > bugWorldY && this.bug.alive ){
                 this.bug.alive = false;
+                this.bug.kill();
                 bugsEscaped++
                 escaped.text = "Bugs Escaped: " + bugsEscaped
             }
