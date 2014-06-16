@@ -1,31 +1,22 @@
 Scene.HomePage = function(game) {
-
 };
 
 Scene.HomePage.prototype = {
 
 	create: function() {
-
-		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
-		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
+    this.forest = this.game.add.tileSprite(0,0, 450,800, 'forest');
 
     this.poops = this.game.add.group()
 
-    this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
-    this.green_dragon.anchor.set(0.5)
+    this.green_dragon = this.game.add.sprite(this.game.world.centerX, 600, 'green_dragon')
 
-    this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
-    this.green_dragon.body.collideWorldBounds = true
+    this.greenDragonAnimations()
+    this.greenDragonPhysics()
+    this.greenDragonClick()
+    
     this.restMotion()
 
-    this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
-    this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
-    this.green_dragon.animations.add('eat', [12, 13, 14, 15], 4, true)
-    this.green_dragon.animations.add('poke', [22, 23, 24], 3, true)
-
-    this.green_dragon.inputEnabled=true
-    this.green_dragon.input.useHandCursor=true
-    this.green_dragon.events.onInputDown.add(this.dragonPoke.bind(this))
+    
 
     this.platforms = this.game.add.group()
     this.platforms.enableBody = true
@@ -45,36 +36,58 @@ Scene.HomePage.prototype = {
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
 
-  },
 
-  goSmash: function(){
-    this.game.state.start('BugGame')
+    this.poopCount = this.game.add.text(10, 200, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
 
   },
-
   update: function() {
 
     this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
     this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
 
-    this.clouds.tilePosition.x += 1;
+    this.poopCount.text = "Poops: " + this.poops.countLiving()
   },
+  greenDragonAnimations: function(){
+    this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
+    this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
+    this.green_dragon.animations.add('eat', [12, 13, 14, 15], 4, false)
+    this.green_dragon.animations.add('poke', [22, 23, 24], 3, true)
+  },
+  greenDragonPhysics: function(){
+    this.green_dragon.anchor.set(0.5)
+    this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
+    this.green_dragon.body.collideWorldBounds = true
+  },
+  greenDragonClick: function(){
+    this.green_dragon.inputEnabled=true
+    this.green_dragon.input.useHandCursor=true
+    this.green_dragon.events.onInputDown.add(this.dragonPoke.bind(this))
+  },
+
   dragonPoke: function() {
     if (this.game.input.activePointer.isDown)
       this.green_dragon.animations.play('poke')
   },
   restMotion: function() {
     this.green_dragon.animations.play('rest')
-    setTimeout(this.walkAround.bind(this), 2000)
+    this.walkAroundDelay = setTimeout(this.walkAround.bind(this), 2000)
   },
   walkAround: function() {
-    var amountMoved = Math.floor(Math.random()*(200))
-    if (amountMoved > 50)
+    var amountMoved = Math.floor(Math.random()*(170)+70)
+    if (amountMoved > 150)
       setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
     if (amountMoved%2==0)
+      if (this.green_dragon.position.x <= 55){
+        this.walkRight(amountMoved)
+      } else {
       this.walkLeft(amountMoved)
+      }
     else
+      if (this.green_dragon.position.x >= 385){
+        this.walkLeft(amountMoved)
+      } else {
       this.walkRight(amountMoved)
+    }
   },
   walkLeft: function(amountMoved) {
     if (this.green_dragon.scale.x < 0) {
@@ -82,20 +95,31 @@ Scene.HomePage.prototype = {
     }
     this.green_dragon.animations.play('walk')
     var leftWalk = this.game.add.tween(this.green_dragon)
-    leftWalk.to({x: this.green_dragon.position.x-amountMoved}, 2000)
+    
+    if (this.green_dragon.position.x - amountMoved < 0 ){
+      amountMoved = this.green_dragon.position.x - 55
+    }
+    leftWalk.to({x: this.green_dragon.position.x-amountMoved}, amountMoved*10)
     leftWalk.start()
-    setTimeout(this.restMotion.bind(this), 2000)
+    this.leftRestDelay = setTimeout(this.restMotion.bind(this), amountMoved*10)
+
+
+    
   },
   walkRight: function(amountMoved) {
     if (this.green_dragon.scale.x > 0) {
       this.green_dragon.scale.x *= -1
     }
     this.green_dragon.animations.play('walk')
-    var leftWalk = this.game.add.tween(this.green_dragon)
-    leftWalk.to({x: this.green_dragon.position.x+amountMoved}, 2000)
-    leftWalk.start()
-    // setTimeout(function(){this.green_dragon.scale.x *= -1}, 2000)
-    setTimeout(this.restMotion.bind(this), 2000)
+    var rightWalk = this.game.add.tween(this.green_dragon)
+
+    if (this.green_dragon.position.x + amountMoved > 385 ){
+      amountMoved = 450 - this.green_dragon.position.x - 65
+    }
+
+    rightWalk.to({x: this.green_dragon.position.x+amountMoved}, amountMoved*10)
+    rightWalk.start()
+    this.rightRestDelay = setTimeout(this.restMotion.bind(this), amountMoved*10)
   },
   dropFood: function(){
 
@@ -104,25 +128,38 @@ Scene.HomePage.prototype = {
     if (this.foods.getFirstDead()){
     this.food = this.foods.getFirstDead()
     this.game.physics.enable(this.food, Phaser.Physics.arcade)
-    // this.food.reset(Math.floor(Math.random()*420),0 )
     this.food.reset(this.green_dragon.position.x, 0)
     this.food.body.gravity.y = 800
 
-
     }
+  },
+  clearAllTimeouts: function(){
+    clearTimeout(this.rightRestDelay)
+    clearTimeout(this.leftRestDelay)
+    clearTimeout(this.walkAroundDelay)
+    clearTimeout(this.eatRestDelay)
+
   },
   eatFood: function(){
     this.food.kill()
     this.green_dragon.animations.play('eat')
+    this.clearAllTimeouts()
+    this.eatRestDelay = setTimeout(this.restMotion.bind(this), 2000)
+
   },
   collision: function(){
     this.food.body.gravity.y = 0
     this.food.body.velocity.y = 0
   },
   goExercise: function(){
-    this.game.state.start('Stomper')
+    this.clearAllTimeouts()
+    this.game.state.start('FlappyDragon')
   },
+  goSmash: function(){
+    this.clearAllTimeouts()
+    this.game.state.start('BugGame')
 
+  },
   poop: function(xc, yc) {
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
     this.poopie.position.z = -10
