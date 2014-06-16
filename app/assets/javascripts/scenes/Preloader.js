@@ -31,6 +31,9 @@ Scene.Preloader.prototype = {
     this.game.load.image('exercise_button', '/images/exercise_button.png')
     this.game.load.image('food', '/images/food.png')
 
+    //POOP
+    this.game.load.image('poop', '/images/poopie.png')
+
 
 
     // this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')

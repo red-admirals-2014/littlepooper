@@ -5,8 +5,11 @@ Scene.HomePage = function(game) {
 Scene.HomePage.prototype = {
 
 	create: function() {
+
 		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
 		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
+    
+    this.poops = this.game.add.group()
 
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
     this.green_dragon.anchor.set(0.5)
@@ -38,11 +41,7 @@ Scene.HomePage.prototype = {
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
 
-
-    this.foods = this.game.add.group()
-    this.foods.createMultiple(1, 'food')
     
-
   },
   update: function() {
 
@@ -61,6 +60,8 @@ Scene.HomePage.prototype = {
   },
   walkAround: function() {
     var amountMoved = Math.floor(Math.random()*(200))
+    if (amountMoved > 50)
+      setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
     if (amountMoved%2==0)
       this.walkLeft(amountMoved)
     else
@@ -88,14 +89,18 @@ Scene.HomePage.prototype = {
     setTimeout(this.restMotion.bind(this), 2000)
   },
   dropFood: function(){
+
+    this.foods = this.game.add.group()
+    this.foods.createMultiple(1, 'food')
     if (this.foods.getFirstDead()){
     this.food = this.foods.getFirstDead()
     this.game.physics.enable(this.food, Phaser.Physics.arcade)
-    this.food.reset(Math.floor(Math.random()*420),0 )
+    // this.food.reset(Math.floor(Math.random()*420),0 )
+    this.food.reset(this.green_dragon.position.x, 0)
     this.food.body.gravity.y = 800 
+
+
     } 
-    //sample a sprite
-    //
   },
   eatFood: function(){
     this.food.kill()
@@ -107,5 +112,23 @@ Scene.HomePage.prototype = {
   },
   goExercise: function(){
     this.game.state.start('Stomper')
+  }, 
+
+  poop: function(xc, yc) {
+    this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
+    this.poopie.position.z = -10
+    // this.poopie.scale.x *= 0.1
+    // this.poopie.scale.y *= 0.1
+    this.poopie.anchor.set(0.5)
+    this.poopie.inputEnabled=true
+    this.poopie.input.useHandCursor=true
+    this.poopie.events.onInputDown.add(this.cleanPoop.bind(this))
+    this.poops.add(this.poopie)
+
+
+  },
+  cleanPoop: function() {
+    if (this.game.input.activePointer.isDown)
+      this.poops.removeAll()   
   }
 };
