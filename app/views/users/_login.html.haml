@@ -1,0 +1,6 @@
+= form_tag 'sessions#create' do 
+  = text_field_tag :username, nil, placeholder: "Username"
+  %br
+  = password_field_tag :password, nil, placeholder: "Password"
+  %br
+  = submit_tag "done", src: 'http://i.imgur.com/iRRFxmB.png', type: 'image', height:'45%', width:'45%'
