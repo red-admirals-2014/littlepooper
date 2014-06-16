@@ -1,6 +1,6 @@
-= form_for sessions_path do |f|
-  = f.text_field :username, placeholder: "Username"
+= form_tag 'sessions#create' do 
+  = text_field_tag :username, nil, placeholder: "Username"
   %br
-  = f.password_field :password, placeholder: "Password"
+  = password_field_tag :password, nil, placeholder: "Password"
   %br
-  = f.submit :src => 'http://i.imgur.com/iRRFxmB.png', :type => 'image', :height => '45%', :width => '45%'
+  = submit_tag "done", src: 'http://i.imgur.com/iRRFxmB.png', type: 'image', height:'45%', width:'45%'

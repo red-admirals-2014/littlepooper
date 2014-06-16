@@ -1,49 +1,75 @@
 Scene.Stomper = function(game) {
-
+  this.alive = true
+  this.style = { font: "30px Arial", fill :"#ffffff"}
 };
 
 Scene.Stomper.prototype = {
   
     create: function() { 
+      this.alive = true
+      this.game.stage.backgroundColor = '#62bce0'
       this.pipes = this.game.add.group()
-      this.pipes.createMultiple(20, 'pipe')
+      this.pipes.createMultiple(30, 'pipe')
+
+      this.game.input.onDown.add(this.jump, this)
 
 
-      this.bird = this.game.add.sprite(100,245,'bird')
-      this.bird.anchor.setTo(-0.2, 0.5);  
-      this.game.physics.enable(this.bird, Phaser.Physics.arcade);   
-      this.bird.body.gravity.y=1000;
+
+      this.green_dragon_fly = this.game.add.sprite(50,245,'green_dragon_fly')
+      this.green_dragon_fly.anchor.set(0.5)
+      this.green_dragon_fly.scale.setTo(-0.5,0.5)
+
+      this.game.physics.enable(this.green_dragon_fly, Phaser.Physics.arcade);
+
+      // this.game.debug.body(this.green_dragon_fly)
+
+      this.green_dragon_fly.body.setSize(40,40,10,5)
+      this.green_dragon_fly.animations.add('fly', [0,1,2,3,4,5,6,7,8,9,10,11], 6, true)
+      this.green_dragon_fly.animations.play('fly')
+      this.green_dragon_fly.body.gravity.y=1750;
 
       this.score = 0
-      var style = { font: "30px Arial", fill :"#ffffff"}
-      this.label_score =  this.game.add.text(20,20, "0", style)
+      this.label_score =  this.game.add.text(20,20, "0", this.style)
 
-
-      var space_key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-      space_key.onDown.add(this.jump, this)
-      this.timer = this.game.time.events.loop(1500, this.add_row_of_pipes, this)
+      this.timer = this.game.time.events.loop(1750, this.add_row_of_pipes, this)
     },
 
     update: function() {
 
-      if (this.bird.angle < 20)
-        this.bird.angle += 1;
-      if (this.bird.inWorld == false)
-        this.restart_game()
-      this.game.physics.arcade.overlap(this.bird, this.pipes, this.restart_game
+      // if (this.green_dragon_fly.angle < 20)
+      //   this.green_dragon_fly.angle += 1;
+      if (this.green_dragon_fly.inWorld == false)
+        this.game_over()
+      this.game.physics.arcade.overlap(this.green_dragon_fly, this.pipes, this.game_over
         , null, this);
     // Function called 60 times per second
     },
     jump: function() {
-      var animation = this.game.add.tween(this.bird)
-      animation.to({angle:-20}, 100)
-      animation.start()
-      this.bird.body.velocity.y = -350
+      if (this.alive){
+      this.green_dragon_fly.body.velocity.y = -550
+      }
     },
+    game_over: function() {
+      this.alive = false
+      // this.green_dragon_fly.body.velocity.y = 0 
+      this.pipes.forEachAlive(function(p){
+        p.body.velocity.x = 0;
+      }, this)
+      this.green_dragon_fly.body.gravity.y=2000;
 
+      this.game.time.events.remove(this.timer)
+      this.play_again = this.game.add.button(75, 300, "green_dragon_fly", this.restart_game, this, 0,1,2)
+      this.return_home = this.game.add.button(250, 300, "green_dragon", this.go_home, this, 0,1,2 )
+
+
+
+    },
     restart_game: function() {
-      this.game.time.events.remove(this.timer);  
+      this.alive = true
       this.game.state.start('Stomper')
+    },
+    go_home: function(){
+      this.game.state.start('HomePage')
     },
 
     add_one_pipe: function(x,y){
@@ -51,16 +77,16 @@ Scene.Stomper.prototype = {
       pipe.checkWorldBounds= true
       this.game.physics.enable(pipe, Phaser.Keyboard.arcade)
       pipe.reset(x,y)
-      pipe.body.velocity.x = -200
+      pipe.body.velocity.x = -275
       pipe.outOfBoundsKill = true
     },
     add_row_of_pipes: function(){
       this.score += 1;
       this.label_score.text = this.score;
-      var hole = (Math.floor(Math.random()*5)+1)
-      for (var i = 0; i < 8; i++) {
+      var hole = (Math.floor(Math.random()*10)+1)
+      for (var i = 0; i < 13; i++) {
         if (i != hole && i != hole +1) {
-          this.add_one_pipe(400, i*60+10)
+          this.add_one_pipe(450, i*60+10)
         }
       }
     }
