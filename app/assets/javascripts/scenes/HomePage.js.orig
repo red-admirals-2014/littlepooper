@@ -5,39 +5,70 @@ Scene.HomePage = function(game) {
 Scene.HomePage.prototype = {
 
 	create: function() {
+<<<<<<< HEAD
 		this.clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
 		this.land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
 
-    this.ground = this.game.add.sprite(0,750)
-    this.ground.scale.setTo(450,1)
+    this.ground = this.game.add.sprite(50,700, 'green_dragon')
+    this.game.physics.enable(this.ground, Phaser.Physics.arcade)
+    // this.ground.scale.x = this.game.world.width
+    
+=======
+		clouds = this.game.add.tileSprite(0, 0, 640, 138, 'clouds');
+		land = this.game.add.tileSprite(0, 138, 640, 1020, 'land')
+
+>>>>>>> master
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY+200, 'green_dragon')
-    this.games.physics.enable(this.green_dragon, Phaser.Physics.arcade)
     this.green_dragon.anchor.set(0.5)
+    
+    this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
+    this.green_dragon.body.collideWorldBounds = true
+    this.restMotion()
+
     this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
     this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
 <<<<<<< HEAD
-    this.green_dragon.animations.play('rest') 
-    setTimeout(this.walkAround.bind(this), 2000)
-
+    this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
+    this.green_dragon.body.collideWorldBounds = true
+    this.restMotion()
 
 
     this.food_button = this.game.add.sprite(0,0, "food_button")
     this.food_button.inputEnabled = true;
     this.food_button.events.onInputDown.add(this.dropFood.bind(this), this)
-
+    this.food = this.game.add.sprite(50,50,'green_dragon')
     
-
 =======
-    this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
-    this.green_dragon.body.collideWorldBounds = true
-    this.restMotion()
+    this.green_dragon.animations.add('eat', [12, 13, 14, 15], 4, true)
+    this.green_dragon.animations.add('poke', [22, 23, 24], 3, true)
 >>>>>>> master
+
+    this.green_dragon.inputEnabled=true
+    this.green_dragon.input.useHandCursor=true
+    this.green_dragon.events.onInputDown.add(this.dragonPoke.bind(this))
+
+    // this.game.add.button(this.game.world.centerX - 0, 0, 'feed', function(){this.dragonAction('eat')}, this, 2, 1, 0);
+    // this.game.add.button(this.game.world.centerX - 120, 0, 'poke', function(){this.dragonAction('poke')}, this, 2, 1, 0);
+    // this.game.add.button(this.game.world.centerX - 160, 0, 'die', function(){this.dragonAction('die')}.bind(this), this, 2, 1, 0);
   },
   update: function() {
 
-    this.games.physics.arcade.overlap(this.green_dragon, this.food, this.eatFood, null, this)
+    // this.games.physics.arcade.overlap(this.green_dragon, this.food, this.eatFood, null, this)
+    this.game.physics.arcade.collide(this.ground, this.food, this.hello, null, this)
 
     this.clouds.tilePosition.x += 1;
+  },
+  hello: function(){
+    this.food.body.gravity.y = 0
+    this.food.body.velocity.y = 0
+  },
+  restMotion: function() {
+    this.green_dragon.animations.play('rest')
+    setTimeout(this.walkAround.bind(this), 2000)
+  },
+  dragonPoke: function() {
+    if (this.game.input.activePointer.isDown)
+      this.green_dragon.animations.play('poke')
   },
   restMotion: function() {
     this.green_dragon.animations.play('rest')
@@ -55,17 +86,6 @@ Scene.HomePage.prototype = {
       this.green_dragon.scale.x *= -1
     }
     this.green_dragon.animations.play('walk')
-<<<<<<< HEAD
-    left.to({x: this.green_dragon.position.x-amountMoved}, 1000)
-    // setTimeout(this.walkAround.bind(this), 2000)
-  },
-  dropFood: function(){
-    this.food = this.game.add.sprite(1,1,'food')
-    this.games.physics.enable(this.food, Phaser.Physics.arcade)
-    this.food.body.gravity.y = 800  
-    //sample a sprite
-    //
-=======
     var leftWalk = this.game.add.tween(this.green_dragon)
     leftWalk.to({x: this.green_dragon.position.x-amountMoved}, 2000)
     leftWalk.start()
@@ -79,6 +99,15 @@ Scene.HomePage.prototype = {
     var leftWalk = this.game.add.tween(this.green_dragon)
     leftWalk.to({x: this.green_dragon.position.x+amountMoved}, 2000)
     leftWalk.start()
+<<<<<<< HEAD
+    setTimeout(this.restMotion.bind(this), 2000)
+  },
+  dropFood: function(){
+    this.game.physics.enable(this.food, Phaser.Physics.arcade)
+    this.food.body.gravity.y = 800  
+    //sample a sprite
+    //
+=======
     // setTimeout(function(){this.green_dragon.scale.x *= -1}, 2000)
     setTimeout(this.restMotion.bind(this), 2000)
 >>>>>>> master
