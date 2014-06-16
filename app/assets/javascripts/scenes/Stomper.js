@@ -4,7 +4,7 @@ Scene.Stomper = function(game) {
 };
 
 Scene.Stomper.prototype = {
-  
+    
     create: function() { 
       this.alive = true
       this.game.stage.backgroundColor = '#62bce0'

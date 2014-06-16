@@ -1,5 +1,4 @@
 Scene.HomePage = function(game) {
-
 };
 
 Scene.HomePage.prototype = {
@@ -48,6 +47,7 @@ Scene.HomePage.prototype = {
   },
 
   goSmash: function(){
+    this.clearAllTimeouts()
     this.game.state.start('BugGame')
 
   },
@@ -65,7 +65,7 @@ Scene.HomePage.prototype = {
   },
   restMotion: function() {
     this.green_dragon.animations.play('rest')
-    setTimeout(this.walkAround.bind(this), 2000)
+    this.walkAroundDelay = setTimeout(this.walkAround.bind(this), 2000)
   },
   walkAround: function() {
     var amountMoved = Math.floor(Math.random()*(200))
@@ -84,7 +84,7 @@ Scene.HomePage.prototype = {
     var leftWalk = this.game.add.tween(this.green_dragon)
     leftWalk.to({x: this.green_dragon.position.x-amountMoved}, 2000)
     leftWalk.start()
-    setTimeout(this.restMotion.bind(this), 2000)
+    this.leftRestDelay = setTimeout(this.restMotion.bind(this), 2000)
   },
   walkRight: function(amountMoved) {
     if (this.green_dragon.scale.x > 0) {
@@ -95,7 +95,7 @@ Scene.HomePage.prototype = {
     leftWalk.to({x: this.green_dragon.position.x+amountMoved}, 2000)
     leftWalk.start()
     // setTimeout(function(){this.green_dragon.scale.x *= -1}, 2000)
-    setTimeout(this.restMotion.bind(this), 2000)
+    this.rightRestDelay = setTimeout(this.restMotion.bind(this), 2000)
   },
   dropFood: function(){
 
@@ -111,15 +111,26 @@ Scene.HomePage.prototype = {
 
     }
   },
+  clearAllTimeouts: function(){
+    clearTimeout(this.rightRestDelay)
+    clearTimeout(this.leftRestDelay)
+    clearTimeout(this.walkAroundDelay)
+    clearTimeout(this.eatRestDelay)
+
+  },
   eatFood: function(){
     this.food.kill()
     this.green_dragon.animations.play('eat')
+    this.clearAllTimeouts()
+    this.eatRestDelay = setTimeout(this.restMotion.bind(this), 2000)
+
   },
   collision: function(){
     this.food.body.gravity.y = 0
     this.food.body.velocity.y = 0
   },
   goExercise: function(){
+    this.clearAllTimeouts()
     this.game.state.start('Stomper')
   },
 
