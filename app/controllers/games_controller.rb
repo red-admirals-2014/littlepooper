@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_filter :check_logged
+  layout 'game_layout'
 
   def home
   end
