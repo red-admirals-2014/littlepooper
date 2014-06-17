@@ -106,17 +106,21 @@ Scene.HomePage.prototype = {
     this.hunger -= Math.floor(amountMoved/50)
     if (amountMoved > 150)
       setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
-    if (amountMoved%2==0)
+    if (amountMoved%2==0) {
       if (this.green_dragon.position.x <= 55){
         this.walkRight(amountMoved)
-      } else {
-      this.walkLeft(amountMoved)
       }
-    else
+      else {
+      this.walkLeft(amountMoved)
+      }      
+    }
+    else {
       if (this.green_dragon.position.x >= 385){
         this.walkLeft(amountMoved)
-      } else {
+      }
+      else {
       this.walkRight(amountMoved)
+      }
     }
   },
   walkLeft: function(amountMoved) {
