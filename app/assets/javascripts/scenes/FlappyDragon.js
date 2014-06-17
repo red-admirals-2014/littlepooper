@@ -59,7 +59,7 @@ Scene.FlappyDragon.prototype = {
 
       this.game.time.events.remove(this.timer)
       this.play_again = this.game.add.button(75, 300, "exercise_button", this.restart_game, this, 0,1,2)
-      this.return_home = this.game.add.button(250, 300, "home", this.go_home, this, 0,1,2 )
+      this.return_home = this.game.add.button(250, 300, "homes_button", this.go_home, this, 0,1,2 )
       this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
 
 
