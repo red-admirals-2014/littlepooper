@@ -33,7 +33,7 @@ canvas {
   right: 0; 
   bottom: 0; 
   margin: auto; 
-  /*max-width: 100%;
+/*  max-width: 100%;
   max-height: 100%;*/
   z-index: -1;
   background-image: url(http://i.imgur.com/RkSLAiK.jpg);
@@ -42,6 +42,10 @@ canvas {
 
 .button {
   margin-top: 15%;
+}
+.button:active {
+  position: relative;
+  top: 7px;
 }
 
 .dragon {
@@ -67,7 +71,6 @@ canvas {
   margin: auto;
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid #adadad;
-
 }
 
 .modal_signup {
@@ -123,7 +126,12 @@ input[type=submit] {
 }
 
 .google_signin{
+  margin-top: 1%;
   margin-right: 2%; 
   height: 15%;
   width: 90%;
+}
+
+.done {
+  margin-top: 0%;
 }
