@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(params_user)
     if @user.save 
       session[:user_id] = @user.id
-      redirect_to user_home(@user)
+      redirect_to user_home_path(@user)
     else
       render :new
     end

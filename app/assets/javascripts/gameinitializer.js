@@ -1,5 +1,9 @@
 (function () {
   var game = new Phaser.Game(450, 800, Phaser.AUTO, 'game_div');
+
+  SHOWFLAPPYOPTIONS = false
+
+
   game.state.add('Preloader', Scene.Preloader)
   game.state.add('HomePage', Scene.HomePage);
   game.state.add('BugGame', Scene.BugGame)

@@ -4,8 +4,15 @@ Scene.HomePage = function(game) {
 Scene.HomePage.prototype = {
 
 	create: function() {
+    if (SHOWFLAPPYOPTIONS){
+      
+      this.game.stage.backgroundColor="#000"
+      this.play_again = this.game.add.button(75, 300, "exercise_button", this.goFly, this, 0,1,2)
+      this.return_home = this.game.add.button(250, 300, "homes_button", this.goHome, this, 0,1,2 )
+      this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
+      
+    } else {
     this.forest = this.game.add.tileSprite(0,0, 450,800, 'forest');
-
     this.poops = this.game.add.group()
 
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, 600, 'green_dragon')
@@ -29,7 +36,7 @@ Scene.HomePage.prototype = {
     this.food_button.events.onInputDown.add(this.dropFood.bind(this), this)
     this.exercise_button = this.game.add.sprite(240,676, "exercise_button")
     this.exercise_button.inputEnabled = true
-    this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
+    this.exercise_button.events.onInputDown.add(this.goFly.bind(this), this)
 
     this.exercise_button = this.game.add.sprite(30,10, "bugs_button")
     this.exercise_button.inputEnabled = true
@@ -48,8 +55,14 @@ Scene.HomePage.prototype = {
     this.poopCount = this.game.add.text(10, 275, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
 
 
+
+    }
   },
   update: function() {
+    if (SHOWFLAPPYOPTIONS){
+
+    } else {
+
     this.happy = 100-2*this.poops.countLiving()
     this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
     this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
@@ -60,7 +73,7 @@ Scene.HomePage.prototype = {
 
     if (this.happy <= 0 || this.hunger <= 0)
       this.green_dragon.animations.play('die')
-
+  }
   },
   greenDragonAnimations: function(){
     this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
@@ -168,7 +181,7 @@ Scene.HomePage.prototype = {
     this.food.body.gravity.y = 0
     this.food.body.velocity.y = 0
   },
-  goExercise: function(){
+  goFly: function(){
     this.clearAllTimeouts()
     this.game.state.start('FlappyDragon')
   },
@@ -194,5 +207,12 @@ Scene.HomePage.prototype = {
   cleanPoop: function() {
     if (this.game.input.activePointer.isDown)
       this.poops.removeAll()
+  },
+  goHome: function(){
+    SHOWFLAPPYOPTIONS = false
+    this.game.state.start('HomePage')
+  },
+  showHighScores: function(){
+    this.game.state.start('FlappyHighScores')
   }
 };
