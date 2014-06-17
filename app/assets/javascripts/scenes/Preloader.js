@@ -44,8 +44,8 @@ Scene.Preloader.prototype = {
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
-    this.game.load.image('homeBtn', '/images/new_home_button.png', 100, 100)
-    this.game.load.image('playAgain', '/images/bug_smash/play_again_button.png', 200, 100)
+    
+    // this.game.load.image('playAgain', '/images/bug_smash/play_again_button.png', 200, 100)
 
 
     // this.game.stage.backgroundColor = "#71c5cf"

@@ -100,8 +100,8 @@ Scene.BugGame.prototype = {
         for(var i in this.bugs){
             this.bugs[i].bug.destroy()
         }
-        this.game.add.button(50, bugWorldY-150, "homeBtn", this.goHome, this, 0,1,2)
-        this.game.add.button(200, bugWorldY-150, "playAgain", this.resetGame, this, 0,1,2)
+        this.game.add.button(50, bugWorldY-150, "home", this.goHome, this, 0,1,2)
+        this.game.add.button(200, bugWorldY-150, "bug_button", this.resetGame, this, 0,1,2)
     },
 
     resetGame: function(){
