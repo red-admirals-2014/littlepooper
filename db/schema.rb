@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20140617163515) do
     t.datetime "updated_at"
     t.string   "petname"
     t.integer  "flappy_high_score", default: 0
-    t.integer  "total_points"
+    t.integer  "total_points",      default: 0
   end
 
 end
