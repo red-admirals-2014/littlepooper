@@ -1,11 +1,11 @@
-Scene.FlappyDragon = function(game) {
+Scene.Stomper = function(game) {
   this.alive = true
   this.style = { font: "30px Arial", fill :"#ffffff"}
 };
 
-Scene.FlappyDragon.prototype = {
-    
-    create: function() { 
+Scene.Stomper.prototype = {
+
+    create: function() {
       this.alive = true
       this.game.stage.backgroundColor = '#62bce0'
       this.pipes = this.game.add.group()
@@ -51,37 +51,25 @@ Scene.FlappyDragon.prototype = {
     },
     game_over: function() {
       this.alive = false
-      // this.green_dragon_fly.body.velocity.y = 0 
+      // this.green_dragon_fly.body.velocity.y = 0
       this.pipes.forEachAlive(function(p){
         p.body.velocity.x = 0;
       }, this)
       this.green_dragon_fly.body.gravity.y=2000;
 
       this.game.time.events.remove(this.timer)
-      this.play_again = this.game.add.button(75, 300, "exercise_button", this.restart_game, this, 0,1,2)
-      this.return_home = this.game.add.button(250, 300, "home", this.go_home, this, 0,1,2 )
-      this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
+      this.play_again = this.game.add.button(75, 300, "green_dragon_fly", this.restart_game, this, 0,1,2)
+      this.return_home = this.game.add.button(250, 300, "green_dragon", this.go_home, this, 0,1,2 )
+
 
 
     },
+
     restart_game: function() {
-      this.updateHighScore()
       this.alive = true
-      this.game.state.start('FlappyDragon')
-    },
-    updateHighScore: function(){
-      var ajaxRequest = $.ajax({
-        url: '/flappy_high_score',
-        type: 'POST',
-        data: "score=" + this.score
-      })
-    },
-    showHighScores: function(data){
-      this.updateHighScore()
-      this.game.state.start('FlappyHighScores')
+      this.game.state.start('Stomper')
     },
     go_home: function(){
-      this.updateHighScore()
       this.game.state.start('HomePage')
     },
 

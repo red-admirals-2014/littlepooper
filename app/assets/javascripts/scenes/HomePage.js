@@ -16,7 +16,6 @@ Scene.HomePage.prototype = {
     
     this.restMotion()
 
-    
 
     this.platforms = this.game.add.group()
     this.platforms.enableBody = true
@@ -36,8 +35,17 @@ Scene.HomePage.prototype = {
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
 
+    this.foods = this.game.add.group()
+    this.foods.createMultiple(1, 'food')
 
-    this.poopCount = this.game.add.text(10, 200, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
+    this.hunger = 100
+    this.exercise = 50
+
+    this.happiness = this.game.add.text(10, 200, "Happiness: " + 100, {fill: 'white', font: 'bold 20pt Arial'});
+    this.nomnom = this.game.add.text(10, 225, "Nom Nom: " + this.hunger, {fill: 'white', font: 'bold 20pt Arial'});
+    this.strength = this.game.add.text(10, 250, "Fitness: " + this.exercise, {fill: 'white', font: 'bold 20pt Arial'});
+    this.poopCount = this.game.add.text(10, 275, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
+
 
   },
   update: function() {
@@ -46,6 +54,11 @@ Scene.HomePage.prototype = {
     this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
 
     this.poopCount.text = "Poops: " + this.poops.countLiving()
+    this.happiness.text = "Happiness: " + (100 - this.poops.countLiving())
+    this.nomnom.text = "Nom nom: " + this.hunger
+
+
+
   },
   greenDragonAnimations: function(){
     this.green_dragon.animations.add('rest', [0, 1, 2, 3, 4, 5, 6, 7], 6, true)
@@ -74,6 +87,7 @@ Scene.HomePage.prototype = {
   },
   walkAround: function() {
     var amountMoved = Math.floor(Math.random()*(170)+70)
+    this.hunger -= Math.floor(amountMoved/50)
     if (amountMoved > 150)
       setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
     if (amountMoved%2==0)
@@ -123,13 +137,12 @@ Scene.HomePage.prototype = {
   },
   dropFood: function(){
 
-    this.foods = this.game.add.group()
-    this.foods.createMultiple(1, 'food')
+
     if (this.foods.getFirstDead()){
     this.food = this.foods.getFirstDead()
     this.game.physics.enable(this.food, Phaser.Physics.arcade)
     this.food.reset(this.green_dragon.position.x, 0)
-    this.food.body.gravity.y = 800
+    this.food.body.gravity.y = 2000
 
     }
   },
@@ -145,6 +158,7 @@ Scene.HomePage.prototype = {
     this.green_dragon.animations.play('eat')
     this.clearAllTimeouts()
     this.eatRestDelay = setTimeout(this.restMotion.bind(this), 2000)
+    this.hunger += 5
 
   },
   collision: function(){
@@ -158,6 +172,7 @@ Scene.HomePage.prototype = {
   goSmash: function(){
     this.clearAllTimeouts()
     this.game.state.start('BugGame')
+    this.exercise += 10
 
   },
   poop: function(xc, yc) {
