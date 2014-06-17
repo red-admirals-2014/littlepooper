@@ -1,8 +1,5 @@
 class SessionsController < ApplicationController
 
-  def new
-  end
-
   def google_login
     google_url = "https://accounts.google.com/o/oauth2/auth?" +
                     "response_type=code&"+
