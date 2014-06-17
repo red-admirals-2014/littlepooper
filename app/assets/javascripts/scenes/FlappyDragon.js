@@ -58,7 +58,7 @@ Scene.FlappyDragon.prototype = {
       this.green_dragon_fly.body.gravity.y=2000;
 
       this.game.time.events.remove(this.timer)
-      this.updateHighScore()
+      this.updateScores()
       SHOWFLAPPYOPTIONS = true
       this.alive = true
       this.game.state.start('HomePage')
@@ -70,7 +70,7 @@ Scene.FlappyDragon.prototype = {
       this.alive = true
       this.game.state.start('FlappyDragon')
     },
-    updateHighScore: function(){
+    updateScores: function(){
       var ajaxRequest = $.ajax({
         url: '/flappy_high_score',
         type: 'POST',
