@@ -43,6 +43,10 @@ canvas {
 .button {
   margin-top: 15%;
 }
+.button:active {
+  position: relative;
+  top: 1px;
+}
 
 .dragon {
   margin-top: 17%;
@@ -123,6 +127,7 @@ input[type=submit] {
 }
 
 .google_signin{
+  margin-top: 1%;
   margin-right: 2%; 
   height: 15%;
   width: 90%;
