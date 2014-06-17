@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get '/google_login', to: "sessions#google_login"
 
-  get '/logged_in', to: "sessions#logged_in"
+  get '/logged_in', to: "sessions#google_login_callback"
 
   resources :users, only: [:new, :index, :create] do
     get '/home', to: "games#game"
