@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_filter :check_logged
+  layout 'game'
 
   def home
   end
@@ -9,7 +10,7 @@ class GamesController < ApplicationController
     if params[:score].to_i > user.flappy_high_score
       user.update_attributes(flappy_high_score: params[:score].to_i)
     end
-    user.update_attributes(flappy_high_score: user.flappy_high_score+params[:score].to_i)
+    user.update_attributes(total_points: user.total_points+params[:score].to_i)
   end
 
   def flappy_high_scores
