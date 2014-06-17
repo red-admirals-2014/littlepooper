@@ -23,22 +23,7 @@ canvas {
   font-family:'pxl'; 
   src:url(http://www.e7chun.com/portfolio/fonts/pxl.ttf);
 }
-.container {
-  width: 630px;
-  height: 1120px;
-  font-family:'pxl';
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  margin: auto; 
-/*  max-width: 100%;
-  max-height: 100%;*/
-  z-index: -1;
-  background-image: url(http://i.imgur.com/RkSLAiK.jpg);
-  background-size: cover;
-}
+
 
 .button {
   margin-top: 15%;
