@@ -5,8 +5,9 @@ Scene.FlappyHighScores = function(game) {
 Scene.FlappyHighScores.prototype = {
 
   create: function() {
-    this.game.stage.backgroundColor = '#62bce0'
     this.getHighScores()
+    this.play_again = this.game.add.button(75, 300, "exercise_button", this.goFly, this, 0,1,2)
+    this.return_home = this.game.add.button(250, 300, "homes_button", this.goHome, this, 0,1,2 )
 
   },
 
@@ -25,6 +26,12 @@ Scene.FlappyHighScores.prototype = {
     }
 
     // console.log(this.highscores.length)
+  },
+  goFly: function(){
+    this.game.state.start('FlappyDragon')
+  },
+  goHome: function(){
+    SHOWFLAPPYOPTIONS = false
+    this.game.state.start('HomePage')
   }
-
 };

@@ -1,10 +1,9 @@
 Scene.BugGame = function(game) {
 
-    this.bugsTotal = 20;
-    this.bugsDead = 0;
+    this.bugsTotal = 50;
     this.bugs = [];
-    bugsKilled = 0;
-    bugsEscaped = 0;
+    bugsKilled = [];
+    bugsEscaped = [];
 
     bugWorldX = game.width
     bugWorldY = game.height
@@ -14,9 +13,9 @@ Scene.BugGame = function(game) {
 Scene.BugGame.prototype = {
 
     create: function() {
-
+        bugsKilled = [];
+        bugsEscaped = [];
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
         this.game.add.sprite(0, 0, 'sidewalk-bg');
 
         // Create Bugs
@@ -31,8 +30,9 @@ Scene.BugGame.prototype = {
 
         this.monster = this.game.add.sprite(this.game.world.randomX, this.game.world.randomY, 'green_dragon_bug');
         this.game.physics.enable(this.monster, Phaser.Physics.ARCADE);
-        this.monster.body.bounce.setTo(1, 1);
-        this.monster.anchor.setTo(0.5, 0.5);
+        this.monster.body.setSize(50, 50, 25, 25);
+
+        // this.monster.anchor.setTo(0.5, 0.5);
         this.monster.animations.add('up', [32,33,34,35], 6,true);
         this.monster.animations.add('down', [36,37,38,39], 6,true);
         this.monster.animations.add('left', [24,25,26,27], 6,true);
@@ -53,11 +53,12 @@ Scene.BugGame.prototype = {
             bush.body.immovable = true;
         }
 
-        score = this.game.add.text(10, 10, "Bugs Squashed: " + bugsKilled, {fill: 'white', font: 'bold 30pt Arial'});
-        escaped = this.game.add.text(10, 50, "Bugs Escaped: ", {fill: 'white', font: 'bold 30pt Arial'});
+        score = this.game.add.text(10, 10, "Bugs Squashed: " + bugsKilled.length, {fill: 'white', font: 'bold 30pt Arial'});
+        escaped = this.game.add.text(10, 50, "Bugs Escaped: " + bugsEscaped.length, {fill: 'white', font: 'bold 30pt Arial'});
     },
 
     moveMonster: function(pointer){
+        var monster_speed = 250   // msec
         var xDiff = pointer.x - this.monster.position.x
         var yDiff = pointer.y - this.monster.position.y
 
@@ -69,27 +70,48 @@ Scene.BugGame.prototype = {
             this.monster.animations.play('right')
         } else { this.monster.animations.play('left') }
 
-        this.game.add.tween(this.monster).to( { x: pointer.x, y: pointer.y }, 100, Phaser.Easing.Linear.None, true)
+        this.game.add.tween(this.monster).to( { x: pointer.x-50, y: pointer.y-50 }, monster_speed, Phaser.Easing.Linear.None, true)
+
+    },
+    checkOverlap: function(spriteA, spriteB) {
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
 
     },
 
+
     update: function() {
-        this.game.physics.arcade.collide(this.monster, this.bushes);
+        // this.game.physics.arcade.collide(this.monster, this.bushes);
 
         for(var i in this.bugs){
             if (this.bugs[i].alive) {
-                this.game.physics.arcade.collide(this.monster, this.bugs[i].bug, this.collisionHandler, null, this.bugs[i]);
+                if (this.checkOverlap(this.bugs[i].bug, this.monster))
+                {
+                    this.bugs[i].alive = false;
+                    this.bugs[i].bug.animations.play('kill')
+                    this.bugs[i].bug.body.velocity.x = 0;
+                    this.bugs[i].bug.body.velocity.y = 0;
+                    bugsKilled.push(this.bugs[i])
+                }
+                if (this.bugs[i].bug.x < 0 || this.bugs[i].bug.y < 0 || this.bugs[i].bug.x > bugWorldX || this.bugs[i].bug.y > bugWorldY && this.bugs[i].bug.alive ){
+                    this.bugs[i].alive = false;
+                    bugsEscaped.push(this.bugs[i])
+                }
+
                 this.bugs[i].update()
             }
         }
+        score.text = "Bugs Squashed: " + bugsKilled.length
+        escaped.text = "Bugs Escaped: " + bugsEscaped.length
 
-        var monster_speed = 500
+        var monster_speed = 10
 
         this.monster.body.velocity.x = 0;
         this.monster.body.velocity.y = 0;
         this.game.input.onDown.add(this.moveMonster, this)
 
-        if(bugsKilled + bugsEscaped >= this.bugsTotal){
+        if(bugsKilled.length + bugsEscaped.length >= this.bugsTotal){
             this.gameOver()
         }
     },
@@ -100,13 +122,19 @@ Scene.BugGame.prototype = {
         for(var i in this.bugs){
             this.bugs[i].bug.destroy()
         }
-        this.game.add.button(50, bugWorldY-150, "home", this.goHome, this, 0,1,2)
-        this.game.add.button(200, bugWorldY-150, "bug_button", this.resetGame, this, 0,1,2)
+        this.game.add.button(50, bugWorldY-150, "homes_button", this.goHome, this, 0,1,2)
+        this.game.add.button(200, bugWorldY-150, "bugs_button", this.resetGame, this, 0,1,2)
+
     },
 
     resetGame: function(){
-        bugsKilled = 0;
-        bugsEscaped = 0;
+
+        this.monster.destroy();
+        for(var i in this.bugs){
+            this.bugs[i].bug.destroy()
+        }
+        bugsKilled = [];
+        bugsEscaped = [];
         this.game.state.start('BugGame');
 
     },
@@ -116,9 +144,6 @@ Scene.BugGame.prototype = {
 
     },
 
-    collisionHandler: function(monster, bug){
-        this.killBug();
-    },
 }
 
 
@@ -131,8 +156,6 @@ function Bug(index, game) {
 
         this.bug = game.add.sprite(x, y, 'bug');
         game.physics.enable(this.bug, Phaser.Physics.ARCADE);
-        // this.bug.body.setSize(100, 50, 50, 25);
-        this.bug.anchor.set(0.5, 0,5);
         this.inputEnabled = true;
         this.alive = true;
         this.escaped = false;
@@ -149,29 +172,12 @@ function Bug(index, game) {
 
 Bug.prototype = {
 
-    killBug: function () {
-        this.bug.alive = false;
-        this.bug.body.velocity.x = 0;
-        this.bug.body.velocity.y = 0;
-        this.bug.animations.play('kill');
-        bugsKilled++
-        score.text = "Bugs Squashed: " + bugsKilled
-    },
-
     update: function(){
+        // Move alive bug at random
 
-        // Check if bug escaped
         if (this.bug.alive){
-
             if(Math.floor(Math.random() * 100) < 5 ){
                 this.moveBugAtRandom()
-            }
-
-            if (this.bug.x < 0 || this.bug.y < 0 || this.bug.x > bugWorldX || this.bug.y > bugWorldY && this.bug.alive ){
-                this.bug.alive = false;
-                this.bug.kill();
-                bugsEscaped++
-                escaped.text = "Bugs Escaped: " + bugsEscaped
             }
         }
 
