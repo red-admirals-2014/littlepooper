@@ -167,7 +167,12 @@ Scene.HomePage.prototype = {
   },
   goExercise: function(){
     this.clearAllTimeouts()
+<<<<<<< HEAD
+    this.game.state.start('Stomper')
+    this.exercise += 10
+=======
     this.game.state.start('FlappyDragon')
+>>>>>>> master
   },
   goSmash: function(){
     this.clearAllTimeouts()
