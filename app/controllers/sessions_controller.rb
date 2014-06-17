@@ -1,43 +1,27 @@
 class SessionsController < ApplicationController
 
-  def new
-  end
-
   def google_login
-    google_url = "https://accounts.google.com/o/oauth2/auth?" +
-                    "response_type=code&"+
-                    "client_id=#{Rails.application.secrets.client_id}&"+
-                    "redirect_uri=http://little-pooper.herokuapp.com/logged_in&"+
-                    "scope=email%20profile&"+
-                    "state=#{Rails.application.secrets.state}&"
     redirect_to google_url
   end
 
-  def logged_in
-    access_code = params[:code]
-    first_response = HTTParty.post("https://accounts.google.com/o/oauth2/token?", {body: {client_id: Rails.application.secrets.client_id, client_secret: Rails.application.secrets.client_secret, redirect_uri: "http://little-pooper.herokuapp.com/logged_in", grant_type:"authorization_code", code: access_code}})
-    access_token = first_response["access_token"]
-    user_info = HTTParty.get("https://www.googleapis.com/plus/v1/people/me?", {query: {access_token: access_token}})
-    #check if their email is in the database, otherwise write them in. 
-    first_name = user_info["name"]["givenName"]
-    picture = user_info["image"]["url"]
-    email = user_info["emails"][0]["value"]
-    if User.find_by_email(email)
-      @user = User.find_by_email(email)
-      session[:user_id] = User.find_by_email(email).id
+  def google_login_callback
+    user_info = get_user_info(params[:code])
+    
+    if User.find_by_email(user_info[:email])
+      user = User.find_by_email(user_info[:email]) 
+      login(user)
     else
-      user = User.create(email: email, username: first_name, password:SecureRandom.hex)
-      session[:user_id] = user.id
-      @user = user
+      user = User.create(email: user_info[:email], username: user_info[:first_name], password:SecureRandom.hex)
+      login(user)
     end
-    redirect_to user_home_path(@user)
+    redirect_to user_home_path(user)
   end
 
 
   def create
     user = User.find_by_username(params[:username])
     if(user && user.authenticate(params[:password]))
-      session[:user_id] = user.id
+      login(user)
       redirect_to user_home_path(user)
     else
       redirect_to root_path
@@ -45,7 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session.delete 
     redirect_to root_path
   end
 

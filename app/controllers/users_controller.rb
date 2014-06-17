@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
 
-  def new
-    @user = User.new
-  end
+  
 
   def index
     @user = User.new
@@ -11,7 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params_user)
     if @user.save 
-      session[:user_id] = @user.id
+      login(@user)
       redirect_to user_home_path(@user)
     else
       render :new
