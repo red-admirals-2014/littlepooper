@@ -31,7 +31,7 @@ Scene.HomePage.prototype = {
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
 
-    this.exercise_button = this.game.add.sprite(30,10, "bug_button")
+    this.exercise_button = this.game.add.sprite(30,10, "bugs_button")
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
 

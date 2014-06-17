@@ -17,7 +17,8 @@ Scene.Preloader.prototype = {
 
     // this.game.load.image('bird', '/images/bird.png')
     this.game.load.image('pipe', '/images/pipe.png')
-    this.game.load.image('home_button', '/images/tarans_home_button.png')
+    this.game.load.image('homes_button', '/images/transparent_home_button.png')
+
     // this.game.load.image('dragon_play_again', '/images/replay_button.png')
 
 
@@ -40,7 +41,7 @@ Scene.Preloader.prototype = {
 
 
     //BUG GAME
-    this.game.load.image('bug_button', '/images/transparent_bug_button.png')
+    this.game.load.image('bugs_button', '/images/transparent_bug_button.png')
     this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)

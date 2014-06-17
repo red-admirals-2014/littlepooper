@@ -119,13 +119,13 @@ Scene.BugGame.prototype = {
 
 
     gameOver: function() {
+        this.monster.destroy();
+        for(var i in this.bugs){
+            this.bugs[i].bug.destroy()
+        }
+        this.game.add.button(50, bugWorldY-150, "homes_button", this.goHome, this, 0,1,2)
+        this.game.add.button(200, bugWorldY-150, "bugs_button", this.resetGame, this, 0,1,2)
 
-        // this.monster.x = bugWorldX/2-50;
-        // this.monster.y = bugWorldY/2-50;
-        // this.monster.animations.play("idle")
-        // this.game.input.onDown.remove(this.moveMonster, this)
-        this.game.add.button(50, bugWorldY-150, "home", this.goHome, this, 0,1,2)
-        this.game.add.button(200, bugWorldY-150, "bug_button", this.resetGame, this, 0,1,2)
     },
 
     resetGame: function(){
