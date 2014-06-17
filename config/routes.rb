@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   post '/flappy_high_score', to: "games#flappy_high_score"
 
+  get '/flappy_high_scores', to: "games#flappy_high_scores"
 
   get '/google_login', to: "sessions#google_login"
 

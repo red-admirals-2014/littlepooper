@@ -1,3 +1,5 @@
+var Scene = {}
+
 Scene.Preloader = function(game) {
 
 };

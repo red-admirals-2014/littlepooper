@@ -60,6 +60,7 @@ Scene.FlappyDragon.prototype = {
       this.game.time.events.remove(this.timer)
       this.play_again = this.game.add.button(75, 300, "green_dragon_fly", this.restart_game, this, 0,1,2)
       this.return_home = this.game.add.button(250, 300, "green_dragon", this.go_home, this, 0,1,2 )
+      this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
 
 
     },
@@ -74,6 +75,10 @@ Scene.FlappyDragon.prototype = {
         type: 'POST',
         data: "score=" + this.score
       })
+    },
+    showHighScores: function(data){
+      this.updateHighScore()
+      this.game.state.start('FlappyHighScores')
     },
     go_home: function(){
       this.updateHighScore()
