@@ -25,9 +25,7 @@ canvas {
 }
 
 
-.button {
-  margin-top: 15%;
-}
+
 .button:active {
   position: relative;
   top: 7px;
