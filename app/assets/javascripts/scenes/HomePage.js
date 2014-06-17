@@ -40,8 +40,9 @@ Scene.HomePage.prototype = {
 
     this.hunger = 100
     this.exercise = 50
+    this.happy = 100
 
-    this.happiness = this.game.add.text(10, 200, "Happiness: " + 100, {fill: 'white', font: 'bold 20pt Arial'});
+    this.happiness = this.game.add.text(10, 200, "Happiness: " + this.happy, {fill: 'white', font: 'bold 20pt Arial'});
     this.nomnom = this.game.add.text(10, 225, "Nom Nom: " + this.hunger, {fill: 'white', font: 'bold 20pt Arial'});
     this.strength = this.game.add.text(10, 250, "Fitness: " + this.exercise, {fill: 'white', font: 'bold 20pt Arial'});
     this.poopCount = this.game.add.text(10, 275, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
@@ -49,15 +50,16 @@ Scene.HomePage.prototype = {
 
   },
   update: function() {
-
+    this.happy = 100-2*this.poops.countLiving()
     this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
     this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
 
     this.poopCount.text = "Poops: " + this.poops.countLiving()
-    this.happiness.text = "Happiness: " + (100 - this.poops.countLiving())
+    this.happiness.text = "Happiness: " + this.happy
     this.nomnom.text = "Nom nom: " + this.hunger
 
-
+    if (this.happy <= 0 || this.hunger <= 0)
+      this.green_dragon.animations.play('die')
 
   },
   greenDragonAnimations: function(){
@@ -65,6 +67,7 @@ Scene.HomePage.prototype = {
     this.green_dragon.animations.add('walk', [16, 17, 18, 19, 20, 21], 6, true)
     this.green_dragon.animations.add('eat', [12, 13, 14, 15], 4, false)
     this.green_dragon.animations.add('poke', [22, 23, 24], 3, true)
+    this.green_dragon.animations.add('die', [25, 26, 27, 28, 29, 30], 6, true)
   },
   greenDragonPhysics: function(){
     this.green_dragon.anchor.set(0.5)
