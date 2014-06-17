@@ -64,7 +64,7 @@ Scene.Preloader.prototype = {
 
   },
   gofull: function() {
-    this.game.scale.startFullScreen();
+    // this.game.scale.startFullScreen();
     this.game.state.start('HomePage')
 
   },
