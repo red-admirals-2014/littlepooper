@@ -23,6 +23,9 @@ Scene.Egg.prototype = {
     this.egg.events.onInputDown.add(this.eggbreak.bind(this))
 
   },
+  update: function() {
+
+  },
 
   create_green_dragon: function(xc, yc) {
     this.green_dragon = this.game.add.sprite(xc, yc, 'green_dragon')
@@ -37,9 +40,7 @@ Scene.Egg.prototype = {
     this.green_dragon.input.useHandCursor=true
     this.DragonRest()
   },
-  update: function() {
 
-  },
   DragonRest: function(){
     this.green_dragon.animations.play('rest')
   },
