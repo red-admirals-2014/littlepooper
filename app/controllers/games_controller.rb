@@ -10,5 +10,11 @@ class GamesController < ApplicationController
       user.update_attributes(flappy_high_score: params[:score].to_i)
     end
   end
+
+  def flappy_high_scores
+    @highscores = User.highscores
+    @highscores = @highscores.to_json
+    render json: {highscores: @highscores}
+  end
   
 end
