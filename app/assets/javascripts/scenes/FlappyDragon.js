@@ -62,7 +62,6 @@ Scene.FlappyDragon.prototype = {
       this.return_home = this.game.add.button(250, 300, "homes_button", this.go_home, this, 0,1,2 )
       this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
 
-
     },
     restart_game: function() {
       this.updateHighScore()
