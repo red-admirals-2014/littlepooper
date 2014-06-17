@@ -82,7 +82,6 @@ Scene.BugGame.prototype = {
 
 
     update: function() {
-        this.game.debug.body(this.monster)
         // this.game.physics.arcade.collide(this.monster, this.bushes);
 
         for(var i in this.bugs){
