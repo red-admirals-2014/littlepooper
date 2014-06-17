@@ -34,11 +34,11 @@ Scene.HomePage.prototype = {
     this.food_button = this.game.add.sprite(40,676, "food_button")
     this.food_button.inputEnabled = true;
     this.food_button.events.onInputDown.add(this.dropFood.bind(this), this)
-    this.exercise_button = this.game.add.sprite(175,676, "exercise_button")
-    this.exercise_button.inputEnabled = true
-    this.exercise_button.events.onInputDown.add(this.goFly.bind(this), this)
+    this.fly_button = this.game.add.sprite(175,676, "exercise_button")
+    this.fly_button.inputEnabled = true
+    this.fly_button.events.onInputDown.add(this.goFly.bind(this), this)
 
-    this.exercise_button = this.game.add.sprite(30,10, "bugs_button")
+    this.exercise_button = this.game.add.sprite(310,676, "bugs_button")
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
 
