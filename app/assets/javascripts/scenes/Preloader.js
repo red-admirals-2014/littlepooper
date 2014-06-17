@@ -1,4 +1,3 @@
-var Scene = {}
 
 Scene.Preloader = function(game) {
 
@@ -18,7 +17,7 @@ Scene.Preloader.prototype = {
 
     // this.game.load.image('bird', '/images/bird.png')
     this.game.load.image('pipe', '/images/pipe.png')
-    this.game.load.image('home', '/images/transparent_home_button.png')
+    this.game.load.image('home_button', '/images/tarans_home_button.png')
     // this.game.load.image('dragon_play_again', '/images/replay_button.png')
 
 
