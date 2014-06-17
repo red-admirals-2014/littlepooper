@@ -71,7 +71,6 @@ canvas {
   margin: auto;
   background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid #adadad;
-
 }
 
 .modal_signup {
@@ -131,4 +130,8 @@ input[type=submit] {
   margin-right: 2%; 
   height: 15%;
   width: 90%;
+}
+
+.done {
+  margin-top: 0%;
 }
