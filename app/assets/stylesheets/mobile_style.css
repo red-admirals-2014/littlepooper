@@ -1,7 +1,7 @@
 @media only screen and (max-width: 320px) {
 	.container {
 	  width: 320px;
-	  height: 568px;
+	  height: 480px;
 	  font-family:'pxl';
 	  position: absolute; 
 	  top: 0; 
