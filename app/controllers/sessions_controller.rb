@@ -1,3 +1,4 @@
+# create GoogleAuth object to handle all the auth logic and the controller just delegates the calls to it
 class SessionsController < ApplicationController
 
   def new
@@ -13,12 +14,14 @@ class SessionsController < ApplicationController
     redirect_to google_url
   end
 
+  # bad name, it doesn't tell me what it does
   def logged_in
+    # this code should be wraped in a class
     access_code = params[:code]
     first_response = HTTParty.post("https://accounts.google.com/o/oauth2/token?", {body: {client_id: Rails.application.secrets.client_id, client_secret: Rails.application.secrets.client_secret, redirect_uri: "http://little-pooper.herokuapp.com/logged_in", grant_type:"authorization_code", code: access_code}})
     access_token = first_response["access_token"]
     user_info = HTTParty.get("https://www.googleapis.com/plus/v1/people/me?", {query: {access_token: access_token}})
-    #check if their email is in the database, otherwise write them in. 
+    #check if their email is in the database, otherwise write them in.
     first_name = user_info["name"]["givenName"]
     picture = user_info["image"]["url"]
     email = user_info["emails"][0]["value"]
@@ -45,7 +48,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session.clear
     redirect_to root_path
   end
 

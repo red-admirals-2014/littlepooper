@@ -1,3 +1,4 @@
+// unimplemented code is evil!
 Scene.MainMenu = function(game) {
 
 };

@@ -1,3 +1,4 @@
+// you're poluting the global namespace and this file has no clear intention.
 const SAFE_ZONE_WIDTH = 640;
 const SAFE_ZONE_HEIGHT = 1136;
 

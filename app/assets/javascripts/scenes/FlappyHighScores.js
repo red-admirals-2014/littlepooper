@@ -19,7 +19,7 @@ Scene.FlappyHighScores.prototype = {
     ajaxRequest.done(this.showHighScores.bind(this))
   },
   showHighScores: function(data){
-    highscores = JSON.parse(data.highscores)
+    highscores = JSON.parse(data)
     this.style = { font: "30px Arial", fill :"#ffffff"}
     for (var i = 0; i < highscores.length; i++ ){
       this.game.add.text(10, 50*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)

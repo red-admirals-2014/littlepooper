@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   private
 
+  # create a current_user(getter) and login(setter) for session and stop
+  # use session[] everywhere.
   def check_logged
     unless session[:user_id]
       redirect_to root_path

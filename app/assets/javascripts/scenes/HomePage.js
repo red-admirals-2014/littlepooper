@@ -26,22 +26,22 @@ Scene.HomePage.prototype = {
 
     }
   },
+	
   update: function() {
-    if (SHOWFLAPPYOPTIONS){
+    if (!SHOWFLAPPYOPTIONS){
+	    this.happy = 100-2*this.poops.countLiving()
+	    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
+	    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
 
-    } else {
+	    this.poopCount.text = "Poops: " + this.poops.countLiving()
+	    this.happiness.text = "Happiness: " + this.happy
+	    this.nomnom.text = "Nom nom: " + this.hunger
 
-    this.happy = 100-2*this.poops.countLiving()
-    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
-    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
-
-    this.poopCount.text = "Poops: " + this.poops.countLiving()
-    this.happiness.text = "Happiness: " + this.happy
-    this.nomnom.text = "Nom nom: " + this.hunger
-
-    if (this.happy <= 0 || this.hunger <= 0)
-      this.green_dragon.animations.play('die')
+	    if (this.happy <= 0 || this.hunger <= 0)
+	      this.green_dragon.animations.play('die')
+	    }
     }
+
   },
   makeGreenDragon: function(){
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, 600, 'green_dragon')

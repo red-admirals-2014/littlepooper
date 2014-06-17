@@ -2,19 +2,19 @@ Scene.BugGame = function(game) {
 
     this.bugsTotal = 50;
     this.bugs = [];
-    bugsKilled = [];
-    bugsEscaped = [];
+    this.bugsKilled = [];
+    this.bugsEscaped = [];
 
-    bugWorldX = game.width
-    bugWorldY = game.height
+    this.bugWorldX = game.width
+    this.bugWorldY = game.height
 
 }
 
 Scene.BugGame.prototype = {
 
     create: function() {
-        bugsKilled = [];
-        bugsEscaped = [];
+        this.bugsKilled = [];
+        this.bugsEscaped = [];
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.add.sprite(0, 0, 'sidewalk-bg');
 
@@ -53,8 +53,8 @@ Scene.BugGame.prototype = {
             bush.body.immovable = true;
         }
 
-        score = this.game.add.text(10, 10, "Bugs Squashed: " + bugsKilled.length, {fill: 'white', font: 'bold 30pt Arial'});
-        escaped = this.game.add.text(10, 50, "Bugs Escaped: " + bugsEscaped.length, {fill: 'white', font: 'bold 30pt Arial'});
+        score = this.game.add.text(10, 10, "Bugs Squashed: " + this.bugsKilled.length, {fill: 'white', font: 'bold 30pt Arial'});
+        escaped = this.game.add.text(10, 50, "Bugs Escaped: " + this.bugsEscaped.length, {fill: 'white', font: 'bold 30pt Arial'});
     },
 
     moveMonster: function(pointer){
@@ -92,18 +92,18 @@ Scene.BugGame.prototype = {
                     this.bugs[i].bug.animations.play('kill')
                     this.bugs[i].bug.body.velocity.x = 0;
                     this.bugs[i].bug.body.velocity.y = 0;
-                    bugsKilled.push(this.bugs[i])
+                    this.bugsKilled.push(this.bugs[i])
                 }
-                if (this.bugs[i].bug.x < 0 || this.bugs[i].bug.y < 0 || this.bugs[i].bug.x > bugWorldX || this.bugs[i].bug.y > bugWorldY && this.bugs[i].bug.alive ){
+                if (this.bugs[i].bug.x < 0 || this.bugs[i].bug.y < 0 || this.bugs[i].bug.x > this.bugWorldX || this.bugs[i].bug.y > this.bugWorldY && this.bugs[i].bug.alive ){
                     this.bugs[i].alive = false;
-                    bugsEscaped.push(this.bugs[i])
+                    this.bugsEscaped.push(this.bugs[i])
                 }
 
                 this.bugs[i].update()
             }
         }
-        score.text = "Bugs Squashed: " + bugsKilled.length
-        escaped.text = "Bugs Escaped: " + bugsEscaped.length
+        score.text = "Bugs Squashed: " + this.bugsKilled.length
+        escaped.text = "Bugs Escaped: " + this.bugsEscaped.length
 
         var monster_speed = 10
 
@@ -111,7 +111,7 @@ Scene.BugGame.prototype = {
         this.monster.body.velocity.y = 0;
         this.game.input.onDown.add(this.moveMonster, this)
 
-        if(bugsKilled.length + bugsEscaped.length >= this.bugsTotal){
+        if(this.bugsKilled.length + this.bugsEscaped.length >= this.bugsTotal){
             this.gameOver()
         }
     },
@@ -122,8 +122,8 @@ Scene.BugGame.prototype = {
         for(var i in this.bugs){
             this.bugs[i].bug.destroy()
         }
-        this.game.add.button(50, bugWorldY-150, "homes_button", this.goHome, this, 0,1,2)
-        this.game.add.button(200, bugWorldY-150, "bugs_button", this.resetGame, this, 0,1,2)
+        this.game.add.button(50, this.bugWorldY-150, "homes_button", this.goHome, this, 0,1,2)
+        this.game.add.button(200, this.bugWorldY-150, "bugs_button", this.resetGame, this, 0,1,2)
 
     },
 
@@ -133,8 +133,8 @@ Scene.BugGame.prototype = {
         for(var i in this.bugs){
             this.bugs[i].bug.destroy()
         }
-        bugsKilled = [];
-        bugsEscaped = [];
+        this.bugsKilled = [];
+        this.bugsEscaped = [];
         this.game.state.start('BugGame');
 
     },
@@ -220,7 +220,3 @@ Bug.prototype = {
 
     }
 }
-
-
-
-

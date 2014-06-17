@@ -1,7 +1,7 @@
 (function () {
   var game = new Phaser.Game(450, 800, Phaser.AUTO, 'game_div');
 
-  SHOWFLAPPYOPTIONS = false
+  SHOWFLAPPYOPTIONS = false // unncessary global var
 
 
   game.state.add('Preloader', Scene.Preloader)
@@ -12,5 +12,3 @@
   game.state.add('Egg', Scene.Egg)
   game.state.start('Preloader'); // Go to Boot scene (start the game)
 })();
-
-
