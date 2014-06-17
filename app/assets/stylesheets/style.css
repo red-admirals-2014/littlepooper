@@ -1,4 +1,4 @@
-/*#game-container {
+#game-container {
   width: 630px;
   height: 1120px;
   margin: auto;
@@ -8,7 +8,7 @@
   right: 0; 
   bottom: 0;
   position: absolute;
-}*/
+}
 
 canvas {
   position: absolute;
