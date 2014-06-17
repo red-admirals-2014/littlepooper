@@ -24,14 +24,14 @@ Scene.HomePage.prototype = {
     this.ground.body.immovable = true
     this.ground.visibility = false
 
-    this.food_button = this.game.add.sprite(30,676, "food_button")
+    this.food_button = this.game.add.sprite(40,676, "food_button")
     this.food_button.inputEnabled = true;
     this.food_button.events.onInputDown.add(this.dropFood.bind(this), this)
-    this.exercise_button = this.game.add.sprite(240,676, "exercise_button")
+    this.exercise_button = this.game.add.sprite(175,676, "exercise_button")
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goExercise.bind(this), this)
 
-    this.exercise_button = this.game.add.sprite(30,10, "bug_button")
+    this.exercise_button = this.game.add.sprite(310,676, "bug_button")
     this.exercise_button.inputEnabled = true
     this.exercise_button.events.onInputDown.add(this.goSmash.bind(this), this)
 
