@@ -5,6 +5,7 @@ Scene.HomePage.prototype = {
 
 	create: function() {
     if (SHOWFLAPPYOPTIONS){
+      this.getHighScores()
       this.addPostFlappyButtons()  
     } else {    
       this.clouds = this.game.add.tileSprite(0,0, 450,180, 'clouds');
@@ -68,9 +69,8 @@ Scene.HomePage.prototype = {
   },
   addPostFlappyButtons: function(){
     this.game.stage.backgroundColor="#000"
-    this.play_again = this.game.add.button(75, 300, "exercise_button", this.goFly, this, 0,1,2)
-    this.return_home = this.game.add.button(250, 300, "homes_button", this.goHome, this, 0,1,2 )
-    this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
+    this.play_again = this.game.add.button(40, 676, "exercise_button", this.goFly, this, 0,1,2)
+    this.return_home = this.game.add.button(310, 676, "homes_button", this.goHome, this, 0,1,2 )
   },
   setupFood: function(){
     this.foods = this.game.add.group()
@@ -185,7 +185,7 @@ Scene.HomePage.prototype = {
     this.game.state.start('BugGame')
   },
   poop: function(xc, yc) {
-    this.happiness -= 2 * this.poops.countLiving()
+    // this.happiness -= 2 * this.poops.countLiving()
     this.updatePetStats()
 
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
@@ -228,25 +228,13 @@ Scene.HomePage.prototype = {
       url: '/get_pet_stats',
       type: 'GET'
     })
-    ajaxRequest.done(this.initialPetStats.bind(this))
+    ajaxRequest.done(this.initializePetStats.bind(this))
   },
-  initialPetStats: function(data){
-    if (data.happiness == null)
-      this.happiness = 100
-    else 
-      this.happiness = data.happiness
-    if (data.strength == null)
-      this.strength = 100
-    else 
-      this.strength = data.strength
-    if (data.nomnom == null)
-      this.nomnom = 100
-    else 
-      this.nomnom = data.nomnom
-    if (data.xp == null)
-      this.xp = 0
-    else
-      this.xp = data.xp
+  initializePetStats: function(data){
+    this.happiness = data.happiness
+    this.nomnom = data.nomnom
+    this.strength = data.strength
+    this.xp = data.xp
   },
   showStats: function(){
     this.xpDisplay = this.game.add.text(10, 175, "XP: " + this.xp, {fill: 'white', font: 'bold 20pt Arial'});
@@ -254,5 +242,19 @@ Scene.HomePage.prototype = {
     this.nomnomDisplay = this.game.add.text(10, 225, "Nom Nom: " + this.nomnom, {fill: 'white', font: 'bold 20pt Arial'});
     this.strengthDisplay = this.game.add.text(10, 250, "Strength: " + this.strength, {fill: 'white', font: 'bold 20pt Arial'});
     this.poopCount = this.game.add.text(10, 275, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
+  },
+  getHighScores: function(){
+    var ajaxRequest = $.ajax({
+      url: '/flappy_high_scores',
+      type: 'GET'
+    })
+    ajaxRequest.done(this.showHighScores.bind(this))
+  },
+  showHighScores: function(data){
+    highscores = JSON.parse(data.highscores)
+    this.style = { font: "30px Arial", fill :"#ffffff"}
+    for (var i = 0; i < highscores.length; i++ ){
+      this.game.add.text(10, 50*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
+    }
   },
 };
