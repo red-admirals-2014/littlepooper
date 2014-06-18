@@ -191,7 +191,7 @@ Scene.HomePage.prototype = {
     this.game.state.start('BugGame')
   },
   poop: function(xc, yc) {
-    // this.happiness -= 2 * this.poops.countLiving()
+    this.happiness -= 2 * this.poops.countLiving()
     this.updatePetStats()
 
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
