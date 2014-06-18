@@ -78,6 +78,7 @@ Scene.HomePage.prototype = {
     this.return_home = this.game.add.button(250, 300, "homes_button", this.goHome, this, 0,1,2 )
     this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
   },
+
   setupFood: function(){
     this.foods = this.game.add.group()
     this.foods.createMultiple(1, 'food')

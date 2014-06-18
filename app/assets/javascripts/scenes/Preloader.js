@@ -21,7 +21,7 @@ Scene.Preloader.prototype = {
 
     // this.game.load.image('dragon_play_again', '/images/replay_button.png')
 
-
+    this.game.load.image('rectangle', '/images/blackrectangle.png')
 
     //HOME PAGE SPRTIES
     this.game.load.image('forest','/images/home_background.png')
