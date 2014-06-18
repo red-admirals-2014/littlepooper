@@ -34,7 +34,11 @@ class GamesController < ApplicationController
 
     current_user.update_attributes(pet_xp: updated_xp, bugs_killed: lifetime_bugs_killed)
     render nothing: true
-    
+  end
+
+  def rankings
+    rankings = User.rankings
+    render json: {rankings: rankings.to_json}
   end
   
 end

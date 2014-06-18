@@ -17,6 +17,9 @@ Scene.HomePage.prototype = {
       this.addHomeButtons()
       this.getPetStats()
       this.showStats()
+
+      this.rectangle = this.game.add.sprite(0,0,'rectangle')
+      this.rectangle.alpha = 0
     }
   },
   update: function() {
@@ -60,7 +63,7 @@ Scene.HomePage.prototype = {
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this, 0, 0, 1)
     this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this, 0, 0, 1)
     this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this, 0, 0, 1)
-    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.checkRankings, this)
+    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.getRankings, this)
   },
   addGround: function(){
     this.platforms = this.game.add.group()
@@ -270,7 +273,30 @@ Scene.HomePage.prototype = {
       this.game.add.text(10, 50*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
     }
   },
-  checkRankings: function(){
-
+  getRankings: function(){
+    var ajaxRequest = $.ajax({
+      url: '/rankings',
+      type: 'GET'
+    })
+    ajaxRequest.done(this.checkRankings.bind(this))
   },
+  checkRankings: function(data){
+    this.fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 0.8}, 250, Phaser.Easing.Linear.None)
+    this.fadeIn.start()
+    rankings = JSON.parse(data.rankings)
+    this.rankingText = this.game.add.group()
+    this.style = { font: "30px Arial", fill :"#ffffff"}
+    this.rankingText.add(this.game.add.text(10, 25, "Leaderboard", { font: "50px Arial", fill :"#ffffff"}))
+    for (var i = 0; i < rankings.length; i++ ){
+      this.rankingText.add(this.game.add.text(10, 50*(i+2), i + 1 + ": " + rankings[i].username + " - " + rankings[i].pet_xp, this.style))
+    }
+    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.exitRankings, this)
+  },
+  exitRankings: function() {
+    this.fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 0}, 250, Phaser.Easing.Linear.None)
+    this.fadeIn.start()
+    this.rankingText.removeAll()
+    this.ladder_button.destroy()
+
+  }
 };

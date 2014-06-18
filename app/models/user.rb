@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
     self.update_attributes(total_points: self.total_points+score)    
   end
 
+  def self.rankings
+    User.order(pet_xp: :desc).limit(10)
+  end
+
 end
