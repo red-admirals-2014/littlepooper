@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get '/logged_in', to: "sessions#google_login_callback"
 
+  get '/logout', to: "sessions#destroy"
+
   resources :users, only: [:new, :index, :create] do
     get '/home', to: "games#game"
 

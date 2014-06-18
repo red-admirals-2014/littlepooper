@@ -56,15 +56,15 @@ Scene.HomePage.prototype = {
   greenDragonPoke: function() {
     if (this.game.input.activePointer.isDown) {
       this.green_dragon.animations.play('poke')
-      this.happiness += 30
+      this.happiness += 15
     }
   },
   addHomeButtons: function(){
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this, 0, 0, 1)
     this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this, 0, 0, 1)
     this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this, 0, 0, 1)
-    this.ladder_button = this.game.add.button(310, 175, "ranking_button", this.getRankings, this, 0, 0, 1)
-
+    this.ladder_button = this.game.add.button(320, 30, "ranking_button", this.getRankings, this, 0, 0, 1)
+    this.logout_button = this.game.add.button(30, 30, "logout_button", this.logOut, this, 0, 0, 1)
   },
   addGround: function(){
     this.platforms = this.game.add.group()
@@ -92,7 +92,7 @@ Scene.HomePage.prototype = {
 
     var amountMoved = Math.floor(Math.random()*(170)+70)
     this.nomnom -= Math.floor(amountMoved/50)
-    this.strength -= Math.floor(amountMoved/70)
+    this.strength -= Math.floor(amountMoved/100)
     if (amountMoved > 150)
       setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
     if (amountMoved%2==0)
@@ -183,14 +183,14 @@ Scene.HomePage.prototype = {
   },
 
   goFly: function(){
-    this.strength += 50
+    this.strength += 100
     this.updatePetStats()
 
     this.clearAllTimeouts()
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
-    this.strength += 50
+    this.strength += 75
     this.updatePetStats()
     
     this.clearAllTimeouts()
@@ -291,12 +291,15 @@ Scene.HomePage.prototype = {
     for (var i = 0; i < rankings.length; i++ ){
       this.rankingText.add(this.game.add.text(10, 50*(i+2), i + 1 + ": " + rankings[i].username + " - " + rankings[i].pet_xp, this.style))
     }
-    this.leaveRank_button = this.game.add.button(310, 175, "ranking_button", this.exitRankings, this, 0, 0, 1)
+    this.leaveRank_button = this.game.add.button(320, 30, "ranking_button", this.exitRankings, this, 0, 0, 1)
   },
   exitRankings: function() {
     this.fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 0}, 250, Phaser.Easing.Linear.None)
     this.fadeIn.start()
     this.rankingText.removeAll()
     this.leaveRank_button.destroy()
-  }
+  },
+  logOut: function(){
+    window.open("/logout", "_self")
+  },
 };

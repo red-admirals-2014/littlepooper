@@ -14,6 +14,7 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('food_button','/images/food_button_spritesheet.png',100, 100, 2)
     this.game.load.spritesheet('exercise_button','/images/flappydragon_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('ranking_button','/images/ranking_button_spritesheet.png', 100, 100, 2)
+    this.game.load.spritesheet('logout_button','/images/logout_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('bugs_button', '/images/bug_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('homes_button', '/images/home_button_spritesheet.png', 100, 100, 2)
     this.game.load.image('pipe', '/images/pipe.png')
