@@ -6,14 +6,12 @@ class GamesController < ApplicationController
   end
 
   def set_pet_stats
-    user = User.find(session[:user_id])
-    user.update_attributes(pet_happiness: params[:happiness].to_i, pet_strength: params[:strength].to_i, pet_nomnom: params[:nomnom].to_i, pet_xp: params[:xp].to_i)
+    current_user.update_attributes(pet_happiness: params[:happiness].to_i, pet_strength: params[:strength].to_i, pet_nomnom: params[:nomnom].to_i, pet_xp: params[:xp].to_i)
     render nothing: true
   end
 
   def get_pet_stats
-    user = User.find(session[:user_id])
-    render json: {happiness: user.pet_happiness, strength: user.pet_strength, nomnom: user.pet_nomnom, xp: user.pet_xp}
+    render json: {happiness: current_user.pet_happiness, strength: current_user.pet_strength, nomnom: current_user.pet_nomnom, xp: current_user.pet_xp}
   end
 
   def flappy_high_score
