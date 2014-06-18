@@ -63,7 +63,7 @@ Scene.HomePage.prototype = {
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this, 0, 0, 1)
     this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this, 0, 0, 1)
     this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this, 0, 0, 1)
-    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.getRankings, this)
+    this.ladder_button = this.game.add.button(310, 100, "ranking_button", this.getRankings, this, 0, 0, 1)
   },
   addGround: function(){
     this.platforms = this.game.add.group()
@@ -290,7 +290,7 @@ Scene.HomePage.prototype = {
     for (var i = 0; i < rankings.length; i++ ){
       this.rankingText.add(this.game.add.text(10, 50*(i+2), i + 1 + ": " + rankings[i].username + " - " + rankings[i].pet_xp, this.style))
     }
-    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.exitRankings, this)
+    this.ladder_button = this.game.add.button(310, 100, "ranking_button", this.exitRankings, this)
   },
   exitRankings: function() {
     this.fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 0}, 250, Phaser.Easing.Linear.None)
