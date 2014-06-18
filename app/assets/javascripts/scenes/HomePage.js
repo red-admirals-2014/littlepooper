@@ -7,7 +7,7 @@ Scene.HomePage.prototype = {
     if (SHOWFLAPPYOPTIONS){
       this.addPostFlappyButtons()  
     } else {    
-      this.clouds = this.game.add.tileSprite(0,0, 450,125, 'clouds');
+      this.clouds = this.game.add.tileSprite(0,0, 450,180, 'clouds');
       this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
       this.poops = this.game.add.group()
       this.makeGreenDragon()
