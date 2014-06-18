@@ -60,6 +60,7 @@ Scene.HomePage.prototype = {
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this)
     this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this)
     this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this)
+    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.checkRankings, this)
   },
   addGround: function(){
     this.platforms = this.game.add.group()
@@ -176,6 +177,9 @@ Scene.HomePage.prototype = {
     this.food.body.gravity.y = 0
     this.food.body.velocity.y = 0
   },
+  checkRankings: function(){
+
+  },
   goFly: function(){
     this.strength += 50
     this.updatePetStats()
@@ -218,10 +222,16 @@ Scene.HomePage.prototype = {
     SHOWFLAPPYOPTIONS = false
     this.game.state.start('HomePage')
   },
-  showHighScores: function(){
-    this.game.state.start('FlappyHighScores')
+
+  checkDeathPenalty: function(){
+    if (this.happiness <= 0 || this.nomnom <= 0 || this.strength <= 0){
+      if (this.xp >0) {
+        this.xp -= 1
+      }
+    }
   },
   updatePetStats: function(){
+    this.checkDeathPenalty()
     var ajaxRequest = $.ajax({
       url: '/set_pet_stats',
       type: 'POST',
