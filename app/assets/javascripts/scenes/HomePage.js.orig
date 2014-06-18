@@ -57,10 +57,16 @@ Scene.HomePage.prototype = {
     }
   },
   addHomeButtons: function(){
+<<<<<<< HEAD
+    this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this)
+    this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this)
+    this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this)
+    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.checkRankings, this)
+=======
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this, 0, 0, 1)
     this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this, 0, 0, 1)
     this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this, 0, 0, 1)
-    this.ladder_button = this.game.add.button(310, 100, "exercise_button", this.checkRankings, this)
+>>>>>>> master
   },
   addGround: function(){
     this.platforms = this.game.add.group()
@@ -177,7 +183,9 @@ Scene.HomePage.prototype = {
     this.food.body.gravity.y = 0
     this.food.body.velocity.y = 0
   },
+  checkRankings: function(){
 
+  },
   goFly: function(){
     this.strength += 50
     this.updatePetStats()
@@ -269,8 +277,5 @@ Scene.HomePage.prototype = {
     for (var i = 0; i < highscores.length; i++ ){
       this.game.add.text(10, 50*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
     }
-  },
-  checkRankings: function(){
-
   },
 };
