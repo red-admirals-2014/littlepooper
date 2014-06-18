@@ -9,8 +9,12 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('egg', '/images/egg_break.png', 118, 130, 6)
     this.game.load.spritesheet('green_dragon', '/images/green_dragon.png', 110, 110, 40)
     this.game.load.spritesheet('green_dragon_fly', '/images/green_dragon_fly.png', 140, 125, 12)
+    this.game.load.spritesheet('food_button','/images/food_button_spritesheet.png',100, 100, 2)
+    this.game.load.spritesheet('exercise_button','/images/flappydragon_button_spritesheet.png', 100, 100, 2)
+    this.game.load.spritesheet('bugs_button', '/images/bug_button_spritesheet.png', 100, 100, 2)
+    this.game.load.spritesheet('homes_button', '/images/home_button_spritesheet.png', 100, 100, 2)
     this.game.load.image('pipe', '/images/pipe.png')
-    this.game.load.image('homes_button', '/images/transparent_home_button.png')
+    // this.game.load.image('homes_button', '/images/transparent_home_button.png')
     this.game.load.image('clouds','/images/clouds.png');
     this.game.load.image('forest','/images/forest.png');
 
@@ -18,8 +22,8 @@ Scene.Preloader.prototype = {
     this.game.load.image('rank_button', '/images/transparent_ranks_button.png')
     //FOOD
     // this.game.load.spritesheet('food', '/images/food.png')
-    this.game.load.image('food_button', '/images/transparent_food_button.png')
-    this.game.load.image('exercise_button', '/images/transparent_flappydragon_button.png')
+    // this.game.load.image('food_button', '/images/transparent_food_button.png')
+    // this.game.load.image('exercise_button', '/images/transparent_flappydragon_button.png')
     this.game.load.image('food', '/images/food.png')
 
     //POOP
@@ -27,7 +31,7 @@ Scene.Preloader.prototype = {
 
 
     //BUG GAME
-    this.game.load.image('bugs_button', '/images/transparent_bug_button.png')
+    // this.game.load.image('bugs_button', '/images/transparent_bug_button.png')
     this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)

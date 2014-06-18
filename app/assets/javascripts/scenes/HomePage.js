@@ -57,9 +57,9 @@ Scene.HomePage.prototype = {
     }
   },
   addHomeButtons: function(){
-    this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this)
-    this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this)
-    this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this)
+    this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this, 0, 0, 1)
+    this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this, 0, 0, 1)
+    this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this, 0, 0, 1)
   },
   addGround: function(){
     this.platforms = this.game.add.group()
@@ -71,8 +71,8 @@ Scene.HomePage.prototype = {
   },
   addPostFlappyButtons: function(){
     this.game.stage.backgroundColor="#000"
-    this.play_again = this.game.add.button(40, 676, "exercise_button", this.goFly, this, 0,1,2)
-    this.return_home = this.game.add.button(310, 676, "homes_button", this.goHome, this, 0,1,2 )
+    this.play_again = this.game.add.button(40, 676, "exercise_button", this.goFly, this, 0,0,1)
+    this.return_home = this.game.add.button(310, 676, "homes_button", this.goHome, this, 0,0,1 )
   },
   setupFood: function(){
     this.foods = this.game.add.group()
