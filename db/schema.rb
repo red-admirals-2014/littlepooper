@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20140617163515) do
   enable_extension "plpgsql"
 
   create_table "pets", force: true do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 20140617163515) do
     t.datetime "updated_at"
     t.string   "petname"
     t.integer  "flappy_high_score", default: 0
-    t.integer  "total_points",      default: 0
+    t.integer  "total_points"
   end
 
 end
