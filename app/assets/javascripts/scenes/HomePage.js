@@ -56,7 +56,7 @@ Scene.HomePage.prototype = {
   greenDragonPoke: function() {
     if (this.game.input.activePointer.isDown) {
       this.green_dragon.animations.play('poke')
-      this.happiness += 30
+      this.happiness += 15
     }
   },
   addHomeButtons: function(){
@@ -92,7 +92,7 @@ Scene.HomePage.prototype = {
 
     var amountMoved = Math.floor(Math.random()*(170)+70)
     this.nomnom -= Math.floor(amountMoved/50)
-    this.strength -= Math.floor(amountMoved/70)
+    this.strength -= Math.floor(amountMoved/100)
     if (amountMoved > 150)
       setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
     if (amountMoved%2==0)
@@ -183,14 +183,14 @@ Scene.HomePage.prototype = {
   },
 
   goFly: function(){
-    this.strength += 50
+    this.strength += 100
     this.updatePetStats()
 
     this.clearAllTimeouts()
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
-    this.strength += 50
+    this.strength += 75
     this.updatePetStats()
     
     this.clearAllTimeouts()
