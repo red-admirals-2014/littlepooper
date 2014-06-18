@@ -121,8 +121,8 @@ Scene.BugGame.prototype = {
         this.player.monster.position.y = this.game.height/2-50
         this.player.monster.animations.play("idle")
         this.game.input.onDown.remove(this.player.moveMonster, this)
-        this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
-        this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,1,2)
+        this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,0,1)
+        this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,0,1)
     },
 
     playAgain: function(){
