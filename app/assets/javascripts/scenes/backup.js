@@ -42,9 +42,10 @@ Scene.HomePage.prototype = {
     this.nomnomDisplay.text = "Nom nom: " + this.nomnom
     this.strengthDisplay.text = "Strength: " + this.strength
     this.xpDisplay.text = "XP: " + this.xp
+    
 
-
-
+    if (this.happiness <= 0 || this.nomnom <= 0 || this.strength <= 0)
+      this.green_dragon.animations.play('die')
     }
   },
   makeGreenDragon: function(){
