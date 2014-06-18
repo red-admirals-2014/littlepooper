@@ -7,7 +7,8 @@ Scene.HomePage.prototype = {
     if (SHOWFLAPPYOPTIONS){
       this.addPostFlappyButtons()  
     } else {    
-      this.forest = this.game.add.tileSprite(0,0, 450,800, 'forest');
+      this.clouds = this.game.add.tileSprite(0,0, 450,125, 'clouds');
+      this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
       this.poops = this.game.add.group()
       this.makeGreenDragon()
       this.addGround()
@@ -21,6 +22,7 @@ Scene.HomePage.prototype = {
     this.updateFood()
     this.updateStatus()
     }
+    this.clouds.tilePosition.x += 1;
   },
   makeGreenDragon: function(){
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, 600, 'green_dragon')
