@@ -51,8 +51,10 @@ Scene.HomePage.prototype = {
     this.green_dragon.events.onInputDown.add(this.greenDragonPoke.bind(this))
   },
   greenDragonPoke: function() {
-    if (this.game.input.activePointer.isDown)
+    if (this.game.input.activePointer.isDown) {
       this.green_dragon.animations.play('poke')
+      this.happiness += 30
+    }
   },
   addHomeButtons: function(){
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this)
@@ -176,11 +178,15 @@ Scene.HomePage.prototype = {
   },
   goFly: function(){
     this.strength += 50
+    this.updatePetStats()
+
     this.clearAllTimeouts()
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
     this.strength += 50
+    this.updatePetStats()
+    
     this.clearAllTimeouts()
     this.game.state.start('BugGame')
   },
