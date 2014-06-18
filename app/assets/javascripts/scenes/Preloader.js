@@ -39,6 +39,11 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
 
+    //AUDIO
+    this.game.load.audio('flap','/audio/flap.mp3')
+    this.game.load.audio('point','/audio/point.mp3')
+    this.game.load.audio('crash','/audio/crash.mp3')
+
   },
   create: function() {
     // this.game.canvas.id = 'game-canvas'
