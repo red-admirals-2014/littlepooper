@@ -7,4 +7,11 @@ class User < ActiveRecord::Base
     User.order(flappy_high_score: :desc).limit(10)
   end
 
+  def updatescores(score)
+    if score > self.flappy_high_score
+      self.update_attributes(flappy_high_score: score)
+    end
+    self.update_attributes(total_points: self.total_points+score)    
+  end
+
 end
