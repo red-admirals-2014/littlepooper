@@ -13,8 +13,9 @@ Scene.HomePage.prototype = {
       this.makeGreenDragon()
       this.addGround()
       this.setupFood()
-      this.addStats()
       this.addHomeButtons()
+      this.getPetStats()
+      this.showStats()
     }
   },
   update: function() {
@@ -65,15 +66,6 @@ Scene.HomePage.prototype = {
     this.ground.body.immovable = true
     this.ground.visibility = false
   },
-  addStats: function(){
-    this.hunger = 100
-    this.exercise = 50
-    this.happy = 100
-    this.happiness = this.game.add.text(10, 200, "Happiness: " + this.happy, {fill: 'white', font: 'bold 20pt Arial'});
-    this.nomnom = this.game.add.text(10, 225, "Nom Nom: " + this.hunger, {fill: 'white', font: 'bold 20pt Arial'});
-    this.strength = this.game.add.text(10, 250, "Fitness: " + this.exercise, {fill: 'white', font: 'bold 20pt Arial'});
-    this.poopCount = this.game.add.text(10, 275, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
-  },
   addPostFlappyButtons: function(){
     this.game.stage.backgroundColor="#000"
     this.play_again = this.game.add.button(75, 300, "exercise_button", this.goFly, this, 0,1,2)
@@ -89,8 +81,11 @@ Scene.HomePage.prototype = {
     this.walkAroundDelay = setTimeout(this.walkAround.bind(this), 2000)
   },
   walkAround: function() {
+    this.updatePetStats()
+
     var amountMoved = Math.floor(Math.random()*(170)+70)
-    this.hunger -= Math.floor(amountMoved/50)
+    this.nomnom -= Math.floor(amountMoved/50)
+    this.strength -= Math.floor(amountMoved/70)
     if (amountMoved > 150)
       setTimeout(this.poop(this.green_dragon.position.x, this.green_dragon.position.y), 1000)
     if (amountMoved%2==0)
@@ -146,11 +141,12 @@ Scene.HomePage.prototype = {
     }
   },
   updateStatus: function(){
-    this.happy = 100-2*this.poops.countLiving()
     this.poopCount.text = "Poops: " + this.poops.countLiving()
-    this.happiness.text = "Happiness: " + this.happy
-    this.nomnom.text = "Nom nom: " + this.hunger
-    if (this.happy <= 0 || this.hunger <= 0)
+    this.happinessDisplay.text = "Happiness: " + this.happiness
+    this.nomnomDisplay.text = "Nom nom: " + this.nomnom
+    this.strengthDisplay.text = "Strength: " + this.strength
+    this.xpDisplay.text = "XP: " + this.xp
+    if (this.happiness <= 0 || this.nomnom <= 0 || this.strength <= 0)
       this.green_dragon.animations.play('die')
   },
   updateFood: function(){
@@ -165,11 +161,13 @@ Scene.HomePage.prototype = {
 
   },
   eatFood: function(){
+    this.updatePetStats()
+
     this.food.kill()
     this.green_dragon.animations.play('eat')
     this.clearAllTimeouts()
     this.eatRestDelay = setTimeout(this.restMotion.bind(this), 2000)
-    this.hunger += 5
+    this.nomnom += 25
 
   },
   collision: function(){
@@ -177,15 +175,19 @@ Scene.HomePage.prototype = {
     this.food.body.velocity.y = 0
   },
   goFly: function(){
+    this.strength += 50
     this.clearAllTimeouts()
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
+    this.strength += 50
     this.clearAllTimeouts()
     this.game.state.start('BugGame')
-    this.exercise += 10
   },
   poop: function(xc, yc) {
+    this.happiness -= 2 * this.poops.countLiving()
+    this.updatePetStats()
+
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
     this.poopie.position.z = -10
     this.poopie.anchor.set(0.5)
@@ -202,6 +204,9 @@ Scene.HomePage.prototype = {
   cleanPoop: function() {
     if (this.game.input.activePointer.isDown)
       this.poops.removeAll()
+      this.happiness +=30
+      this.updatePetStats()
+
   },
   goHome: function(){
     SHOWFLAPPYOPTIONS = false
@@ -209,5 +214,45 @@ Scene.HomePage.prototype = {
   },
   showHighScores: function(){
     this.game.state.start('FlappyHighScores')
-  }
+  },
+  updatePetStats: function(){
+    var ajaxRequest = $.ajax({
+      url: '/set_pet_stats',
+      type: 'POST',
+      data: 'happiness=' + this.happiness + '&nomnom=' + this.nomnom + '&strength=' + this.strength + '&xp=' + this.xp
+    })
+    console.log("test")
+  },
+  getPetStats: function(){
+    var ajaxRequest = $.ajax({
+      url: '/get_pet_stats',
+      type: 'GET'
+    })
+    ajaxRequest.done(this.initialPetStats.bind(this))
+  },
+  initialPetStats: function(data){
+    if (data.happiness == null)
+      this.happiness = 100
+    else 
+      this.happiness = data.happiness
+    if (data.strength == null)
+      this.strength = 100
+    else 
+      this.strength = data.strength
+    if (data.nomnom == null)
+      this.nomnom = 100
+    else 
+      this.nomnom = data.nomnom
+    if (data.xp == null)
+      this.xp = 0
+    else
+      this.xp = data.xp
+  },
+  showStats: function(){
+    this.xpDisplay = this.game.add.text(10, 175, "XP: " + this.xp, {fill: 'white', font: 'bold 20pt Arial'});
+    this.happinessDisplay = this.game.add.text(10, 200, "Happiness: " + this.happiness, {fill: 'white', font: 'bold 20pt Arial'});
+    this.nomnomDisplay = this.game.add.text(10, 225, "Nom Nom: " + this.nomnom, {fill: 'white', font: 'bold 20pt Arial'});
+    this.strengthDisplay = this.game.add.text(10, 250, "Strength: " + this.strength, {fill: 'white', font: 'bold 20pt Arial'});
+    this.poopCount = this.game.add.text(10, 275, "Poops: " + this.poops.countLiving(), {fill: 'white', font: 'bold 20pt Arial'});
+  },
 };
