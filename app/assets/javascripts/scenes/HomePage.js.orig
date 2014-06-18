@@ -5,6 +5,47 @@ Scene.HomePage.prototype = {
 
 	create: function() {
     if (SHOWFLAPPYOPTIONS){
+<<<<<<< HEAD
+      this.addPostFlappyButtons()
+      
+    } else {
+    
+    this.forest = this.game.add.tileSprite(0,0, 450,800, 'forest');
+
+    this.poops = this.game.add.group()
+
+    this.makeGreenDragon()
+    this.addGround()
+
+    this.foods = this.game.add.group()
+    this.foods.createMultiple(1, 'food')
+
+
+
+
+    this.addHomeButtons()
+
+    this.restMotion()
+
+    }
+  },
+  update: function() {
+    if (SHOWFLAPPYOPTIONS){
+
+    } else {
+
+    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
+    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
+
+    this.poopCount.text = "Poops: " + this.poops.countLiving()
+    this.happinessDisplay.text = "Happiness: " + this.happiness
+    this.nomnomDisplay.text = "Nom nom: " + this.nomnom
+    this.strengthDisplay.text = "Strength: " + this.strength
+    this.xpDisplay.text = "XP: " + this.xp
+
+
+
+=======
       this.addPostFlappyButtons()  
     } else {    
       this.clouds = this.game.add.tileSprite(0,0, 450,125, 'clouds');
@@ -15,15 +56,13 @@ Scene.HomePage.prototype = {
       this.setupFood()
       this.addStats()
       this.addHomeButtons()
-      this.getPetStats()
-      this.showStats()
-      // this.restMotion()
     }
   },
   update: function() {
     if (!SHOWFLAPPYOPTIONS){
     this.updateFood()
     this.updateStatus()
+>>>>>>> master
     }
     this.clouds.tilePosition.x += 1;
   },
@@ -54,7 +93,7 @@ Scene.HomePage.prototype = {
   greenDragonPoke: function() {
     if (this.game.input.activePointer.isDown){
       this.green_dragon.animations.play('poke')
-      this.happiness += 20
+      this.happiness += 2
     }
   },
   addHomeButtons: function(){
@@ -188,15 +227,11 @@ Scene.HomePage.prototype = {
     }
   },
   updateStatus: function(){
-
+    this.happy = 100-2*this.poops.countLiving()
     this.poopCount.text = "Poops: " + this.poops.countLiving()
-    this.happinessDisplay.text = "Happiness: " + this.happiness
-    this.nomnomDisplay.text = "Nom nom: " + this.nomnom
-    this.strengthDisplay.text = "Strength: " + this.strength
-    this.xpDisplay.text = "XP: " + this.xp
-
-
-    if (this.happy <= 0 || this.hunger <= 0 || this.strength <= 0)
+    this.happiness.text = "Happiness: " + this.happy
+    this.nomnom.text = "Nom nom: " + this.hunger
+    if (this.happy <= 0 || this.hunger <= 0)
       this.green_dragon.animations.play('die')
   },
   updateFood: function(){
@@ -235,6 +270,10 @@ Scene.HomePage.prototype = {
 
     this.clearAllTimeouts()
     this.game.state.start('BugGame')
+<<<<<<< HEAD
+=======
+    this.exercise += 10
+>>>>>>> master
   },
   poop: function(xc, yc) {
     this.updatePetStats()
@@ -246,7 +285,10 @@ Scene.HomePage.prototype = {
     this.poopie.input.useHandCursor=true
     this.poopie.events.onInputDown.add(this.cleanPoop.bind(this))
     this.poops.add(this.poopie)
+<<<<<<< HEAD
     this.happiness -= 2*this.poops.countLiving()
+=======
+>>>>>>> master
   },
   getLevel: function() {
     var ajaxRequest = $.ajax({
