@@ -21,12 +21,12 @@ Scene.FlappyDragon.prototype = {
       this.alive = true
       this.score = 0
     },
-    setPipes: function(){
+    setPipesAndLoop: function(){
       this.pipes = this.game.add.group()
       this.pipes.createMultiple(30, 'pipe')
       this.timer = this.game.time.events.loop(1750, this.add_row_of_pipes, this)
     },
-    bindKeys: function(){
+    bindInputs: function(){
       this.game.input.onDown.add(this.jump, this)
     },
     jump: function() {
@@ -37,7 +37,7 @@ Scene.FlappyDragon.prototype = {
     makeGreenDragon: function(){
       this.green_dragon_fly = this.game.add.sprite(50,245,'green_dragon_fly')
       this.addGreenDragonAnimations()
-      this.addGreenDragonPhysics
+      this.addGreenDragonPhysics()
       this.setGreenDragonHitBox()
       
     },
