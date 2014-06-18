@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   end
 
   def update_pet_stats(stats)
-    current_user.update_attributes(pet_happiness: stats[:happiness].to_i, pet_strength: stats[:strength].to_i, pet_nomnom: stats[:nomnom].to_i, pet_xp: stats[:xp].to_i)
+    self.update_attributes(pet_happiness: stats[:happiness].to_i, pet_strength: stats[:strength].to_i, pet_nomnom: stats[:nomnom].to_i, pet_xp: stats[:xp].to_i)
   end
 
   def update_flappy_stats_and_xp(score)
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   def update_bug_stats_and_xp(bugs_killed)
     updated_xp = self.pet_xp + bugs_killed
     updated_bugs_killed = self.bugs_killed + bugs_killed
-    current_user.update_attributes(pet_xp: updated_xp, bugs_killed: updated_bugs_killed)
+    self.update_attributes(pet_xp: updated_xp, bugs_killed: updated_bugs_killed)
   end
   
   def self.rankings
