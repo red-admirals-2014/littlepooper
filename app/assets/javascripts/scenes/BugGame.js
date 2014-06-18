@@ -65,7 +65,7 @@ Scene.BugGame.prototype = {
                 this.bugs[i].moveBugAtRandomIntervals(this.min_bug_speed, this.max_bug_speed)
             }
         }
-
+        this.updateStats()
         this.game.input.onDown.add(this.player.moveMonster, this)
         this.checkGameOver()
     },
@@ -76,7 +76,11 @@ Scene.BugGame.prototype = {
     },
 
     outOfBounds: function(bug_obj){
-        bug_obj.bug.x < 0 || bug_obj.bug.y < 0 || bug_obj.bug.x > this.game.width || bug_obj.bug.y > this.game.height && bug_obj.alive
+        if(bug_obj.bug.x < 0 || bug_obj.bug.y < 0 || bug_obj.bug.x > this.game.width || bug_obj.bug.y > this.game.height && bug_obj.alive){
+            return true
+        } else {
+            return false
+        }
     },
 
     killBug: function(bug_obj, option){
@@ -86,6 +90,7 @@ Scene.BugGame.prototype = {
             this.bugsKilled.push(bug_obj)
         }
         if(option === "escape"){
+            bug_obj.bug.alive = false
             this.bugsEscaped.push(bug_obj)
         }
     },
@@ -130,9 +135,7 @@ Scene.BugGame.prototype = {
         this.resetGame()
         this.game.state.start('HomePage')
     },
-
 }
-
 
 // Player(s) / Enemies classes
 
@@ -165,8 +168,6 @@ Monster.prototype = {
 
 }
 
-
-
 function Bug(name, game) {
     var kill_frames = [12,13,14]
     var select_kill = kill_frames[Math.floor(Math.random()*kill_frames.length)];
@@ -182,7 +183,6 @@ function Bug(name, game) {
 
 
 Bug.prototype = {
-
 
     smashed: function(){
         this.bug.animations.play('kill')
