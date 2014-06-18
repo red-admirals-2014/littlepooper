@@ -227,7 +227,6 @@ Scene.HomePage.prototype = {
       type: 'POST',
       data: 'happiness=' + this.happiness + '&nomnom=' + this.nomnom + '&strength=' + this.strength + '&xp=' + this.xp
     })
-    console.log("test")
   },
   getPetStats: function(){
     var ajaxRequest = $.ajax({
