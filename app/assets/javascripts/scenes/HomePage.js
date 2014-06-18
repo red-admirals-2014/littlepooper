@@ -15,7 +15,6 @@ Scene.HomePage.prototype = {
       this.setupFood()
       this.addStats()
       this.addHomeButtons()
-      this.restMotion()
     }
   },
   update: function() {
@@ -42,6 +41,7 @@ Scene.HomePage.prototype = {
     this.green_dragon.anchor.set(0.5)
     this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
     this.green_dragon.body.collideWorldBounds = true
+    this.restMotion()
   },
   addGreenDragonClick: function(){
     this.green_dragon.inputEnabled=true
