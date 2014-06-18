@@ -185,7 +185,7 @@ Scene.HomePage.prototype = {
     this.game.state.start('BugGame')
   },
   poop: function(xc, yc) {
-    this.happiness -= 2 * this.poops.countLiving()
+    // this.happiness -= 2 * this.poops.countLiving()
     this.updatePetStats()
 
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
@@ -228,25 +228,13 @@ Scene.HomePage.prototype = {
       url: '/get_pet_stats',
       type: 'GET'
     })
-    ajaxRequest.done(this.initialPetStats.bind(this))
+    ajaxRequest.done(this.initializePetStats.bind(this))
   },
-  initialPetStats: function(data){
-    if (data.happiness == null)
-      this.happiness = 100
-    else 
-      this.happiness = data.happiness
-    if (data.strength == null)
-      this.strength = 100
-    else 
-      this.strength = data.strength
-    if (data.nomnom == null)
-      this.nomnom = 100
-    else 
-      this.nomnom = data.nomnom
-    if (data.xp == null)
-      this.xp = 0
-    else
-      this.xp = data.xp
+  initializePetStats: function(data){
+    this.happiness = data.happiness
+    this.nomnom = data.nomnom
+    this.strength = data.strength
+    this.xp = data.xp
   },
   showStats: function(){
     this.xpDisplay = this.game.add.text(10, 175, "XP: " + this.xp, {fill: 'white', font: 'bold 20pt Arial'});
