@@ -47,6 +47,11 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
 
+    //CLOUD JUMP
+    this.game.load.image('cloud', '/images/cloud.png')
+
+
+
     // this.game.load.image('playAgain', '/images/bug_smash/play_again_button.png', 200, 100)
 
 
@@ -65,7 +70,7 @@ Scene.Preloader.prototype = {
   },
   gofull: function() {
     // this.game.scale.startFullScreen();
-    this.game.state.start('HomePage')
+    this.game.state.start('CloudJump')
 
   },
 

@@ -5,8 +5,8 @@ Scene.HomePage.prototype = {
 
 	create: function() {
     if (SHOWFLAPPYOPTIONS){
-      this.addPostFlappyButtons()  
-    } else {    
+      this.addPostFlappyButtons()
+    } else {
       this.clouds = this.game.add.tileSprite(0,0, 450,125, 'clouds');
       this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
       this.poops = this.game.add.group()
@@ -112,7 +112,7 @@ Scene.HomePage.prototype = {
     }
     this.green_dragon.animations.play('walk')
     var leftWalk = this.game.add.tween(this.green_dragon)
-    
+
     if (this.green_dragon.position.x - amountMoved < 0 ){
       amountMoved = this.green_dragon.position.x - 55
     }
