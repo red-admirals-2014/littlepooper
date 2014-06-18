@@ -6,10 +6,10 @@ Scene.Preloader = function(game) {
 Scene.Preloader.prototype = {
   preload: function() {
     this.startLoadingAnimation()
-    this.loadButtonGraphics()
-    this.loadHomePageGraphics()
-    this.loadFlappyDragonGraphics()
-    this.loadBugGameGraphics()
+    this.loadButtons()
+    this.loadHomePage()
+    this.loadFlappyDragon()
+    this.loadBugGame()
   },
   create: function() {
     this.stopLoadingAnimation()
@@ -23,7 +23,7 @@ Scene.Preloader.prototype = {
   stopLoadingAnimation: function(){
     this.egg.angle = 0
     this.game.time.events.remove(this.wiggle)
-  }
+  },
   wiggleEgg: function(){
     if (this.egg.angle < 5){
         this.egg.angle = 5
@@ -31,7 +31,7 @@ Scene.Preloader.prototype = {
         this.egg.angle = -5
     }
   },
-  loadButtonGraphics: function() {
+  loadButtons: function() {
         this.game.load.spritesheet('food_button','/images/food_button_spritesheet.png',100, 100, 2)
     this.game.load.spritesheet('exercise_button','/images/flappydragon_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('ranking_button','/images/ranking_button_spritesheet.png', 100, 100, 2)
@@ -40,7 +40,7 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('homes_button', '/images/home_button_spritesheet.png', 100, 100, 2)
     this.game.load.image('rank_button', '/images/transparent_ranks_button.png')
   },
-  loadHomePageGraphics: function(){
+  loadHomePage: function(){
     this.game.load.spritesheet('green_dragon', '/images/green_dragon.png', 110, 110, 40)
     this.game.load.image('clouds','/images/clouds.png');
     this.game.load.image('forest','/images/forest.png');
@@ -49,11 +49,14 @@ Scene.Preloader.prototype = {
     this.game.load.image('food', '/images/food.png')
     this.game.load.image('poop', '/images/poopie.png')
   },
-  loadFlappyDragonGraphics: function(){
+  loadFlappyDragon: function(){
     this.game.load.spritesheet('green_dragon_fly', '/images/green_dragon_fly.png', 140, 125, 12)
     this.game.load.image('pipe', '/images/pipe.png')
+    this.game.load.audio('flap','/audio/flap.mp3')
+    this.game.load.audio('point','/audio/point.mp3')
+    this.game.load.audio('crash','/audio/crash.mp3')
   },
-  loadBugGameGraphics: function(){
+  loadBugGame: function(){
     this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)

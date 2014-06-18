@@ -15,6 +15,10 @@ Scene.FlappyDragon.prototype = {
       this.addCurrentScore()
       this.rectangle = this.game.add.sprite(0,0,'rectangle')
       this.rectangle.alpha = 0
+      this.flap = this.game.add.audio('flap')
+      this.point = this.game.add.audio('point')
+      this.crash = this.game.add.audio('crash')
+
     },
     update: function() {
       this.checkDead()
@@ -36,6 +40,7 @@ Scene.FlappyDragon.prototype = {
     jump: function() {
       if (this.alive){
       this.green_dragon_fly.body.velocity.y = -550
+      this.flap.play();
       }
     },
     makeGreenDragon: function(){
@@ -74,6 +79,7 @@ Scene.FlappyDragon.prototype = {
       SHOWFLAPPYOPTIONS = true
       if (this.first_time){
         this.first_time = false
+        this.crash.play();
         this.updateScores()
         var fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 1}, 1250, Phaser.Easing.Linear.None)
         fadeIn.start()
@@ -91,6 +97,7 @@ Scene.FlappyDragon.prototype = {
         p.kill()
       }, this)
       this.green_dragon_fly.body.gravity.y=2000;
+      
       this.game.time.events.remove(this.timer)
     },
     updateScores: function(){
@@ -109,6 +116,7 @@ Scene.FlappyDragon.prototype = {
       pipe.outOfBoundsKill = true
     },
     add_row_of_pipes: function(){
+      this.point.play();
       this.score += 1;
       this.label_score.text = this.score;
       var hole = (Math.floor(Math.random()*10)+1)
