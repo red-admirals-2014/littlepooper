@@ -73,8 +73,8 @@ Scene.FlappyDragon.prototype = {
       this.deathAnimations()
       SHOWFLAPPYOPTIONS = true
       if (this.first_time){
-        this.updateScores()
         this.first_time = false
+        this.updateScores()
         var fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 1}, 1250, Phaser.Easing.Linear.None)
         fadeIn.start()
         this.fadeOut = setTimeout(this.goHome.bind(this), 1250)
