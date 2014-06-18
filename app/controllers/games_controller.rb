@@ -27,5 +27,14 @@ class GamesController < ApplicationController
     @highscores = @highscores.to_json
     render json: {highscores: @highscores}
   end
+
+  def set_bugs_killed
+    updated_xp = current_user.pet_xp + params[:bugs_killed].to_i
+    lifetime_bugs_killed = current_user.bugs_killed + params[:bugs_killed].to_i
+
+    current_user.update_attributes(pet_xp: updated_xp, bugs_killed: lifetime_bugs_killed)
+    render nothing: true
+    
+  end
   
 end

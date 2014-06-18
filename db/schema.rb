@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618034136) do
+ActiveRecord::Schema.define(version: 20140618161546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140618034136) do
     t.integer  "pet_strength",      default: 100
     t.integer  "pet_nomnom",        default: 100
     t.integer  "pet_xp",            default: 0
+    t.integer  "bugs_killed",       default: 0
   end
 
 end

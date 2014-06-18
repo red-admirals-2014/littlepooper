@@ -100,8 +100,16 @@ Scene.BugGame.prototype = {
             this.gameOver()
         }
     },
-
+    updateBugStats: function(){
+        var ajaxRequest = $.ajax({
+          url: '/set_bugs_killed',
+          type: 'POST',
+          data: 'bugs_killed=' + this.bugsKilled.length
+        })
+    },
     gameOver: function() {
+        
+
         if(this.bugsKilled.length > 20){
         this.game.add.text(this.game.width/2, this.game.height/2-100, "Smashtastic!", {align: 'center', fill: 'red', font: 'bold 50pt Arial', stroke: 'white', strokeThickness: 8 }).anchor.set(0.5, 0.5)
         }
@@ -118,6 +126,8 @@ Scene.BugGame.prototype = {
     },
 
     playAgain: function(){
+        this.updateBugStats()
+
         this.resetGame
         this.game.state.start('BugGame');
     },
@@ -132,6 +142,8 @@ Scene.BugGame.prototype = {
     },
 
     goHome: function(){
+        this.updateBugStats()
+        
         this.resetGame()
         this.game.state.start('HomePage')
     },
