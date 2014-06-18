@@ -15,7 +15,7 @@ Scene.Preloader.prototype = {
     this.game.load.image('forest','/images/forest.png');
 
     this.game.load.image('rectangle', '/images/blackrectangle.png')
-
+    this.game.load.image('rank_button', '/images/transparent_ranks_button.png')
     //FOOD
     // this.game.load.spritesheet('food', '/images/food.png')
     this.game.load.image('food_button', '/images/transparent_food_button.png')
