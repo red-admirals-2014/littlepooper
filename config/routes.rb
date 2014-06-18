@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get '/flappy_high_scores', to: "games#flappy_high_scores"
 
+  get '/rankings', to: "games#rankings"
+
   get '/google_login', to: "sessions#google_login"
 
   get '/logged_in', to: "sessions#google_login_callback"
