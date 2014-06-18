@@ -25,6 +25,31 @@
 	  font-size: 2.3em;
 	  text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
 	}
+
+	input[type=text] {
+	  font-family:'pxl';
+	  width: 90%;
+	  font-size: 3.5em;
+	  border-radius:10px;
+	}
+
+	input[type=password] {
+	  font-family:'pxl';
+	  width: 90%;
+	  font-size: 3.5em;
+	  border-radius:10px;
+	}
+	input[type=submit] {
+	  background-image: url(http://i.imgur.com/iRRFxmB.png);
+	}
+
+	.or {
+	  font-family:'pxl';
+	  margin-top: -0.1em;
+	  margin-bottom: 0.2em;
+	  font-size: 3em;
+	  color: white;
+	}
 }
 
 /*WEB BROWSER FOR DESKTOP*/
@@ -55,6 +80,31 @@
 	  margin-top: 20%;
 	  font-size: 4em;
 	  text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
+	}
+
+	input[type=text] {
+	  font-family:'pxl';
+	  width: 90%;
+	  font-size: 5.5em;
+	  border-radius:10px;
+	}
+
+	input[type=password] {
+	  font-family:'pxl';
+	  width: 90%;
+	  font-size: 5.5em;
+	  border-radius:10px;
+	}
+	input[type=submit] {
+	  background-image: url(http://i.imgur.com/iRRFxmB.png);
+	}
+
+	.or {
+	  font-family:'pxl';
+	  margin-top: -0.1em;
+	  margin-bottom: 0.2em;
+	  font-size: 5em;
+	  color: white;
 	}
 }
 
