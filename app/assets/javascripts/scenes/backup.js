@@ -5,27 +5,48 @@ Scene.HomePage.prototype = {
 
 	create: function() {
     if (SHOWFLAPPYOPTIONS){
-      this.addPostFlappyButtons()  
-    } else {    
-      this.clouds = this.game.add.tileSprite(0,0, 450,125, 'clouds');
-      this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
-      this.poops = this.game.add.group()
-      this.makeGreenDragon()
-      this.addGround()
-      this.setupFood()
-      this.addStats()
-      this.addHomeButtons()
-      this.getPetStats()
-      this.showStats()
-      // this.restMotion()
+      this.addPostFlappyButtons()
+      
+    } else {
+    
+    this.forest = this.game.add.tileSprite(0,0, 450,800, 'forest');
+
+    this.poops = this.game.add.group()
+
+    this.makeGreenDragon()
+    this.addGround()
+
+    this.foods = this.game.add.group()
+    this.foods.createMultiple(1, 'food')
+
+    this.getPetStats()
+    this.showStats()
+
+
+    this.addHomeButtons()
+
+    this.restMotion()
+
     }
   },
   update: function() {
-    if (!SHOWFLAPPYOPTIONS){
-    this.updateFood()
-    this.updateStatus()
+    if (SHOWFLAPPYOPTIONS){
+
+    } else {
+
+    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
+    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
+
+    this.poopCount.text = "Poops: " + this.poops.countLiving()
+    this.happinessDisplay.text = "Happiness: " + this.happiness
+    this.nomnomDisplay.text = "Nom nom: " + this.nomnom
+    this.strengthDisplay.text = "Strength: " + this.strength
+    this.xpDisplay.text = "XP: " + this.xp
+    
+
+    if (this.happiness <= 0 || this.nomnom <= 0 || this.strength <= 0)
+      this.green_dragon.animations.play('die')
     }
-    this.clouds.tilePosition.x += 1;
   },
   makeGreenDragon: function(){
     this.green_dragon = this.game.add.sprite(this.game.world.centerX, 600, 'green_dragon')
@@ -44,7 +65,6 @@ Scene.HomePage.prototype = {
     this.green_dragon.anchor.set(0.5)
     this.game.physics.enable(this.green_dragon, Phaser.Physics.arcade)
     this.green_dragon.body.collideWorldBounds = true
-    this.restMotion()
   },
   addGreenDragonClick: function(){
     this.green_dragon.inputEnabled=true
@@ -54,7 +74,7 @@ Scene.HomePage.prototype = {
   greenDragonPoke: function() {
     if (this.game.input.activePointer.isDown){
       this.green_dragon.animations.play('poke')
-      this.happiness += 20
+      this.happiness += 2
     }
   },
   addHomeButtons: function(){
@@ -116,11 +136,6 @@ Scene.HomePage.prototype = {
     this.return_home = this.game.add.button(250, 300, "homes_button", this.goHome, this, 0,1,2 )
     this.high_scores = this.game.add.button(75, 100, "egg", this.showHighScores, this, 0,1,2)
   },
-
-  setupFood: function(){
-    this.foods = this.game.add.group()
-    this.foods.createMultiple(1, 'food')
-  },
   restMotion: function() {
     this.green_dragon.animations.play('rest')
     this.walkAroundDelay = setTimeout(this.walkAround.bind(this), 2000)
@@ -163,6 +178,9 @@ Scene.HomePage.prototype = {
     leftWalk.to({x: this.green_dragon.position.x-amountMoved}, amountMoved*10)
     leftWalk.start()
     this.leftRestDelay = setTimeout(this.restMotion.bind(this), amountMoved*10)
+
+
+    
   },
   walkRight: function(amountMoved) {
     if (this.green_dragon.scale.x > 0) {
@@ -187,22 +205,6 @@ Scene.HomePage.prototype = {
     this.food.reset(this.green_dragon.position.x, 0)
     this.food.body.gravity.y = 2000
     }
-  },
-  updateStatus: function(){
-
-    this.poopCount.text = "Poops: " + this.poops.countLiving()
-    this.happinessDisplay.text = "Happiness: " + this.happiness
-    this.nomnomDisplay.text = "Nom nom: " + this.nomnom
-    this.strengthDisplay.text = "Strength: " + this.strength
-    this.xpDisplay.text = "XP: " + this.xp
-
-
-    if (this.happy <= 0 || this.hunger <= 0 || this.strength <= 0)
-      this.green_dragon.animations.play('die')
-  },
-  updateFood: function(){
-    this.game.physics.arcade.overlap(this.green_dragon, this.foods, this.eatFood.bind(this), null, this)
-    this.game.physics.arcade.collide(this.ground, this.foods, this.collision.bind(this), null, this)
   },
   clearAllTimeouts: function(){
     clearTimeout(this.rightRestDelay)
@@ -242,6 +244,8 @@ Scene.HomePage.prototype = {
 
     this.poopie = this.game.add.sprite(xc, yc+40, 'poop')
     this.poopie.position.z = -10
+    // this.poopie.scale.x *= 0.1
+    // this.poopie.scale.y *= 0.1
     this.poopie.anchor.set(0.5)
     this.poopie.inputEnabled=true
     this.poopie.input.useHandCursor=true

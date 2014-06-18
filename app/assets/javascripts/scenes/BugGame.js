@@ -57,22 +57,42 @@ Scene.BugGame.prototype = {
         for(var i in this.bugs){
             if (this.bugs[i].alive) {
                 if (this.checkOverlap(this.bugs[i].bug, this.player.monster)){
-                    this.bugs[i].smashed()
-                    this.bugsKilled.push(this.bugs[i])
+                    this.killBug(this.bugs[i], 'smash');
                 }
-                if (this.bugs[i].bug.x < 0 || this.bugs[i].bug.y < 0 || this.bugs[i].bug.x > this.game.width || this.bugs[i].bug.y > this.game.height && this.bugs[i].bug.alive ){
-                    this.bugs[i].alive = false
-                    this.bugsEscaped.push(this.bugs[i])
+                if (this.outOfBounds(this.bugs[i])){
+                    this.killBug(this.bugs[i], 'escape');
                 }
                 this.bugs[i].moveBugAtRandomIntervals(this.min_bug_speed, this.max_bug_speed)
             }
         }
+        this.updateStats()
+        this.game.input.onDown.add(this.player.moveMonster, this)
+        this.checkGameOver()
+    },
 
+    updateStats: function(){
         this.score.text = "Bugs Squashed: " + this.bugsKilled.length
         this.escaped.text = "Bugs Escaped: " + this.bugsEscaped.length
-        this.game.input.onDown.add(this.player.moveMonster, this)
+    },
 
-        this.checkGameOver()
+    outOfBounds: function(bug_obj){
+        if(bug_obj.bug.x < 0 || bug_obj.bug.y < 0 || bug_obj.bug.x > this.game.width || bug_obj.bug.y > this.game.height && bug_obj.alive){
+            return true
+        } else {
+            return false
+        }
+    },
+
+    killBug: function(bug_obj, option){
+        bug_obj.alive = false
+        if(option === "smash"){
+            bug_obj.smashed()
+            this.bugsKilled.push(bug_obj)
+        }
+        if(option === "escape"){
+            bug_obj.bug.alive = false
+            this.bugsEscaped.push(bug_obj)
+        }
     },
 
     checkGameOver: function(){
@@ -115,9 +135,7 @@ Scene.BugGame.prototype = {
         this.resetGame()
         this.game.state.start('HomePage')
     },
-
 }
-
 
 // Player(s) / Enemies classes
 
@@ -150,8 +168,6 @@ Monster.prototype = {
 
 }
 
-
-
 function Bug(name, game) {
     var kill_frames = [12,13,14]
     var select_kill = kill_frames[Math.floor(Math.random()*kill_frames.length)];
@@ -168,9 +184,7 @@ function Bug(name, game) {
 
 Bug.prototype = {
 
-
     smashed: function(){
-        this.alive = false;
         this.bug.animations.play('kill')
         this.bug.body.velocity.x = 0;
         this.bug.body.velocity.y = 0;
