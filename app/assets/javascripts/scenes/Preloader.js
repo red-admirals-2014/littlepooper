@@ -5,8 +5,10 @@ Scene.Preloader = function(game) {
 
 Scene.Preloader.prototype = {
   preload: function() {
-
-    this.game.load.spritesheet('egg', '/images/egg_break.png', 118, 130, 6)
+    this.egg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY,'egg')
+    this.egg.anchor.set(0.5)
+    this.wiggle = this.game.time.events.loop(100, this.wiggleEgg, this)
+    
     this.game.load.spritesheet('green_dragon', '/images/green_dragon.png', 110, 110, 40)
     this.game.load.spritesheet('green_dragon_fly', '/images/green_dragon_fly.png', 140, 125, 12)
     this.game.load.spritesheet('food_button','/images/food_button_spritesheet.png',100, 100, 2)
@@ -32,31 +34,32 @@ Scene.Preloader.prototype = {
 
 
     //BUG GAME
-    // this.game.load.image('bugs_button', '/images/transparent_bug_button.png')
     this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
 
-    // this.game.load.image('playAgain', '/images/bug_smash/play_again_button.png', 200, 100)
-
-
-    // this.game.stage.backgroundColor = "#71c5cf"
-
-
   },
   create: function() {
     // this.game.canvas.id = 'game-canvas'
     // this.resizeCanvas()
-
-    this.game.add.text(this.game.world.centerX, this.game.world.centerY,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
+    this.egg.angle = 0
+    this.game.time.events.remove(this.wiggle)
+    this.game.add.text(this.game.world.centerX, this.game.world.centerY+100,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.game.input.onDown.add(this.gofull.bind(this), this);
 
   },
+  wiggleEgg: function(){
+    if (this.egg.angle < 5){
+        this.egg.angle = 5
+    } else{
+        this.egg.angle = -5
+    }
+  },
   gofull: function() {
     // this.game.scale.startFullScreen();
-    this.game.state.start('HomePage')
+    this.game.state.start('Egg')
 
   },
 
