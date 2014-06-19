@@ -90,7 +90,6 @@ Scene.BugGame.prototype = {
             this.bugsKilled.push(bug_obj)
         }
         if(option === "escape"){
-            bug_obj.bug.alive = false
             this.bugsEscaped.push(bug_obj)
         }
     },
@@ -100,6 +99,7 @@ Scene.BugGame.prototype = {
             this.gameOver()
         }
     },
+
     updateBugStats: function(){
         var ajaxRequest = $.ajax({
           url: '/set_bugs_killed',
@@ -107,16 +107,14 @@ Scene.BugGame.prototype = {
           data: 'bugs_killed=' + this.bugsKilled.length
         })
     },
-    gameOver: function() {
-        
 
+    gameOver: function() {
         if(this.bugsKilled.length > 20){
         this.game.add.text(this.game.width/2, this.game.height/2-100, "Smashtastic!", {align: 'center', fill: 'red', font: 'bold 50pt Arial', stroke: 'white', strokeThickness: 8 }).anchor.set(0.5, 0.5)
         }
         else {
         this.game.add.text(this.game.width/2, this.game.height/2-100, "Try again!", {align: 'center', fill: 'white', font: 'bold 40pt Arial'}).anchor.set(0.5, 0.5)
         }
-
         this.player.monster.position.x = this.game.width/2-50
         this.player.monster.position.y = this.game.height/2-50
         this.player.monster.animations.play("idle")
@@ -143,7 +141,7 @@ Scene.BugGame.prototype = {
 
     goHome: function(){
         this.updateBugStats()
-        
+
         this.resetGame()
         this.game.state.start('HomePage')
     },
@@ -163,7 +161,6 @@ function Monster(name, game){
 }
 
 Monster.prototype = {
-
     moveMonster: function(pointer){
         var monster_speed = 250   // msec
         var xDiff = pointer.x - this.player.monster.x
@@ -195,7 +192,6 @@ function Bug(name, game) {
 
 
 Bug.prototype = {
-
     smashed: function(){
         this.bug.animations.play('kill')
         this.bug.body.velocity.x = 0;
