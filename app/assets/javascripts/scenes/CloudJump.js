@@ -12,6 +12,7 @@ Scene.CloudJump.prototype = {
       this.hardStart = false;
       this.resetGameValues()
       this.game.stage.backgroundColor = '#7f7ad7'
+      this.jumpMusic = this.game.add.audio('jump')
 
       this.nightSky = this.game.add.sprite(0, this.game.height, 'night_sky')
       this.nightSky.anchor.set(0,1);
@@ -82,6 +83,7 @@ Scene.CloudJump.prototype = {
       this.clouds.createMultiple(100, 'cloud')
     },
     jump: function(pointer) {
+      this.jumpMusic.play()
       var xVelocity = this.game.input.activePointer.x - this.green_dragon_fly.x
       this.green_dragon_fly.body.velocity.y = -1200
       this.green_dragon_fly.body.velocity.x = xVelocity * 1.5
