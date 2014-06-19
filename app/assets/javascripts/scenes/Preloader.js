@@ -10,6 +10,7 @@ Scene.Preloader.prototype = {
     this.loadHomePage()
     this.loadFlappyDragon()
     this.loadBugGame()
+    this.loadCloudJump()
   },
   create: function() {
     this.stopLoadingAnimation()
@@ -32,11 +33,12 @@ Scene.Preloader.prototype = {
     }
   },
   loadButtons: function() {
-        this.game.load.spritesheet('food_button','/images/food_button_spritesheet.png',100, 100, 2)
+    this.game.load.spritesheet('food_button','/images/food_button_spritesheet.png',100, 100, 2)
     this.game.load.spritesheet('exercise_button','/images/flappydragon_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('ranking_button','/images/ranking_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('logout_button','/images/logout_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('bugs_button', '/images/bug_button_spritesheet.png', 100, 100, 2)
+    this.game.load.spritesheet('cloud_button', '/images/cloud_button_spritesheet.png', 100, 100, 2)
     this.game.load.spritesheet('homes_button', '/images/home_button_spritesheet.png', 100, 100, 2)
     this.game.load.image('rank_button', '/images/transparent_ranks_button.png')
   },
@@ -62,6 +64,19 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)git
   },
+  loadCloudJump: function(){
+    this.game.load.image('cloud', '/images/cloud.png')
+    this.game.load.image('night_sky', '/images/night_sky.png')
+  },
+
+
+
+    // this.game.load.image('playAgain', '/images/bug_smash/play_again_button.png', 200, 100)
+
+
+    // this.game.stage.backgroundColor = "#71c5cf"
+
+
   setUpScreenMode: function(){
     this.game.add.text(this.game.world.centerX, this.game.world.centerY+100,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL

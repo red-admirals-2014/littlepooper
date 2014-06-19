@@ -1,6 +1,6 @@
 var Scene = Scene || {};
 Scene.BugGame = function(game) {
-    this.bugsTotal = 50;
+    this.bugsTotal = 100;
     this.min_bug_speed = 50
     this.max_bug_speed = 250
 }
