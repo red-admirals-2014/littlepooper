@@ -112,6 +112,7 @@ Scene.BugGame.prototype = {
           type: 'POST',
           data: 'score=' + this.bugsKilled.length
         })
+        ajaxRequest.done(this.getBugStats.bind(this))
     },
     getBugStats: function(){
       var ajaxRequest = $.ajax({
@@ -126,8 +127,12 @@ Scene.BugGame.prototype = {
       for (var i = 0; i < highscores.length; i++ ){
         this.game.add.text(50, 150+60*(i+1), highscores[i].username + ": " + highscores[i].bug_high_score, this.style)
       }
-    },
+    },  
     gameOver: function() {
+      this.player.monster.position.x = this.game.width/2-50
+      this.player.monster.position.y = this.game.height/2-50
+      this.player.monster.animations.play("idle")
+      this.game.input.onDown.remove(this.player.moveMonster, this)
       if(this.first_time){
         this.first_time = false
         if(this.bugsKilled.length > 20){
@@ -138,10 +143,7 @@ Scene.BugGame.prototype = {
         }
         this.updateBugStats()
         this.getBugStats()
-        this.player.monster.position.x = this.game.width/2-50
-        this.player.monster.position.y = this.game.height/2-50
-        this.player.monster.animations.play("idle")
-        this.game.input.onDown.remove(this.player.moveMonster, this)
+        
         this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,0,1)
         this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,0,1)
 

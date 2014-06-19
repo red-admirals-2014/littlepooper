@@ -150,6 +150,7 @@ Scene.CloudJump.prototype = {
         type: 'POST',
         data: "score=" + this.score
       })
+      ajaxRequest.done(this.getHighScores.bind(this))
     },
     getHighScores: function(){
       var ajaxRequest = $.ajax({

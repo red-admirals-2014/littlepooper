@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
       self.update_attributes(bug_high_score: score)
     end
     updated_bug_total = self.bug_total_score + score
-    self.update_attributes(pet_xp: updated_xp, bug_total_score: updated_bug_total_score)
+    self.update_attributes(pet_xp: updated_xp, bug_total_score: updated_bug_total)
   end
 
   def update_pet_stats(stats)
