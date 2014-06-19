@@ -1,42 +1,41 @@
 Scene.CloudJump = function(game) {
   this.style = { font: "30px Arial", fill :"#ffffff"}
 
+  this.score = 0;
 };
 
 Scene.CloudJump.prototype = {
 
     create: function() {
+      this.easyStart = false;
+      this.mediumStart = false;
+      this.hardStart = false;
       this.resetGameValues()
-      this.game.stage.backgroundColor = '#62bce0'
+      this.game.stage.backgroundColor = '#7f7ad7'
+
+      this.nightSky = this.game.add.sprite(0, this.game.height, 'night_sky')
+      this.nightSky.anchor.set(0,1);
+      this.game.physics.enable(this.nightSky, Phaser.Physics.arcade)
+      this.nightSky.body.velocity.y = 10;
+
       this.setClouds()
       this.makeGreenDragon()
       this.addCurrentScore()
-
       platforms = this.game.add.group();
       platforms.enableBody = true;
 
-
-      var ground = platforms.create(0, this.game.world.height - 50)
-      ground.scale.setTo(40, 2)
-      ground.body.immovable = true
-
-      var leftwall = platforms.create(-20, this.game.height)
-      leftwall.anchor.set(0,1)
-      leftwall.scale.setTo(1, 50)
-      leftwall.body.immovable = true
-
-      var rightwall = platforms.create(this.game.width+30,this.game.height)
-      rightwall.anchor.set(1,1)
-      rightwall.scale.setTo(1, 50)
-      rightwall.body.immovable = true
-
-      cursors = this.game.input.keyboard.createCursorKeys();
+      this.startingPlatform = this.game.add.sprite(this.game.width/2, this.game.height, 'pipe')
+      this.startingPlatform.anchor.set(0.5,1)
+      this.game.physics.enable(this.startingPlatform, Phaser.Physics.arcade)
+      this.startingPlatform.body.immovable = true
 
     },
-
     update: function() {
     // Function called 60 times per second
-      this.game.physics.arcade.collide(this.green_dragon_fly, platforms);
+      if(this.score === 6){
+        this.startingPlatform.destroy()
+      }
+      this.game.physics.arcade.collide(this.green_dragon_fly, this.startingPlatform);
       this.game.physics.arcade.collide(this.green_dragon_fly, this.clouds);
 
       if(this.green_dragon_fly.body.touching.down){
@@ -45,10 +44,25 @@ Scene.CloudJump.prototype = {
       if(this.conditionsToJump()){
         this.jump()
       }
-
+      this.setDifficulty()
       this.checkDead()
     },
-
+    setDifficulty: function(){
+      if(this.score < 50 && this.easyStart === false){
+        this.game.time.events.loop(1000, this.add_row_of_easy_clouds, this)
+        this.easyStart = true;
+      }
+      else if(this.score >= 50 && this.score < 100 && this.mediumStart === false){
+        this.game.time.events.removeAll()
+        this.game.time.events.loop(1000, this.add_row_of_medium_clouds, this)
+        this.mediumStart = true;
+      }
+      else if(this.score >= 100 && this.hardStart === false){
+        this.game.time.events.removeAll()
+        this.game.time.events.loop(1000, this.add_row_of_hard_clouds, this)
+        this.hardStart = true;
+      }
+    },
     conditionsToJump: function(){
       if(this.game.input.activePointer.isDown &&
         this.green_dragon_fly.body.touching.down &&
@@ -58,7 +72,6 @@ Scene.CloudJump.prototype = {
         return false
       }
     },
-
     resetGameValues: function(){
       this.alive = true
       this.score = 0
@@ -66,29 +79,20 @@ Scene.CloudJump.prototype = {
     setClouds: function(){
       this.clouds = this.game.add.group()
       this.clouds.createMultiple(100, 'cloud')
-      this.timer = this.game.time.events.loop(1000, this.add_row_of_medium_clouds, this)
     },
-
     jump: function(pointer) {
       var xVelocity = this.game.input.activePointer.x - this.green_dragon_fly.x
-
-
       this.green_dragon_fly.body.velocity.y = -1200
       this.green_dragon_fly.body.velocity.x = xVelocity * 1.5
-
     },
-
     makeGreenDragon: function(){
       this.green_dragon_fly = this.game.add.sprite(this.game.width/2,this.game.height/2,'green_dragon_fly')
       this.game.physics.enable(this.green_dragon_fly, Phaser.Physics.arcade)
-
-
       this.green_dragon_fly.body.bounce.y = 0.2;
       this.green_dragon_fly.body.bounce.x = 0.2;
       this.green_dragon_fly.body.gravity.y = 3000;
       this.addGreenDragonAnimations()
       this.setGreenDragonHitBox()
-
     },
     addGreenDragonAnimations: function(){
       this.green_dragon_fly.animations.add('fly', [0,1,2,3,4,5,6,7,8,9,10,11], 6, true)
@@ -104,14 +108,30 @@ Scene.CloudJump.prototype = {
     addCurrentScore: function(){
       this.label_score =  this.game.add.text(20,20, "0", this.style)
     },
-    checkDead: function(){
 
-      if (this.green_dragon_fly.y > this.game.height){
-        this.game_over()
+    checkDead: function(){
+      if (this.deadConditions()){
+        this.gameOver()
       }
     },
-    game_over: function() {
+    deadConditions: function(){
+      if(this.green_dragon_fly.y > this.game.height){
+        return true
+      } else {
+        return false
+      }
+    },
+    gameOver: function() {
       this.alive = false
+      this.game.add.text(this.game.width/2, this.game.height/2-100, "Try Again!", {align: 'center', fill: 'white', font: 'bold 50pt Arial' }).anchor.set(0.5, 0.5)
+      this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
+      this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,1,2)
+    },
+    goHome: function(){
+      this.game.state.start('HomePage')
+    },
+    playAgain: function(){
+        this.game.state.start('CloudJump')
     },
     updateScores: function(){
       var ajaxRequest = $.ajax({
@@ -131,8 +151,6 @@ Scene.CloudJump.prototype = {
       cloud.reset(x,y)
       cloud.body.velocity.y = 200
       cloud.body.immovable = true
-
-
     },
 
     add_row_of_easy_clouds: function(){

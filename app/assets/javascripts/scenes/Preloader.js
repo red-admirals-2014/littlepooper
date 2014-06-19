@@ -49,6 +49,7 @@ Scene.Preloader.prototype = {
 
     //CLOUD JUMP
     this.game.load.image('cloud', '/images/cloud.png')
+    this.game.load.image('night_sky', '/images/night_sky.png')
 
 
 
