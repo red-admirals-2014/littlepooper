@@ -44,6 +44,7 @@ Scene.Preloader.prototype = {
     this.game.load.audio('flap','/audio/flap.mp3')
     this.game.load.audio('point','/audio/point.mp3')
     this.game.load.audio('crash','/audio/crash.mp3')
+    this.game.load.audio('forestMusic','/audio/forest_music.mp3')
 
   },
   create: function() {
