@@ -13,6 +13,7 @@
 src_files:
   - assets/application.js
   - assets/scenes/BugGame.js
+  - assets/scenes/FlappyDragon.js
 
 # stylesheets
 #
