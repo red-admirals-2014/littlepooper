@@ -1,12 +1,17 @@
 describe("Scene.FlappyDragon", function() {
   var flappyDragon, game;
   beforeEach(function() {
+    flappyDragon = new Scene.FlappyDragon(game);
     game = {
       add: {
-        group: function() {}
+        group: function(){}
+      },
+      time: {
+        events: {
+          loop: function(arg1){}
+        }
       }
     }
-    flappyDragon = new Scene.FlappyDragon(game);
   })
   it("#alive is initialized as true", function()
     {
@@ -30,9 +35,14 @@ describe("Scene.FlappyDragon", function() {
     expect(flappyDragon.score).toEqual(0)
   })
   it("#setPipesAndLoop should make a group and start a loop", function(){
-    flappyDragon.setPipesAndLoop()
-    expect(flappyDragon.score).toEqual(0)
-    
+    var addGroupReturn = {createMultiple: function(arg1, arg2){}}
+    // spyOn(game.add, 'group').and.returnValue(addGroupReturn)
+    // spyOn(game.time.events, 'loop').and.returnValue('hello')
+    // flappyDragon.game = game
+    // flappyDragon.setPipesAndLoop()
+    // console.log(flappyDragon.pipes)
+    // expect(flappyDragon.pipes).toEqual(addGroupReturn)
+    // expect(flappyDragon.timer).toEqual()
     // flappyDragon.game
     // expect(flappyDragon.pipes).toEqual(flappyDragon.game.add.group())
   })
