@@ -32,9 +32,13 @@ class GamesController < ApplicationController
     render json: {highscores: User.highscores.to_json}
   end
 
-  def set_bugs_killed
-    current_user.update_bug_stats_and_xp(params[:bugs_killed].to_i)
+  def bug_high_score
+    current_user.update_bug_stats_and_xp(params[:score].to_i)
     render nothing: true
+  end
+
+  def bug_high_scores
+    render json: {highscores: User.bug_highscores.to_json}
   end
 
   def rankings

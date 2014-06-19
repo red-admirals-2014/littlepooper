@@ -162,7 +162,7 @@ Scene.CloudJump.prototype = {
       var highscores = JSON.parse(data.highscores)
       this.style = { font: "bold 40px Arial", fill :"#ffffff"}
       for (var i = 0; i < highscores.length; i++ ){
-        this.game.add.text(50, 100+60*(i+1), highscores[i].username + ": " + highscores[i].cloud_high_score, this.style)
+        this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].cloud_high_score, this.style)
       }
     },
     add_one_cloud: function(x,y){
