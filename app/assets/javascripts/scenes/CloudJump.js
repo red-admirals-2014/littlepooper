@@ -80,7 +80,7 @@ Scene.CloudJump.prototype = {
     },
     setClouds: function(){
       this.clouds = this.game.add.group()
-      this.clouds.createMultiple(100, 'cloud')
+      this.clouds.createMultiple(50, 'cloud')
     },
     jump: function(pointer) {
       this.jumpMusic.play()
@@ -91,11 +91,11 @@ Scene.CloudJump.prototype = {
     makeGreenDragon: function(){
       this.green_dragon_fly = this.game.add.sprite(this.game.width/2,this.game.height/2,'green_dragon_fly')
       this.game.physics.enable(this.green_dragon_fly, Phaser.Physics.arcade)
+      this.setGreenDragonHitBox()
       this.green_dragon_fly.body.bounce.y = 0.2;
       this.green_dragon_fly.body.bounce.x = 0.2;
       this.green_dragon_fly.body.gravity.y = 3000;
       this.addGreenDragonAnimations()
-      this.setGreenDragonHitBox()
     },
     addGreenDragonAnimations: function(){
       this.green_dragon_fly.animations.add('fly', [0,1,2,3,4,5,6,7,8,9,10,11], 6, true)
@@ -130,12 +130,10 @@ Scene.CloudJump.prototype = {
       if (this.first_time){
         this.first_time = false
         this.updateScores()
-        this.getHighScores()
         this.nightSky.body.velocity.y = 0;
         this.game.add.text(50, 50, "HighScores", {fill: 'white', font: 'bold 50pt Arial' })
         this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
         this.game.add.button(200, this.game.height-150, "cloud_button", this.playAgain, this, 0,1,2)
-
       }
     },
     goHome: function(){
