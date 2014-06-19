@@ -7,8 +7,21 @@ class User < ActiveRecord::Base
     User.order(flappy_high_score: :desc).limit(10)
   end
 
+  def self.cloud_highscores
+    User.order(cloud_high_score: :desc).limit(10)
+  end
+
   def update_pet_stats(stats)
     self.update_attributes(pet_happiness: stats[:happiness].to_i, pet_strength: stats[:strength].to_i, pet_nomnom: stats[:nomnom].to_i, pet_xp: stats[:xp].to_i)
+  end
+
+  def update_cloud_stats_and_xp(score)
+    if score > self.cloud_high_score
+      self.update_attributes(cloud_high_score: score)
+    end
+    updated_cloud_total = self.cloud_total_score+score
+    updated_xp = self.pet_xp + score
+    self.update_attributes(cloud_total_score: updated_cloud_total, pet_xp: updated_xp)    
   end
 
   def update_flappy_stats_and_xp(score)
