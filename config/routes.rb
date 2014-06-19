@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   post '/set_bugs_killed', to: "games#set_bugs_killed"
 
-  post '/flappy_high_score', to: "games#flappy_high_score"
+  post '/cloud_high_score', to: "games#cloud_high_score"
+  get '/cloud_high_scores', to: "games#cloud_high_scores"
 
+  post '/flappy_high_score', to: "games#flappy_high_score"
   get '/flappy_high_scores', to: "games#flappy_high_scores"
 
   get '/rankings', to: "games#rankings"
