@@ -3,3 +3,4 @@ var stubMonster = function(name) {
     this.name = name;
   }
 }
+

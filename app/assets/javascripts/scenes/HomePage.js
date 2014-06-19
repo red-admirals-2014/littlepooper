@@ -14,7 +14,7 @@ Scene.HomePage.prototype = {
         this.forestMusic.play();
         this.firstTime = false;
       }
-      
+      this.poke = this.game.add.audio('poke');
       this.clouds = this.game.add.tileSprite(0,0, 450,180, 'clouds');
       this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
       this.poops = this.game.add.group()
@@ -63,6 +63,7 @@ Scene.HomePage.prototype = {
   greenDragonPoke: function() {
     if (this.game.input.activePointer.isDown) {
       this.green_dragon.animations.play('poke')
+      this.poke.play();
       this.happiness += 15
     }
   },
@@ -194,20 +195,24 @@ Scene.HomePage.prototype = {
     this.strength += 100
     this.updatePetStats()
     this.clearAllTimeouts()
-    this.forestMusic.isPlaying = false
+    this.forestMusic.pause();
+    this.firstTime = true;
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
     this.strength += 75
     this.updatePetStats()
     this.clearAllTimeouts()
-    this.forestMusic.isPlaying = false
+    this.forestMusic.pause();
+    this.firstTime = true;
     this.game.state.start('BugGame')
   },
   goCloud: function(){
     this.strength += 75
     this.updatePetStats()
     this.clearAllTimeouts()
+    this.forestMusic.pause();
+    this.firstTime = true;
     this.game.state.start('CloudJump')
   },
   poop: function(xc, yc) {
