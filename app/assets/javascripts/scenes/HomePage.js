@@ -1,4 +1,5 @@
 Scene.HomePage = function(game) {
+  this.firstTime = true
 };
 
 Scene.HomePage.prototype = {
@@ -7,7 +8,13 @@ Scene.HomePage.prototype = {
     if (SHOWFLAPPYOPTIONS){
       this.getHighScores()
       this.addPostFlappyButtons()  
-    } else {    
+    } else {
+      if (this.firstTime){
+        this.forestMusic = this.game.add.audio('forestMusic', 1, true);
+        this.forestMusic.play();
+        this.firstTime = false;
+      }
+      
       this.clouds = this.game.add.tileSprite(0,0, 450,180, 'clouds');
       this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
       this.poops = this.game.add.group()
@@ -187,6 +194,7 @@ Scene.HomePage.prototype = {
     this.updatePetStats()
 
     this.clearAllTimeouts()
+    this.forestMusic.isPlaying = false
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
@@ -194,6 +202,7 @@ Scene.HomePage.prototype = {
     this.updatePetStats()
     
     this.clearAllTimeouts()
+    this.forestMusic.isPlaying = false
     this.game.state.start('BugGame')
   },
   poop: function(xc, yc) {
