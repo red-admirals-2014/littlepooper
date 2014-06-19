@@ -81,11 +81,12 @@ Scene.Preloader.prototype = {
 
   setUpScreenMode: function(){
     this.game.add.text(this.game.world.centerX, this.game.world.centerY+100,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
-    // this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
     this.game.input.onDown.add(this.gofull.bind(this), this)
   },
   gofull: function() {
     this.game.state.start('Egg')
+    // this.game.scale.startFullScreen();
   },
 
 };
