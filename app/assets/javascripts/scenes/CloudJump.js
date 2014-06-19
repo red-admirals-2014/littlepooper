@@ -125,7 +125,7 @@ Scene.CloudJump.prototype = {
       this.alive = false
       this.game.add.text(this.game.width/2, this.game.height/2-100, "Try Again!", {align: 'center', fill: 'white', font: 'bold 50pt Arial' }).anchor.set(0.5, 0.5)
       this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
-      this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,1,2)
+      this.game.add.button(200, this.game.height-150, "cloud_button", this.playAgain, this, 0,1,2)
     },
     goHome: function(){
       this.game.state.start('HomePage')

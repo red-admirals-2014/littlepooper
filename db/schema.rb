@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(version: 20140618161546) do
     t.string   "petname"
     t.integer  "flappy_high_score", default: 0
     t.integer  "total_points"
-    t.integer  "pet_happiness"
-    t.integer  "pet_strength"
-    t.integer  "pet_nomnom"
-    t.integer  "pet_xp"
+    t.integer  "pet_happiness",     default: 100
+    t.integer  "pet_strength",      default: 100
+    t.integer  "pet_nomnom",        default: 100
+    t.integer  "pet_xp",            default: 0
     t.integer  "bugs_killed",       default: 0
   end
 
