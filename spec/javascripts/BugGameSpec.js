@@ -9,8 +9,8 @@ describe("Scene.BugGame", function() {
     bugGame = new Scene.BugGame(game);
   })
 
-  it("#bugTotal is initialized with 50", function() {
-    expect(bugGame.bugsTotal).toEqual(50);
+  it("#bugTotal is initialized with 100", function() {
+    expect(bugGame.bugsTotal).toEqual(100);
   })
 
   it("#addMonster creates a new Monster instance", function() {

@@ -1,6 +1,9 @@
+var Scene = Scene || {};
 Scene.FlappyDragon = function(game) {
   this.style = { font: "30px Arial", fill :"#ffffff"}
   this.first_time = true
+  this.alive = true
+  this.score = 0
 };
 
 Scene.FlappyDragon.prototype = {
