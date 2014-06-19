@@ -24,8 +24,8 @@ Scene.Boot.prototype = {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth = SAFE_ZONE_WIDTH;
             this.scale.minHeight = SAFE_ZONE_HEIGHT;
-            this.scale.maxWidth = 1536;
-            this.scale.maxHeight = 2048;
+            this.scale.maxWidth = 640;
+            this.scale.maxHeight = 1120;
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically = true;
             this.scale.forceOrientation(true, false);
