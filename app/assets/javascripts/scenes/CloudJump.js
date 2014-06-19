@@ -1,6 +1,6 @@
 Scene.CloudJump = function(game) {
   this.style = { font: "30px Arial", fill :"#ffffff"}
-
+  this.first_time = true
   this.score = 0;
 };
 
@@ -75,6 +75,7 @@ Scene.CloudJump.prototype = {
     },
     resetGameValues: function(){
       this.alive = true
+      this.first_time = true
       this.score = 0
     },
     setClouds: function(){
@@ -125,9 +126,17 @@ Scene.CloudJump.prototype = {
     },
     gameOver: function() {
       this.alive = false
-      this.game.add.text(this.game.width/2, this.game.height/2-100, "Try Again!", {align: 'center', fill: 'white', font: 'bold 50pt Arial' }).anchor.set(0.5, 0.5)
-      this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
-      this.game.add.button(200, this.game.height-150, "cloud_button", this.playAgain, this, 0,1,2)
+      this.game.time.events.removeAll()
+      if (this.first_time){
+        this.first_time = false
+        this.updateScores()
+        this.getHighScores()
+        this.nightSky.body.velocity.y = 0;
+        this.game.add.text(50, 50, "HighScores", {fill: 'white', font: 'bold 50pt Arial' })
+        this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
+        this.game.add.button(200, this.game.height-150, "cloud_button", this.playAgain, this, 0,1,2)
+
+      }
     },
     goHome: function(){
       this.game.state.start('HomePage')
@@ -137,10 +146,24 @@ Scene.CloudJump.prototype = {
     },
     updateScores: function(){
       var ajaxRequest = $.ajax({
-        url: '/flappy_high_score',
+        url: '/cloud_high_score',
         type: 'POST',
         data: "score=" + this.score
       })
+    },
+    getHighScores: function(){
+      var ajaxRequest = $.ajax({
+        url: '/cloud_high_scores',
+        type: 'GET'
+      })
+      ajaxRequest.done(this.showHighScores.bind(this))
+    },
+    showHighScores: function(data){
+      var highscores = JSON.parse(data.highscores)
+      this.style = { font: "bold 40px Arial", fill :"#ffffff"}
+      for (var i = 0; i < highscores.length; i++ ){
+        this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].cloud_high_score, this.style)
+      }
     },
     add_one_cloud: function(x,y){
       var cloud = this.clouds.getFirstDead()

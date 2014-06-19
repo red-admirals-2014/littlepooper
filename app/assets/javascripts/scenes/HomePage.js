@@ -6,6 +6,7 @@ Scene.HomePage.prototype = {
 
 	create: function() {
     if (SHOWFLAPPYOPTIONS){
+      this.game.add.text(50, 50, "HighScores", {fill: 'white', font: 'bold 50pt Arial' })
       this.getHighScores()
       this.addPostFlappyButtons()  
     } else {
@@ -287,11 +288,11 @@ Scene.HomePage.prototype = {
     ajaxRequest.done(this.showHighScores.bind(this))
   },
   showHighScores: function(data){
-    highscores = JSON.parse(data.highscores)
-    this.style = { font: "30px Arial", fill :"#ffffff"}
-    for (var i = 0; i < highscores.length; i++ ){
-      this.game.add.text(10, 50*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
-    }
+    var highscores = JSON.parse(data.highscores)
+      this.style = { font: "bold 40px Arial", fill :"#ffffff"}
+      for (var i = 0; i < highscores.length; i++ ){
+        this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
+      }
   },
   getRankings: function(){
     var ajaxRequest = $.ajax({

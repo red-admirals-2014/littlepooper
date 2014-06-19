@@ -3,6 +3,7 @@ Scene.BugGame = function(game) {
     this.bugsTotal = 100;
     this.min_bug_speed = 50
     this.max_bug_speed = 250
+    this.first_time = true
 }
 
 Scene.BugGame.prototype = {
@@ -11,11 +12,16 @@ Scene.BugGame.prototype = {
         this.bugs = [];
         this.bugsKilled = [];
         this.bugsEscaped = [];
+        this.resetGameValues()
         this.addBackground()
         this.addBugs()
         this.addMonster()
         this.addBushes()
         this.addDisplays()
+    },
+
+    resetGameValues: function(){
+      this.first_time = true
     },
 
     addBackground: function(){
@@ -90,7 +96,6 @@ Scene.BugGame.prototype = {
             this.bugsKilled.push(bug_obj)
         }
         if(option === "escape"){
-            bug_obj.bug.alive = false
             this.bugsEscaped.push(bug_obj)
         }
     },
@@ -100,34 +105,50 @@ Scene.BugGame.prototype = {
             this.gameOver()
         }
     },
+
     updateBugStats: function(){
         var ajaxRequest = $.ajax({
-          url: '/set_bugs_killed',
+          url: '/bug_high_score',
           type: 'POST',
-          data: 'bugs_killed=' + this.bugsKilled.length
+          data: 'score=' + this.bugsKilled.length
         })
     },
+    getBugStats: function(){
+      var ajaxRequest = $.ajax({
+        url: '/bug_high_scores',
+        type: 'GET'
+      })
+      ajaxRequest.done(this.showHighScores.bind(this))
+    },
+    showHighScores: function(data){
+      var highscores = JSON.parse(data.highscores)
+      this.style = { font: "bold 40px Arial", fill :"#ffffff"}
+      for (var i = 0; i < highscores.length; i++ ){
+        this.game.add.text(50, 150+60*(i+1), highscores[i].username + ": " + highscores[i].bug_high_score, this.style)
+      }
+    },
     gameOver: function() {
-        
-
+      if(this.first_time){
+        this.first_time = false
         if(this.bugsKilled.length > 20){
-        this.game.add.text(this.game.width/2, this.game.height/2-100, "Smashtastic!", {align: 'center', fill: 'red', font: 'bold 50pt Arial', stroke: 'white', strokeThickness: 8 }).anchor.set(0.5, 0.5)
+        this.game.add.text(this.game.width/2, this.game.height/2-250, "Smashtastic!", {align: 'center', fill: 'red', font: 'bold 50pt Arial', stroke: 'white', strokeThickness: 8 }).anchor.set(0.5, 0.5)
         }
         else {
-        this.game.add.text(this.game.width/2, this.game.height/2-100, "Try again!", {align: 'center', fill: 'white', font: 'bold 40pt Arial'}).anchor.set(0.5, 0.5)
+        this.game.add.text(this.game.width/2, this.game.height/2-250, "Try again!", {align: 'center', fill: 'white', font: 'bold 40pt Arial'}).anchor.set(0.5, 0.5)
         }
-
+        this.updateBugStats()
+        this.getBugStats()
         this.player.monster.position.x = this.game.width/2-50
         this.player.monster.position.y = this.game.height/2-50
         this.player.monster.animations.play("idle")
         this.game.input.onDown.remove(this.player.moveMonster, this)
         this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,0,1)
         this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,0,1)
+
+      }
     },
 
     playAgain: function(){
-        this.updateBugStats()
-
         this.resetGame
         this.game.state.start('BugGame');
     },
@@ -141,9 +162,7 @@ Scene.BugGame.prototype = {
         this.bugsEscaped = [];
     },
 
-    goHome: function(){
-        this.updateBugStats()
-        
+    goHome: function(){        
         this.resetGame()
         this.game.state.start('HomePage')
     },
@@ -163,7 +182,6 @@ function Monster(name, game){
 }
 
 Monster.prototype = {
-
     moveMonster: function(pointer){
         var monster_speed = 250   // msec
         var xDiff = pointer.x - this.player.monster.x
@@ -195,7 +213,6 @@ function Bug(name, game) {
 
 
 Bug.prototype = {
-
     smashed: function(){
         this.bug.animations.play('kill')
         this.bug.body.velocity.x = 0;
