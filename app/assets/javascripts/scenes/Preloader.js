@@ -66,6 +66,7 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
   },
   loadCloudJump: function(){
+    this.game.load.audio('jump','/audio/jump.mp3')
     this.game.load.image('cloud', '/images/cloud.png')
     this.game.load.image('night_sky', '/images/night_sky.png')
   },
