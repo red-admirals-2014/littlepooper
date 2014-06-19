@@ -86,7 +86,7 @@ Scene.Preloader.prototype = {
   },
   gofull: function() {
     this.game.state.start('Egg')
-    // this.game.scale.startFullScreen();
+    this.game.scale.startFullScreen();
   },
 
 };

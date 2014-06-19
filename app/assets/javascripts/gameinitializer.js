@@ -1,6 +1,4 @@
 (function () {
-  // const SAFE_ZONE_WIDTH = 450;
-  // const SAFE_ZONE_HEIGHT = 800;
   var game = new Phaser.Game(450, 800, Phaser.AUTO, 'game_div');
 
 

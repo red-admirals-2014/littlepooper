@@ -16,6 +16,13 @@ ActiveRecord::Schema.define(version: 20140619185815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "pets", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "password_digest"
@@ -24,11 +31,12 @@ ActiveRecord::Schema.define(version: 20140619185815) do
     t.datetime "updated_at"
     t.string   "petname"
     t.integer  "flappy_high_score", default: 0
-    t.integer  "total_points",      default: 0
-    t.integer  "pet_happiness",     default: 100
-    t.integer  "pet_strength",      default: 100
-    t.integer  "pet_nomnom",        default: 100
-    t.integer  "pet_xp",            default: 0
+    t.integer  "total_points"
+    t.integer  "pet_happiness"
+    t.integer  "pet_strength"
+    t.integer  "pet_nomnom"
+    t.integer  "pet_xp"
+    t.integer  "bugs_killed",       default: 0
     t.integer  "cloud_high_score",  default: 0
     t.integer  "cloud_total_score", default: 0
     t.integer  "bug_high_score",    default: 0
