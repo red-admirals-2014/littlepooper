@@ -11,17 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619174313) do
+ActiveRecord::Schema.define(version: 20140619185815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "pets", force: true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: true do |t|
     t.string   "username"
@@ -36,9 +29,10 @@ ActiveRecord::Schema.define(version: 20140619174313) do
     t.integer  "pet_strength",      default: 100
     t.integer  "pet_nomnom",        default: 100
     t.integer  "pet_xp",            default: 0
-    t.integer  "bugs_killed",       default: 0
     t.integer  "cloud_high_score",  default: 0
     t.integer  "cloud_total_score", default: 0
+    t.integer  "bug_high_score",    default: 0
+    t.integer  "bug_total_score",   default: 0
   end
 
 end
