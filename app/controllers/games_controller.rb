@@ -14,6 +14,15 @@ class GamesController < ApplicationController
     render json: {happiness: current_user.pet_happiness, strength: current_user.pet_strength, nomnom: current_user.pet_nomnom, xp: current_user.pet_xp}
   end
 
+  def cloud_high_score
+    current_user.update_cloud_stats_and_xp(params[:score].to_i)
+    render nothing: true
+  end
+
+  def cloud_high_scores
+    render json: {highscores: User.cloud_highscores.to_json}
+  end
+
   def flappy_high_score
     current_user.update_flappy_stats_and_xp(params[:score].to_i)
     render nothing: true
