@@ -1,6 +1,6 @@
 (function () {
-  const SAFE_ZONE_WIDTH=1200;
-  const SAFE_ZONE_HEIGHT=900;
+  const SAFE_ZONE_WIDTH=450;
+  const SAFE_ZONE_HEIGHT=800;
   var game = new Phaser.Game(SAFE_ZONE_WIDTH, SAFE_ZONE_HEIGHT, Phaser.AUTO, 'game_div');
 
   SHOWFLAPPYOPTIONS = false
