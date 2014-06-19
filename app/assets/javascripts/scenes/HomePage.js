@@ -1,4 +1,5 @@
 Scene.HomePage = function(game) {
+  this.firstTime = true
 };
 
 Scene.HomePage.prototype = {
@@ -7,7 +8,13 @@ Scene.HomePage.prototype = {
     if (SHOWFLAPPYOPTIONS){
       this.getHighScores()
       this.addPostFlappyButtons()  
-    } else {    
+    } else {
+      if (this.firstTime){
+        this.forestMusic = this.game.add.audio('forestMusic', 1, true);
+        this.forestMusic.play();
+        this.firstTime = false;
+      }
+      
       this.clouds = this.game.add.tileSprite(0,0, 450,180, 'clouds');
       this.forest = this.game.add.tileSprite(0,125, 450, 675, 'forest');
       this.poops = this.game.add.group()
@@ -63,6 +70,7 @@ Scene.HomePage.prototype = {
     this.food_button = this.game.add.button(40,676, "food_button", this.dropFood, this, 0, 0, 1)
     this.fly_button = this.game.add.button(175,676, "exercise_button", this.goFly, this, 0, 0, 1)
     this.exercise_button = this.game.add.button(310,676, "bugs_button", this.goSmash, this, 0, 0, 1)
+    this.cloud_button = this.game.add.button(175,30, "cloud_button", this.goCloud, this, 0, 0, 1)
     this.ladder_button = this.game.add.button(320, 30, "ranking_button", this.getRankings, this, 0, 0, 1)
     this.logout_button = this.game.add.button(30, 30, "logout_button", this.logOut, this, 0, 0, 1)
   },
@@ -114,7 +122,7 @@ Scene.HomePage.prototype = {
     }
     this.green_dragon.animations.play('walk')
     var leftWalk = this.game.add.tween(this.green_dragon)
-    
+
     if (this.green_dragon.position.x - amountMoved < 0 ){
       amountMoved = this.green_dragon.position.x - 55
     }
@@ -185,16 +193,22 @@ Scene.HomePage.prototype = {
   goFly: function(){
     this.strength += 100
     this.updatePetStats()
-
     this.clearAllTimeouts()
+    this.forestMusic.isPlaying = false
     this.game.state.start('FlappyDragon')
   },
   goSmash: function(){
     this.strength += 75
     this.updatePetStats()
-    
     this.clearAllTimeouts()
+    this.forestMusic.isPlaying = false
     this.game.state.start('BugGame')
+  },
+  goCloud: function(){
+    this.strength += 75
+    this.updatePetStats()
+    this.clearAllTimeouts()
+    this.game.state.start('CloudJump')
   },
   poop: function(xc, yc) {
     this.happiness -= 2 * this.poops.countLiving()

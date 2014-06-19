@@ -10,6 +10,7 @@
   game.state.add('FlappyDragon', Scene.FlappyDragon);
   game.state.add('FlappyHighScores', Scene.FlappyHighScores)
   game.state.add('Egg', Scene.Egg)
+  game.state.add('CloudJump', Scene.CloudJump)
   game.state.start('Boot'); // Go to Boot scene (start the game)
 })();
 
