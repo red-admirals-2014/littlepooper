@@ -62,7 +62,7 @@ Scene.Preloader.prototype = {
     this.game.load.image('sidewalk-bg', '/images/bug_smash/sidewalk-birdeye.png')
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
-    this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)git
+    this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
   },
   loadCloudJump: function(){
     this.game.load.image('cloud', '/images/cloud.png')
