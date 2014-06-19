@@ -100,8 +100,16 @@ Scene.BugGame.prototype = {
             this.gameOver()
         }
     },
-
+    updateBugStats: function(){
+        var ajaxRequest = $.ajax({
+          url: '/set_bugs_killed',
+          type: 'POST',
+          data: 'bugs_killed=' + this.bugsKilled.length
+        })
+    },
     gameOver: function() {
+        
+
         if(this.bugsKilled.length > 20){
         this.game.add.text(this.game.width/2, this.game.height/2-100, "Smashtastic!", {align: 'center', fill: 'red', font: 'bold 50pt Arial', stroke: 'white', strokeThickness: 8 }).anchor.set(0.5, 0.5)
         }
@@ -113,11 +121,13 @@ Scene.BugGame.prototype = {
         this.player.monster.position.y = this.game.height/2-50
         this.player.monster.animations.play("idle")
         this.game.input.onDown.remove(this.player.moveMonster, this)
-        this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,1,2)
-        this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,1,2)
+        this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,0,1)
+        this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,0,1)
     },
 
     playAgain: function(){
+        this.updateBugStats()
+
         this.resetGame
         this.game.state.start('BugGame');
     },
@@ -132,10 +142,11 @@ Scene.BugGame.prototype = {
     },
 
     goHome: function(){
+        this.updateBugStats()
+        
         this.resetGame()
         this.game.state.start('HomePage')
     },
-
 }
 
 // Player(s) / Enemies classes

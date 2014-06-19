@@ -1,17 +1,24 @@
 Scene.FlappyDragon = function(game) {
   this.style = { font: "30px Arial", fill :"#ffffff"}
-
+  this.first_time = true
 };
 
 Scene.FlappyDragon.prototype = {
     
     create: function() { 
+      
       this.resetGameValues()
       this.game.stage.backgroundColor = '#62bce0'
       this.setPipesAndLoop()
       this.bindInputs()
       this.makeGreenDragon()
       this.addCurrentScore()
+      this.rectangle = this.game.add.sprite(0,0,'rectangle')
+      this.rectangle.alpha = 0
+      this.flap = this.game.add.audio('flap')
+      this.point = this.game.add.audio('point')
+      this.crash = this.game.add.audio('crash')
+
     },
     update: function() {
       this.checkDead()
@@ -19,25 +26,27 @@ Scene.FlappyDragon.prototype = {
     },
     resetGameValues: function(){
       this.alive = true
+      this.first_time = true
       this.score = 0
     },
-    setPipes: function(){
+    setPipesAndLoop: function(){
       this.pipes = this.game.add.group()
       this.pipes.createMultiple(30, 'pipe')
       this.timer = this.game.time.events.loop(1750, this.add_row_of_pipes, this)
     },
-    bindKeys: function(){
+    bindInputs: function(){
       this.game.input.onDown.add(this.jump, this)
     },
     jump: function() {
       if (this.alive){
       this.green_dragon_fly.body.velocity.y = -550
+      this.flap.play();
       }
     },
     makeGreenDragon: function(){
       this.green_dragon_fly = this.game.add.sprite(50,245,'green_dragon_fly')
       this.addGreenDragonAnimations()
-      this.addGreenDragonPhysics
+      this.addGreenDragonPhysics()
       this.setGreenDragonHitBox()
       
     },
@@ -67,15 +76,28 @@ Scene.FlappyDragon.prototype = {
     game_over: function() {
       this.alive = false
       this.deathAnimations()
-      this.updateScores()
       SHOWFLAPPYOPTIONS = true
-      this.game.state.start('HomePage')
+      if (this.first_time){
+        this.first_time = false
+        this.crash.play();
+        this.updateScores()
+        var fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 1}, 1250, Phaser.Easing.Linear.None)
+        fadeIn.start()
+        this.fadeOut = setTimeout(this.goHome.bind(this), 1250)
+      }
+    },
+    goHome: function(){
+      this.alive = true
+      clearTimeout(this.fadeOut)
+      this.game.state.start('HomePage')      
     },
     deathAnimations: function(){
       this.pipes.forEachAlive(function(p){
         p.body.velocity.x = 0;
+        p.kill()
       }, this)
       this.green_dragon_fly.body.gravity.y=2000;
+      
       this.game.time.events.remove(this.timer)
     },
     updateScores: function(){
@@ -94,6 +116,7 @@ Scene.FlappyDragon.prototype = {
       pipe.outOfBoundsKill = true
     },
     add_row_of_pipes: function(){
+      this.point.play();
       this.score += 1;
       this.label_score.text = this.score;
       var hole = (Math.floor(Math.random()*10)+1)

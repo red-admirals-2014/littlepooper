@@ -61,6 +61,7 @@ Scene.Preloader.prototype = {
     this.game.load.image('bush', '/images/bug_smash/bush.png')
     this.game.load.spritesheet('green_dragon_bug', '/images/bug_smash/green_dragon_smash.png', 110, 110, 39)
     this.game.load.spritesheet('bug', '/images/bug_smash/bug_sprite.png', 64, 64, 15)
+<<<<<<< HEAD
 
     //CLOUD JUMP
     this.game.load.image('cloud', '/images/cloud.png')
@@ -74,6 +75,8 @@ Scene.Preloader.prototype = {
     // this.game.stage.backgroundColor = "#71c5cf"
 
 
+=======
+>>>>>>> master
   },
   setUpScreenMode: function(){
     this.game.add.text(this.game.world.centerX, this.game.world.centerY+100,'click to start', { fontSize: '32px', fill: '#fff' }).anchor.set(0.5)
@@ -81,7 +84,13 @@ Scene.Preloader.prototype = {
     this.game.input.onDown.add(this.gofull.bind(this), this)
   },
   gofull: function() {
+<<<<<<< HEAD
+    // this.game.scale.startFullScreen();
+    this.game.state.start('CloudJump')
+
+=======
     this.game.state.start('Egg')
+>>>>>>> master
   },
 
 };
