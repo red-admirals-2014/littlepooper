@@ -1,8 +1,15 @@
 (function () {
-  var game = new Phaser.Game(450, 800, Phaser.AUTO, 'game_div');
+  const SAFE_ZONE_WIDTH=450;
+  const SAFE_ZONE_HEIGHT=800;
+  var game = new Phaser.Game(SAFE_ZONE_WIDTH, SAFE_ZONE_HEIGHT, Phaser.AUTO, 'game_div');
 
   SHOWFLAPPYOPTIONS = false
 
+  // game.stage.fullScreenScaleMode = Phaser.StageScaleMode.SHOW_ALL;
+  // game.stage.scale.setShowAll();
+  // game.stage.scale.pageAlignHorizontally = true;
+  // game.stage.scale.pageAlignVeritcally = true;
+  // game.stage.scale.refresh();
   game.state.add('Boot', Scene.Boot)
   game.state.add('Preloader', Scene.Preloader)
   game.state.add('HomePage', Scene.HomePage);
