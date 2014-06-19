@@ -44,7 +44,7 @@ Scene.Preloader.prototype = {
     this.game.load.spritesheet('green_dragon', '/images/green_dragon.png', 110, 110, 40)
     this.game.load.image('clouds','/images/clouds.png');
     this.game.load.image('forest','/images/forest.png');
-    // this.gae.load.audio('forestMusic', '/audio/forest_music.mp3')
+    this.game.load.audio('forestMusic', '/audio/forest_music.mp3')
     this.game.load.image('rectangle', '/images/blackrectangle.png')
     this.game.load.image('food', '/images/food.png')
     this.game.load.image('poop', '/images/poopie.png')
