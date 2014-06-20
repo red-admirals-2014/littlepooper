@@ -92,6 +92,10 @@ Scene.FlappyDragon.prototype = {
       clearTimeout(this.fadeOut)
       this.game.state.start('HomePage')      
     },
+    goFly: function(){
+      this.firstTime = true;
+      this.game.state.start('FlappyDragon')
+    },
     deathAnimations: function(){
       this.pipes.forEachAlive(function(p){
         p.body.velocity.x = 0;
