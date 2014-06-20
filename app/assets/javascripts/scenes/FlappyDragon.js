@@ -25,7 +25,6 @@ Scene.FlappyDragon.prototype = {
     },
     update: function() {
       this.checkDead()
-    // Function called 60 times per second
     },
     resetGameValues: function(){
       this.alive = true
@@ -79,14 +78,13 @@ Scene.FlappyDragon.prototype = {
     game_over: function() {
       this.alive = false
       this.deathAnimations()
-      SHOWFLAPPYOPTIONS = true
       if (this.first_time){
         this.first_time = false
         this.crash.play();
         this.updateScores()
-        var fadeIn = this.game.add.tween(this.rectangle).to({ alpha: 1}, 1250, Phaser.Easing.Linear.None)
-        fadeIn.start()
-        this.fadeOut = setTimeout(this.goHome.bind(this), 1250)
+        this.game.add.text(50, 50, "HighScores", {fill: 'white', font: 'bold 50pt Arial' })
+      this.getHighScores()
+      this.addPostFlappyButtons() 
       }
     },
     goHome: function(){
@@ -97,7 +95,7 @@ Scene.FlappyDragon.prototype = {
     deathAnimations: function(){
       this.pipes.forEachAlive(function(p){
         p.body.velocity.x = 0;
-        p.kill()
+        // p.kill()
       }, this)
       this.green_dragon_fly.body.gravity.y=2000;
       
@@ -109,6 +107,25 @@ Scene.FlappyDragon.prototype = {
         type: 'POST',
         data: "score=" + this.score
       })
+      ajaxRequest.done(this.getHighScores.bind(this))
+    },
+    getHighScores: function(){
+      var ajaxRequest = $.ajax({
+        url: '/flappy_high_scores',
+        type: 'GET'
+      })
+      ajaxRequest.done(this.showHighScores.bind(this))
+    },
+    showHighScores: function(data){
+      var highscores = JSON.parse(data.highscores)
+        this.style = { font: "bold 40px Arial", fill :"#ffffff"}
+        for (var i = 0; i < highscores.length; i++ ){
+          this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
+        }
+    },
+    addPostFlappyButtons: function(){
+      this.play_again = this.game.add.button(175, 676, "exercise_button", this.goFly, this, 0,0,1)
+      this.return_home = this.game.add.button(40, 676, "homes_button", this.goHome, this, 0,0,1 )
     },
     add_one_pipe: function(x,y){
       var pipe = this.pipes.getFirstDead()

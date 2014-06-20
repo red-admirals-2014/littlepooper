@@ -1,5 +1,5 @@
 (function () {
-  var game = new Phaser.Game(45-, 800, Phaser.AUTO, 'game_div');
+  var game = new Phaser.Game(450, 800, Phaser.AUTO, 'game_div');
 
   SHOWFLAPPYOPTIONS = false
 
