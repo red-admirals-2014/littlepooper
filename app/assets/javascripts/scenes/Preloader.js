@@ -20,10 +20,14 @@ Scene.Preloader.prototype = {
     this.egg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY,'egg')
     this.egg.anchor.set(0.5)
     this.wiggle = this.game.time.events.loop(100, this.wiggleEgg, this)
+    this.loadNote = this.game.add.text(this.game.world.centerX, this.game.world.centerY+100,'Loading...', { fontSize: '32px', fill: '#fff' })
+    this.loadNote.anchor.set(0.5)
   },
   stopLoadingAnimation: function(){
     this.egg.angle = 0
+    this.loadNote.text = ""
     this.game.time.events.remove(this.wiggle)
+
   },
   wiggleEgg: function(){
     if (this.egg.angle < 5){
