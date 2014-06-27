@@ -4,6 +4,7 @@ Scene.FlappyDragon = function(game) {
   this.first_time = true
   this.alive = true
   this.score = 0
+  this.showScores = true
 };
 
 Scene.FlappyDragon.prototype = {
@@ -30,6 +31,7 @@ Scene.FlappyDragon.prototype = {
       this.alive = true
       this.first_time = true
       this.score = 0
+      this.showScores = true
     },
     setPipesAndLoop: function(){
       this.pipes = this.game.add.group()
@@ -90,12 +92,12 @@ Scene.FlappyDragon.prototype = {
     goHome: function(){
       this.alive = true
       clearTimeout(this.fadeOut)
-      this.currentAjaxRequest.abort()
+      this.showScores = false
       this.game.state.start('HomePage')      
     },
     goFly: function(){
       this.firstTime = true;
-      this.currentAjaxRequest.abort()
+      this.showScores = false
       this.game.state.start('FlappyDragon')
     },
     deathAnimations: function(){
@@ -124,11 +126,13 @@ Scene.FlappyDragon.prototype = {
       this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
-      var highscores = JSON.parse(data.highscores)
+      if (this.showScores){
+        var highscores = JSON.parse(data.highscores)
         this.style = { font: "bold 40px Arial", fill :"#ffffff"}
         for (var i = 0; i < highscores.length; i++ ){
           this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].flappy_high_score, this.style)
         }
+      }
     },
     addPostFlappyButtons: function(){
       this.play_again = this.game.add.button(175, 676, "exercise_button", this.goFly, this, 0,0,1)
