@@ -120,6 +120,7 @@ Scene.BugGame.prototype = {
         type: 'GET'
       })
       ajaxRequest.done(this.showHighScores.bind(this))
+      this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
       var highscores = JSON.parse(data.highscores)
@@ -141,9 +142,7 @@ Scene.BugGame.prototype = {
         else {
         this.game.add.text(this.game.width/2, this.game.height/2-250, "Try again!", {align: 'center', fill: 'white', font: 'bold 40pt Arial'}).anchor.set(0.5, 0.5)
         }
-        this.updateBugStats()
-        this.getBugStats()
-        
+        this.updateBugStats()        
         this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,0,1)
         this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,0,1)
 
@@ -151,6 +150,7 @@ Scene.BugGame.prototype = {
     },
 
     playAgain: function(){
+        this.currentAjaxRequest.abort()
         this.resetGame
         this.game.state.start('BugGame');
     },
@@ -164,9 +164,10 @@ Scene.BugGame.prototype = {
         this.bugsEscaped = [];
     },
 
-    goHome: function(){        
-        this.resetGame()
-        this.game.state.start('HomePage')
+    goHome: function(){     
+      this.currentAjaxRequest.abort()   
+      this.resetGame()
+      this.game.state.start('HomePage')
     },
 }
 
