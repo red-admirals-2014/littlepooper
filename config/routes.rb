@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   get '/logout', to: "sessions#destroy"
 
-  resources :users, only: [:new, :index, :create] do
+  resources :users, only: [:index, :create] do
     get '/home', to: "games#game"
 
   end
