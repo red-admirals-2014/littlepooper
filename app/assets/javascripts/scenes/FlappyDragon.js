@@ -118,9 +118,9 @@ Scene.FlappyDragon.prototype = {
     getHighScores: function(){
       var ajaxRequest = $.ajax({
         url: '/flappy_high_scores',
-        type: 'GET'
+        type: 'GET',
+        success: this.showHighScores.bind(this)
       })
-      ajaxRequest.done(this.showHighScores.bind(this))
       this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
