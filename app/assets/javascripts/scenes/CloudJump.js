@@ -137,10 +137,12 @@ Scene.CloudJump.prototype = {
       }
     },
     goHome: function(){
+      this.currentAjaxRequest.abort()
       this.game.state.start('HomePage')
     },
     playAgain: function(){
-        this.game.state.start('CloudJump')
+      this.currentAjaxRequest.abort()
+      this.game.state.start('CloudJump')
     },
     updateScores: function(){
       var ajaxRequest = $.ajax({
@@ -156,6 +158,7 @@ Scene.CloudJump.prototype = {
         type: 'GET'
       })
       ajaxRequest.done(this.showHighScores.bind(this))
+      this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
       var highscores = JSON.parse(data.highscores)

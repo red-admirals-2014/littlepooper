@@ -90,10 +90,12 @@ Scene.FlappyDragon.prototype = {
     goHome: function(){
       this.alive = true
       clearTimeout(this.fadeOut)
+      this.currentAjaxRequest.abort()
       this.game.state.start('HomePage')      
     },
     goFly: function(){
       this.firstTime = true;
+      this.currentAjaxRequest.abort()
       this.game.state.start('FlappyDragon')
     },
     deathAnimations: function(){
@@ -119,6 +121,7 @@ Scene.FlappyDragon.prototype = {
         type: 'GET'
       })
       ajaxRequest.done(this.showHighScores.bind(this))
+      this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
       var highscores = JSON.parse(data.highscores)
