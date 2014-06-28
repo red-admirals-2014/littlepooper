@@ -78,6 +78,7 @@ Scene.CloudJump.prototype = {
       this.alive = true
       this.first_time = true
       this.score = 0
+      this.showScores = true
     },
     setClouds: function(){
       this.clouds = this.game.add.group()
