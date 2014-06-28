@@ -2,6 +2,7 @@ Scene.CloudJump = function(game) {
   this.style = { font: "30px Arial", fill :"#ffffff"}
   this.first_time = true
   this.score = 0;
+  this.showScores = true
 };
 
 Scene.CloudJump.prototype = {
@@ -137,11 +138,11 @@ Scene.CloudJump.prototype = {
       }
     },
     goHome: function(){
-      this.currentAjaxRequest.abort()
+      this.showScores = false      
       this.game.state.start('HomePage')
     },
     playAgain: function(){
-      this.currentAjaxRequest.abort()
+      this.showScores = false      
       this.game.state.start('CloudJump')
     },
     updateScores: function(){
@@ -161,10 +162,12 @@ Scene.CloudJump.prototype = {
       this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
-      var highscores = JSON.parse(data.highscores)
-      this.style = { font: "bold 40px Arial", fill :"#ffffff"}
-      for (var i = 0; i < highscores.length; i++ ){
-        this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].cloud_high_score, this.style)
+      if (this.showScores){
+        var highscores = JSON.parse(data.highscores)
+        this.style = { font: "bold 40px Arial", fill :"#ffffff"}
+        for (var i = 0; i < highscores.length; i++ ){
+          this.game.add.text(50, 90+60*(i+1), highscores[i].username + ": " + highscores[i].cloud_high_score, this.style)
+        }
       }
     },
     add_one_cloud: function(x,y){
