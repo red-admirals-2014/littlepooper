@@ -4,24 +4,18 @@ Scene.BugGame = function(game) {
     this.min_bug_speed = 50
     this.max_bug_speed = 250
     this.first_time = true
+    this.showScores = true
 }
 
 Scene.BugGame.prototype = {
 
     create: function() {
-        this.bugs = [];
-        this.bugsKilled = [];
-        this.bugsEscaped = [];
         this.resetGameValues()
         this.addBackground()
         this.addBugs()
         this.addMonster()
         this.addBushes()
         this.addDisplays()
-    },
-
-    resetGameValues: function(){
-      this.first_time = true
     },
 
     addBackground: function(){
@@ -123,10 +117,12 @@ Scene.BugGame.prototype = {
       this.currentAjaxRequest = ajaxRequest
     },
     showHighScores: function(data){
-      var highscores = JSON.parse(data.highscores)
-      this.style = { font: "bold 40px Arial", fill :"#ffffff"}
-      for (var i = 0; i < highscores.length; i++ ){
-        this.game.add.text(50, 150+60*(i+1), highscores[i].username + ": " + highscores[i].bug_high_score, this.style)
+      if (this.showScores){
+        var highscores = JSON.parse(data.highscores)
+        this.style = { font: "bold 40px Arial", fill :"#ffffff"}
+        for (var i = 0; i < highscores.length; i++ ){
+          this.game.add.text(50, 150+60*(i+1), highscores[i].username + ": " + highscores[i].bug_high_score, this.style)
+        }
       }
     },  
     gameOver: function() {
@@ -150,23 +146,24 @@ Scene.BugGame.prototype = {
     },
 
     playAgain: function(){
-        this.currentAjaxRequest.abort()
-        this.resetGame
+        this.showScores = false      
         this.game.state.start('BugGame');
     },
 
-    resetGame: function(){
+    resetGameValues: function(){
         this.player.monster.destroy();
         for(var i in this.bugs){
             this.bugs[i].bug.destroy()
         }
+        this.bugs = [];
         this.bugsKilled = [];
         this.bugsEscaped = [];
+        this.first_time = true
+        this.showScores = true
     },
 
     goHome: function(){     
-      this.currentAjaxRequest.abort()   
-      this.resetGame()
+      this.showScores = false      
       this.game.state.start('HomePage')
     },
 }
