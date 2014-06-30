@@ -2,7 +2,6 @@ Scene.CloudJump = function(game) {
   this.style = { font: "30px Arial", fill :"#ffffff"}
   this.first_time = true
   this.score = 0;
-  this.showScores = true
 };
 
 Scene.CloudJump.prototype = {
@@ -78,7 +77,6 @@ Scene.CloudJump.prototype = {
       this.alive = true
       this.first_time = true
       this.score = 0
-      this.showScores = true
     },
     setClouds: function(){
       this.clouds = this.game.add.group()
@@ -131,6 +129,7 @@ Scene.CloudJump.prototype = {
       this.game.time.events.removeAll()
       if (this.first_time){
         this.first_time = false
+        this.showScores = true
         this.updateScores()
         this.nightSky.body.velocity.y = 0;
         this.game.add.text(50, 50, "HighScores", {fill: 'white', font: 'bold 50pt Arial' })
