@@ -164,13 +164,13 @@ Scene.BugGame.prototype = {
   },
 
   goHome: function(){
-    resetMonsterStuff()     
+    this.resetMonsterStuff()     
     this.showScores = false      
     this.game.state.start('HomePage')
   },
 
   playAgain: function(){
-    resetMonsterStuff()
+    this.resetMonsterStuff()
     this.showScores = false      
     this.game.state.start('BugGame');
   }
