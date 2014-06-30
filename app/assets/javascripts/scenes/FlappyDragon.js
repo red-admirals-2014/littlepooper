@@ -4,7 +4,6 @@ Scene.FlappyDragon = function(game) {
   this.first_time = true
   this.alive = true
   this.score = 0
-  this.showScores = true
 };
 
 Scene.FlappyDragon.prototype = {
@@ -31,7 +30,6 @@ Scene.FlappyDragon.prototype = {
       this.alive = true
       this.first_time = true
       this.score = 0
-      this.showScores = true
     },
     setPipesAndLoop: function(){
       this.pipes = this.game.add.group()
@@ -83,6 +81,7 @@ Scene.FlappyDragon.prototype = {
       if (this.first_time){
         this.first_time = false
         this.crash.play();
+        this.showScores = true
         this.updateScores()
         this.game.add.text(50, 50, "HighScores", {fill: 'white', font: 'bold 50pt Arial' })
       this.getHighScores()

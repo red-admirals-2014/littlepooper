@@ -4,7 +4,6 @@ Scene.BugGame = function(game) {
     this.min_bug_speed = 50
     this.max_bug_speed = 250
     this.first_time = true
-    this.showScores = true
 }
 
 Scene.BugGame.prototype = {
@@ -141,6 +140,7 @@ Scene.BugGame.prototype = {
       else {
       this.game.add.text(this.game.width/2, this.game.height/2-250, "Try again!", {align: 'center', fill: 'white', font: 'bold 40pt Arial'}).anchor.set(0.5, 0.5)
       }
+      this.showScores = true
       this.updateBugStats()        
       this.game.add.button(50, this.game.height-150, "homes_button", this.goHome, this, 0,0,1)
       this.game.add.button(200, this.game.height-150, "bugs_button", this.playAgain, this, 0,0,1)
@@ -153,7 +153,6 @@ Scene.BugGame.prototype = {
     this.bugsKilled = [];
     this.bugsEscaped = [];
     this.first_time = true
-    this.showScores = true
   },
 
   resetMonsterStuff: function(){
